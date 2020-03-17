@@ -1,6 +1,6 @@
 def readScale(mode_weight_requested):
     ounces_per_gram = 0.035274
-    ounces_per_pound = 12
+    ounces_per_pound = 16
 
     import usb.core
     import usb.util
