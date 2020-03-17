@@ -5,12 +5,24 @@ def barcode2weight(barcode):
     Queries the database warehouse for the weight associated with the barcode and returns this float.
     """
     
-    # Query the database for the weight associated with the scanned barcode
-    weight = db.execute("SELECT weight FROM warehouse WHERE barcode = :barcode", barcode=barcode)
+    import pyodbc
     
-    # the db needs to be something else, it needs to connect to the database 
-    # conn = pyodbc.connect(driver, server, database, trustedconnection=yes)
-    # db = conn.cursor()
-    # source: https://youtu.be/aF552bMEcO4 
+    # Establish connection to the database - my ODBC driver is not working, it is installed but not in odbcinst.ini?
+    conn = pyodbc.connect(
+    'DRIVER=MySQL ODBC 8.0 ANSI Driver;'
+    'SERVER=localhost;'
+    'DATABASE=es96;'
+    'UID=root;'
+    'PWD=ES96database;'
+    'charset=utf8;')
+    
+    # Create a cursor
+    cursor = conn.cursor()
+    
+    # Query the database for the weight associated with the scanned barcode
+    weight = cursor.execute("SELECT weight FROM products WHERE barcode = :barcode", barcode=barcode)
+    
+    conn.commit()
+    conn.close()
     
     return weight
