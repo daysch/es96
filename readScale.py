@@ -1,9 +1,13 @@
+import time
+import usb.core
+import usb.util
+
+# use the function at the bottom of this script, accurate_reading(mode_weight_requested), which returns a stable value
+
+# mode_weight_requested can take the values 'g' for grams or 'oz' for ounces, 'kg' for kilograms and 'lbs' for pounds
 def readScale(mode_weight_requested):
     ounces_per_gram = 0.035274
     ounces_per_pound = 16
-
-    import usb.core
-    import usb.util
 
     VENDOR_ID = 0x0922
     PRODUCT_ID = 0x8003
@@ -12,16 +16,16 @@ def readScale(mode_weight_requested):
     device = usb.core.find(idVendor=VENDOR_ID,
                            idProduct=PRODUCT_ID)
 
-    # include this when you get an error like 'resource busy'
+# include this when you get an error like 'resource busy'
     """
-        for cfg in device:
-      for intf in cfg:
-        if device.is_kernel_driver_active(intf.bInterfaceNumber):
-          try:
-            device.detach_kernel_driver(intf.bInterfaceNumber)
-          except usb.core.USBError as e:
-            sys.exit("Could not detatch kernel driver from interface({0}): {1}".format(intf.bInterfaceNumber, str(e)))
-    """
+    for cfg in device:
+        for intf in cfg:
+            if device.is_kernel_driver_active(intf.bInterfaceNumber):
+                try:
+                    device.detach_kernel_driver(intf.bInterfaceNumber)
+                except usb.core.USBError as e:
+                    sys.exit("Could not detatch kernel driver from interface({0}): {1}".format(intf.bInterfaceNumber, str(e)))
+                    """
 
 
     # use the first/default configuration
@@ -33,15 +37,23 @@ def readScale(mode_weight_requested):
     # read a data packet
     attempts = 10
     data = None
-    while data is None and attempts > 0:
+    while data is None:
         try:
             data = device.read(endpoint.bEndpointAddress,
                                endpoint.wMaxPacketSize)
+
         except usb.core.USBError as e:
             data = None
             if e.args == ('Operation timed out',):
-                attempts -= 1
                 continue
+            attempts -= 1
+            if attempts < 0:
+                print(e.args)
+                print('Error in readscale')
+                usb.util.dispose_resources(device)
+                return 'Error'
+
+    usb.util.dispose_resources(device)
 
     # determine the weight units used by the scale
     mode_weight = 'g'
@@ -82,5 +94,18 @@ def readScale(mode_weight_requested):
         if mode_weight_requested == 'lbs':
             reading = reading / ounces_per_pound
 
-    print(reading)
     return reading
+
+# this function makes sure that the scale has reached its full reading
+# making the sleep time too short will make this crash
+def accurate_reading(mode_requested):
+    previous_reading = 0
+    current_reading = -1
+    while current_reading != previous_reading:
+        previous_reading = current_reading
+        current_reading = readScale(mode_requested)
+        time.sleep(1)
+        if current_reading == 'Error':
+            return 'Error'
+    return previous_reading
+
