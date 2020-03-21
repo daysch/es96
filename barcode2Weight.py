@@ -2,7 +2,7 @@ def barcode2weight(barcode):
     
     """
     Takes in one int, the barcode.
-    Queries the database warehouse for the weight and unit associated with the barcode and returns these values.
+    Queries the database es96 for the weight and unit associated with the barcode and returns these values.
     """
     
     import mysql.connector
