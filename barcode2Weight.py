@@ -1,4 +1,4 @@
-def barcode2weight(barcode):
+def barcode2Weight(barcode):
     
     """
     Takes in one int, the barcode.
