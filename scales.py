@@ -19,7 +19,7 @@ def main():
     weight = barcode2Weight(barcode)
     
     # Get order quantity - from database? Set as 1 temporarily
-    quantity = 1
+    quantity = barcode2OrderQuantity(barcode)
     
     # Get initial scale readout - how to incorporate mode_weight_requested as input? Define another function to return it?
     reading = readScale()
