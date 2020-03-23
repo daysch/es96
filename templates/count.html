@@ -1,0 +1,46 @@
+<script src='/static/scripts.js'></script>
+{% extends "layout.html" %}
+
+{% block title %}
+    Counting Overview
+{% endblock %}
+
+<!-- creating a table with a fixed header, and rows that take input from python function -->
+{% block main %}
+    <table class="steelBlueCols">
+        <thead>
+            <tr>
+                <th>Barcode</th>
+                <th>Product Weight</th>
+                <th>Target Count</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>{{barcode}}</td>
+                <td>{{prod_weight}}</td>
+                <td>{{target_count}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p id='current_count' class='current_count'>Current Count: 0</p>
+    <p id='current_weight' class='current_weight'>Current Weight: 0</p>
+
+    <!-- create a holder for later messages during the count -->
+    <div id='count_messages'></div>
+    <p></p>
+
+    <!-- button to initiate the javascript -->
+    <button class="btn btn-default" onclick="main_function()">Start Counting</button>
+
+    <!-- create container for button to return to first page after count is complete -->
+    <form action="{{ url_for('count') }}" method="post">
+        <div class="form-group" id='buttons'>
+
+            <p></p>
+        </div>
+    </form>
+
+{% endblock %}

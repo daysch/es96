@@ -1,0 +1,94 @@
+nav .navbar-brand
+{
+    /* size for brand */
+    font-size: xx-large;
+}
+
+/* colors for brand */
+nav .navbar-brand .blue
+{
+    color: #537fbe;
+}
+nav .navbar-brand .red
+{
+    color: #ea433b;
+}
+nav .navbar-brand .yellow
+{
+    color: #f5b82e;
+}
+nav .navbar-brand .green
+{
+    color: #2e944b;
+}
+
+main .form-control
+{
+    /* center form controls */
+    display: inline-block;
+
+    /* override Bootstrap's 100% width for form controls */
+    width: auto;
+}
+
+main
+{
+    /* scroll horizontally as needed */
+    overflow-x: auto;
+
+    /* center contents */
+    text-align: center;
+}
+
+main img
+{
+    /* constrain images on small screens */
+    max-width: 100%;
+}
+
+/* css for tables */
+/* table style from http://divtable.com/table-styler/  */
+main table.steelBlueCols
+{
+    background-color: #FFFFFF;
+    border: 2px solid #e6e6e6;
+    width: 1140px;
+    text-align: center;
+    border-collapse: collapse;
+    }
+    table.steelBlueCols td, table.steelBlueCols th {
+    border: 1px solid #e6e6e6;
+    padding: 5px 10px;
+    }
+    table.steelBlueCols tbody td {
+    font-size: 12px;
+    font-weight: bold;
+    color: #666666;
+    }
+    table.steelBlueCols td:nth-child(even) {
+    background: #FFFFFF;
+    }
+    table.steelBlueCols thead {
+    background: #FFFFFF;
+    border-bottom: 1px solid #000000;
+    }
+    table.steelBlueCols thead th {
+    font-size: 15px;
+    font-weight: bold;
+    color: #666666;
+    text-align: middle;
+    border-left: 1px solid #e6e6e6;
+    }
+    table.steelBlueCols thead th:first-child {
+    border-left: none;
+    }
+    table.steelBlueCols tfoot {
+    font-size: 13px;
+    font-weight: bold;
+    color: #666666;
+    background: #FFFFFF;
+    border-top: 3px solid #e6e6e6;
+    }
+    table.steelBlueCols tfoot td {
+    font-size: 13px;
+}
