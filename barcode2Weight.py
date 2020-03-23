@@ -6,14 +6,16 @@ def barcode2Weight(barcode):
     """
 
     import sqlite3
+
+    # Make a connection to the database
     conn = sqlite3.connect('es96.db')
     c = conn.cursor()
 
     # Query the database for the weight and unit associated with the scanned barcode
     c.execute("SELECT weight FROM products WHERE barcode = {}".format(barcode))
-    weight = cursor.fetchall()[0][0]
+    weight = c.fetchall()[0][0]
 
     c.execute("SELECT unit FROM products WHERE barcode = {}".format(barcode))
-    unit = cursor.fetchall()[0][0]
+    unit = c.fetchall()[0][0]
 
     return weight, unit
