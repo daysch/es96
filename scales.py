@@ -1,10 +1,10 @@
 import time
 
 # Define interval (s)
-interval = 0.01
+interval = 0.5
 
 # Define confidence interval (the percentage of the weight within which you want the desired scale reading)
-conf_int = 0.01 # can also define this as an absolute value if that works better
+conf_int = .5 # can also define this as an absolute value if that works better
 
 def main():
 
@@ -35,7 +35,8 @@ def main():
     while not goal_weight_lb <= reading <= goal_weight_ub:
         print("Total not reached: {} / {} pieces".format(parts,quantity))
         time.sleep(interval)
-        reading = readScale()
+        reading = accurate_reading(unit)
+        #avg_weight = reading/quantity
         parts = round(reading/weight)
         
     print("Total reached: {} / {} pieces".format(parts,quantity))    
