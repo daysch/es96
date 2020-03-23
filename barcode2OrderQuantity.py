@@ -15,5 +15,5 @@ def barcode2OrderQuantity(barcode):
     quantity = c.fetchall()[0][0]
 
     # test
-    
+
     return quantity
