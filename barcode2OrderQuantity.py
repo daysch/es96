@@ -14,4 +14,6 @@ def barcode2OrderQuantity(barcode):
     c.execute("SELECT quantity FROM orders WHERE barcode = {}".format(barcode))
     quantity = c.fetchall()[0][0]
 
+    # test
+
     return quantity
