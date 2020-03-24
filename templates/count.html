@@ -13,6 +13,7 @@
                 <th>Barcode</th>
                 <th>Product Weight</th>
                 <th>Target Count</th>
+                <th>Target Weight</th>
             </tr>
         </thead>
 
@@ -21,6 +22,7 @@
                 <td>{{barcode}}</td>
                 <td>{{prod_weight}}</td>
                 <td>{{target_count}}</td>
+                <td>{{target_weight}}</td>
             </tr>
         </tbody>
     </table>
@@ -33,15 +35,20 @@
     <p></p>
 
     <!-- button to initiate the javascript -->
-    <button class="btn btn-default" onclick="main_function()">Start Counting</button>
+    <div id="start_stop_buttons">
+        <input type="checkbox" id="confirm_tare" name="confirm_tare">
+        <label for="confirm_tare" id="label_tare">Click to confirm no product items are on scale and scale is tared and turned on</label>
+        <p></p>
+    </div>
+    <p></p>
+    <p></p>
 
     <!-- create container for button to return to first page after count is complete -->
-    <form action="{{ url_for('count') }}" method="post">
+    <form action="{{ url_for('count') }}" method="post", id="submit_form">
         <div class="form-group" id='buttons'>
-
-            <p></p>
-
+            <button class="btn btn-default" id="cancel_count" type="submit" name="wms_submit" value="0" >Cancel and return to Barcode input</button>
         </div>
+        <p></p>
     </form>
 
 {% endblock %}

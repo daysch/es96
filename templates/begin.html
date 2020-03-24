@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Enter Barcode
+{% endblock %}
+
+<!-- create a form that has two text form inputs and a submit button -->
+{% block main %}
+    <form action="{{ url_for('begin') }}" method="post">
+        <fieldset>
+            <div class="form-group mt-4">
+                <input autocomplete="off" autofocus class="form-control" name="employee_id" placeholder="Enter Employee ID" type="number"/>
+            </div>
+
+            <div class="form-group mt-4">
+                <input autocomplete="off" name="scanner_id" placeholder="Enter Scanner ID" type="number"/>
+            </div>
+
+
+            <div class="form-group">
+                <button class="btn btn-dark" type="submit">Login</button>
+            </div>
+        </fieldset>
+    </form>
+{% endblock %}
