@@ -1,54 +1,88 @@
 <script src='/static/scripts.js'></script>
+
 {% extends "layout.html" %}
 
 {% block title %}
     Counting Overview
 {% endblock %}
 
-<!-- creating a table with a fixed header, and rows that take input from python function -->
 {% block main %}
-    <table class="steelBlueCols">
-        <thead>
-            <tr>
-                <th>Barcode</th>
-                <th>Product Weight</th>
-                <th>Target Count</th>
-                <th>Target Weight</th>
-            </tr>
-        </thead>
 
-        <tbody>
-            <tr>
-                <td>{{barcode}}</td>
-                <td>{{prod_weight}}</td>
-                <td>{{target_count}}</td>
-                <td>{{target_weight}}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="row p-2 m-2">
+        <div class="col-lg-6">
+            <p id="overview_text">Order Overview<p/>
+            <!-- Table with order details from python function-->
+            <table class="table table-bordered bg-white">
+                <tbody>
+                    <tr>
+                        <td>Customer Part Number</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Manufacturer Part Number</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>License Plate</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Barcode</td>
+                        <td>{{barcode}}</td>
+                    </tr>
+                    <tr>
+                        <td>Product Weight</td>
+                        <td>{{prod_weight}}</td>
+                    </tr>
+                    <tr>
+                        <td>Target Count</td>
+                        <td>{{target_count}}</td>
+                    </tr>
+                    <tr>
+                        <td>Target Weight</td>
+                        <td>{{target_weight}}</td>
+                    </tr>
+                <!--<thead>
+                    <tr>
+                        <th>Barcode</th>
+                        <th>Product Weight</th>
+                        <th>Target Count</th>
+                        <th>Target Weight</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{barcode}}</td>
+                        <td>{{prod_weight}}</td>
+                        <td>{{target_count}}</td>
+                        <td>{{target_weight}}</td>
+                    </tr>-->
+                </tbody>
+            </table>
+        </div>
 
-    <p id='current_count' class='current_count'>Current Count: 0</p>
-    <p id='current_weight' class='current_weight'>Current Weight: 0</p>
+        <div id="count_status_div" class="col-lg-6 p-2 count">
+            <p id='current_count' name='current_count' class ="count_text">Current Count: 0</p>
+            <p id='current_weight' name='current_weight' class ="count_text">Current Weight: 0</p>
 
-    <!-- create a holder for later messages during the count -->
-    <div id='count_messages'></div>
-    <p></p>
+            <!-- create a holder for later messages during the count -->
+            <div id='count_messages'></div>
 
-    <!-- button to initiate the javascript -->
-    <div id="start_stop_buttons">
-        <input type="checkbox" id="confirm_tare" name="confirm_tare">
-        <label for="confirm_tare" id="label_tare">Click to confirm no product items are on scale and scale is tared and turned on</label>
-        <p></p>
+            <!-- button to initiate the javascript -->
+            <div id="start_stop_buttons">
+                <input type="checkbox" id="confirm_tare" name="confirm_tare">
+                <label for="confirm_tare" id="label_tare" class="confirm_tare_label">Click to confirm no product items are on scale and scale is tared and turned on</label>
+            </div>
+        </div>
     </div>
-    <p></p>
-    <p></p>
 
     <!-- create container for button to return to first page after count is complete -->
-    <form action="{{ url_for('count') }}" method="post", id="submit_form">
+    <div>
+    <form action="{{ url_for('count') }}" method="post" id="submit_form">
         <div class="form-group" id='buttons'>
-            <button class="btn btn-default" id="cancel_count" type="submit" name="wms_submit" value="0" >Cancel and return to Barcode input</button>
+            <button class="btn btn-dark" id="cancel_count" type="submit" name="wms_submit" value="0" >Cancel and Return to Barcode Input</button>
         </div>
-        <p></p>
     </form>
+    </div>
 
 {% endblock %}

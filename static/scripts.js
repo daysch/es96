@@ -15,9 +15,9 @@ function confirm_tare_clicked() {
     document.getElementById("label_tare").remove()
 
     button = document.createElement("button")
-    button.setAttribute("class", "btn btn-default");
+    button.setAttribute("class", "btn btn-dark");
     button.setAttribute("id", "start_button");
-    button.innerHTML = "Start count";
+    button.innerHTML = "Start Count";
     document.getElementById("start_stop_buttons").appendChild(button);
     document.getElementById ("start_button").addEventListener ("click", start_button_clicked)
 }
@@ -38,7 +38,7 @@ function start_button_clicked()
 
     // create stop button
     button = document.createElement("button");
-    button.setAttribute("class", "btn btn-default");
+    button.setAttribute("class", "btn btn-dark");
     button.setAttribute("id", "stop_button");
     button.innerHTML = "Stop count";
     document.getElementById("start_stop_buttons").appendChild(button);
@@ -66,7 +66,7 @@ function stop_button_clicked()
     // create a new start button
     document.getElementById('stop_button').remove()
     button = document.createElement("button");
-    button.setAttribute("class", "btn btn-default");
+    button.setAttribute("class", "btn btn-dark");
     button.setAttribute("id", "start_button");
     button.innerHTML = "Restart count";
     document.getElementById("start_stop_buttons").appendChild(button);
@@ -107,7 +107,7 @@ function stop_button_clicked()
 // when the user confirms that he did not add or remove any items after clicking stop, it becomes possible to post to the WMS
 function confirm_check_box_clicked() {
     button = document.createElement("button");
-    button.setAttribute("class", "btn btn-default");
+    button.setAttribute("class", "btn btn-dark");
     button.setAttribute("id", "submit_to_wms");
     button.innerHTML = "Submit to WMS and start new count";
     document.getElementById("submit_form").appendChild(button);
@@ -207,7 +207,7 @@ function update_displays()
             // create a new start button
             document.getElementById('stop_button').remove()
             button = document.createElement("button");
-            button.setAttribute("class", "btn btn-default");
+            button.setAttribute("class", "btn btn-dark");
             button.setAttribute("id", "start_button");
             button.innerHTML = "Restart count";
             document.getElementById("start_stop_buttons").appendChild(button);

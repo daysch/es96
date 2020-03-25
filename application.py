@@ -2,7 +2,7 @@ from flask import Flask, redirect, render_template, request, session, url_for, j
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions
-from readScale import *
+#from readScale import *
 from barcode2Weight import *
 from barcode2OrderQuantity import *
 from submit_to_wms import *
@@ -55,8 +55,9 @@ def begin():
 
         return redirect(url_for("enter_product_number"))
 
+    # else if user reached route via GET (after logging out)
     else:
-        return render_template("begin.html")
+        return render_template("begin.html", employee_id=employee_id)
 
 
 @app.route("/enter_product_number", methods=['GET', 'POST'])
@@ -98,13 +99,13 @@ def enter_product_number():
             # retrieve and assign global variables for this order
             [current_product_weight, current_weight_unit] = [8, 'g']
             current_target_qty = 2
+            print(current_product_weight)
 
-        print(current_weight_unit)
         return redirect(url_for("count"))
 
     # else if user reached route via GET (as after completing the count)
     else:
-        return render_template("enter_barcode.html")
+        return render_template("enter_barcode.html", employee_id=employee_id)
 
 
 # set up website for the actual counting process
@@ -128,7 +129,8 @@ def count():
     # else if user reached route via GET (after entering the product barcode)
     else:
         return render_template("count.html", barcode=current_barcode, prod_weight=current_product_weight,
-                               target_count=current_target_qty, target_weight = current_product_weight* current_target_qty)
+                               target_count=current_target_qty, target_weight=current_product_weight*current_target_qty,
+                               employee_id=employee_id)
 
 
 # this function serves the javascript on /count, it returns the current weight, the current count, and whether the
@@ -152,6 +154,19 @@ def check_weight():
     return_list = [round(current_count), current_reading, counting_status]
 
     return jsonify(return_list)
+
+@app.route("/logout")
+def logout():
+
+    # Forget any id
+    global employee_id
+    global scanner_id
+
+    employee_id = 0
+    scanner_id = 0
+
+    # Redirect user to begin
+    return redirect(url_for("begin"))
 
 
 app.run()
