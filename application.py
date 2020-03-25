@@ -1,29 +1,26 @@
-from flask import Flask, redirect, render_template, request, session, url_for, jsonify
+from flask import Flask, flash, redirect, render_template, request, session, url_for, jsonify
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions
+from werkzeug.contrib import *
 from readScale import *
 from barcode2Weight import *
 from barcode2OrderQuantity import *
 from submit_to_wms import *
-from functools import wraps
+from check_employee_id import *
 
-from flask_jsglue import JSGlue
+from werkzeug.security import check_password_hash, generate_password_hash
 
 # Configure application
 app = Flask(__name__)
-JSGlue(app)
 
-# Ensure responses aren't cached
-if app.config["DEBUG"]:
-    @app.after_request
-    def after_request(response):
-        response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
-        response.headers["Expires"] = 0
-        response.headers["Pragma"] = "no-cache"
-        return response
 
+# Configure session to use filesystem (instead of signed cookies)
+app.config["SESSION_FILE_DIR"] = mkdtemp()
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
+
 
 # store these as global variables and update later
 current_barcode = 0
@@ -53,11 +50,17 @@ def begin():
         employee_id = float(employee_id)
         scanner_id = float(scanner_id)
 
+        # check whether the employee id is correct
+        if not check_employee_id(employee_id, scanner_id):
+            flash("Employee ID or Scanner ID are incorrect")
+            return redirect(url_for("begin"))
+
         return redirect(url_for("enter_product_number"))
 
     # else if user reached route via GET (after logging out)
     else:
-        return render_template("begin.html", employee_id=employee_id)
+        flash("Please login")
+        return render_template("begin.html")
 
 
 @app.route("/enter_product_number", methods=['GET', 'POST'])
@@ -74,20 +77,31 @@ def enter_product_number():
 
         # get the current barcode from the submitted html form
         barcode = request.form.get("barcode")
+        try:
+            barcode_manual = request.form.get("barcode_manual")
+            if barcode and barcode_manual:
+                flash("please either enter just a barcode, or fill out the entire manual barcode form")
+                return redirect(url_for("enter_product_number"))
+            if not barcode and not barcode_manual:
+                flash("Please enter either just a barcode, or complete the manual entries")
+                return redirect(url_for("enter_product_number"))
 
-        # if no barcode was supplied, then that means that either nothing was filled out, or the manual barcode input
+        except:
+            pass
+
+        # if no barcode was supplied, then that the manual barcode input
         # was used
         if not barcode:
-            barcode_manual = request.form.get("barcode_manual")
 
-            # nothing was supplied
-            if not barcode_manual:
-                return redirect(url_for("enter_product_number"))
-            else:
+            try:
                 current_barcode = int(barcode_manual)
                 current_target_qty = float(request.form.get("target_count"))
                 current_product_weight = float(request.form.get("product_weight"))
                 current_weight_unit = (request.form.get("weight_unit"))
+
+            except:
+                flash("You did not fill out the manual barcode form completely")
+                return redirect(url_for("enter_product_number"))
 
         else:
             current_barcode = int(barcode)
@@ -129,7 +143,8 @@ def count():
     # else if user reached route via GET (after entering the product barcode)
     else:
         return render_template("count.html", barcode=current_barcode, prod_weight=current_product_weight,
-                               target_count=current_target_qty, target_weight=current_product_weight*current_target_qty,
+                               target_count=current_target_qty,
+                               target_weight=current_product_weight * current_target_qty,
                                employee_id=employee_id)
 
 
@@ -141,6 +156,7 @@ def check_weight():
         return redirect(url_for("begin"))
 
     current_reading = accurate_reading(current_weight_unit)
+    # current_reading = 16 for testing purposes
     print(current_reading)
     current_count = current_reading / current_product_weight
 
@@ -155,9 +171,9 @@ def check_weight():
 
     return jsonify(return_list)
 
+
 @app.route("/logout")
 def logout():
-
     # Forget any id
     global employee_id
     global scanner_id
@@ -167,6 +183,5 @@ def logout():
 
     # Redirect user to begin
     return redirect(url_for("begin"))
-
 
 app.run()
