@@ -8,12 +8,15 @@ from barcode2Weight import *
 from barcode2OrderQuantity import *
 from submit_to_wms import *
 from check_employee_id import *
+from retrieve_order import *
 
 from werkzeug.security import check_password_hash, generate_password_hash
 
 # Configure application
 app = Flask(__name__)
 
+# unit, remove submit button, positive numbers, non integer count values, check on the backend
+# remove barcode entries
 
 # Configure session to use filesystem (instead of signed cookies)
 app.config["SESSION_FILE_DIR"] = mkdtemp()
@@ -23,7 +26,7 @@ Session(app)
 
 
 # store these as global variables and update later
-current_barcode = 0
+MOVE_number = 0
 current_target_qty = 0
 current_product_weight = 0
 current_weight_unit = 0
@@ -72,48 +75,25 @@ def enter_product_number():
     if request.method == "POST":
         global current_weight_unit
         global current_product_weight
-        global current_barcode
+        global MOVE_number
         global current_target_qty
 
-        # get the current barcode from the submitted html form
-        barcode = request.form.get("barcode")
-        try:
-            barcode_manual = request.form.get("barcode_manual")
-            if barcode and barcode_manual:
-                flash("please either enter just a barcode, or fill out the entire manual barcode form")
-                return redirect(url_for("enter_product_number"))
-            if not barcode and not barcode_manual:
-                flash("Please enter either just a barcode, or complete the manual entries")
-                return redirect(url_for("enter_product_number"))
+        # determine whether a manual order is placed, or whether an order is retrieved
+        count_type = request.form.get("count_type")
 
-        except:
-            pass
-
-        # if no barcode was supplied, then that the manual barcode input
-        # was used
-        if not barcode:
-
+        if count_type == "retrieve_order":
+            # get the required info from the WMS
+            [MOVE_number, current_product_weight, current_weight_unit, current_target_qty] = retrieve_order(scanner_id)
+            current_target_qty = 2
+        else:
+            # do checking here
             try:
-                current_barcode = int(barcode_manual)
                 current_target_qty = float(request.form.get("target_count"))
                 current_product_weight = float(request.form.get("product_weight"))
                 current_weight_unit = (request.form.get("weight_unit"))
-
             except:
                 flash("You did not fill out the manual barcode form completely")
                 return redirect(url_for("enter_product_number"))
-
-        else:
-            current_barcode = int(barcode)
-            """
-            [current_product_weight, current_weight_unit] = barcode2Weight(barcode)
-            current_target_qty = barcode2OrderQuantity(barcode)
-            """
-
-            # retrieve and assign global variables for this order
-            [current_product_weight, current_weight_unit] = [8, 'g']
-            current_target_qty = 2
-            print(current_product_weight)
 
         return redirect(url_for("count"))
 
@@ -135,14 +115,14 @@ def count():
         submit_condition = request.form.get("wms_submit")
         if submit_condition == "1":
             # call the function to submit completed count to the WMS
-            submit_to_wms(current_barcode)
+            submit_to_wms(MOVE_number)
             print("submitted to wms")
 
         return redirect(url_for("enter_product_number"))
 
     # else if user reached route via GET (after entering the product barcode)
     else:
-        return render_template("count.html", barcode=current_barcode, prod_weight=current_product_weight,
+        return render_template("count.html", prod_weight=current_product_weight, weight_unit = current_weight_unit,
                                target_count=current_target_qty,
                                target_weight=current_product_weight * current_target_qty,
                                employee_id=employee_id)

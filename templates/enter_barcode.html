@@ -8,15 +8,11 @@
 {% block main %}
     <form action="{{ url_for('enter_product_number') }}" method="post">
         <fieldset>
-            <div class="form-group mt-4">
-                <input autocomplete="off" autofocus class="form-control" name="barcode" placeholder="Enter Barcode" type="number"/>
+            <div class="form-group">
+                <button class="btn btn-dark" type="submit" name="count_type" value="retrieve_order">Retrieve current order</button>
             </div>
 
-            <p> OR include the product barcode, product weight and target count </p>
-
-            <div class="form-group mt-4">
-                <input autocomplete="off" autofocus class="form-control" name="barcode_manual" placeholder="Enter Barcode" type="number"/>
-            </div>
+            <p> OR include the product weight and target count </p>
 
             <div class="form-group mt-4">
                 <input autocomplete="off" autofocus class="form-control" name="product_weight" placeholder="Enter Product Weight" type="text"/>
@@ -35,7 +31,7 @@
             </div>
 
             <div class="form-group">
-                <button class="btn btn-dark" type="submit">Start Counting</button>
+                <button class="btn btn-dark" type="submit" name="count_type" value="manual">Start Counting using Manual Input</button>
             </div>
         </fieldset>
     </form>
