@@ -2,7 +2,7 @@ from flask import Flask, redirect, render_template, request, session, url_for, j
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions
-#from readScale import *
+from readScale import *
 from barcode2Weight import *
 from barcode2OrderQuantity import *
 from submit_to_wms import *
