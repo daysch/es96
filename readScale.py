@@ -1,6 +1,11 @@
 import time
-import usb.core
-import usb.util
+try:
+    import usb.core as core
+    import usb.util as util
+except:
+    import pyusb.core as core
+    import pyusb.util as util
+
 
 # use the function at the bottom of this script, accurate_reading(mode_weight_requested), which returns a stable value
 
@@ -13,7 +18,7 @@ def readScale(mode_weight_requested):
     PRODUCT_ID = 0x8003
 
     # find the USB device
-    device = usb.core.find(idVendor=VENDOR_ID,
+    device = core.find(idVendor=VENDOR_ID,
                            idProduct=PRODUCT_ID)
 
 # include this when you get an error like 'resource busy'
@@ -23,7 +28,7 @@ def readScale(mode_weight_requested):
             if device.is_kernel_driver_active(intf.bInterfaceNumber):
                 try:
                     device.detach_kernel_driver(intf.bInterfaceNumber)
-                except usb.core.USBError as e:
+                except core.USBError as e:
                     sys.exit("Could not detatch kernel driver from interface({0}): {1}".format(intf.bInterfaceNumber, str(e)))
                     """
 
@@ -42,7 +47,7 @@ def readScale(mode_weight_requested):
             data = device.read(endpoint.bEndpointAddress,
                                endpoint.wMaxPacketSize)
 
-        except usb.core.USBError as e:
+        except core.USBError as e:
             data = None
             if e.args == ('Operation timed out',):
                 continue
@@ -50,10 +55,10 @@ def readScale(mode_weight_requested):
             if attempts < 0:
                 print(e.args)
                 print('Error in readscale')
-                usb.util.dispose_resources(device)
+                util.dispose_resources(device)
                 return 'Error'
 
-    usb.util.dispose_resources(device)
+    util.dispose_resources(device)
 
     # determine the weight units used by the scale
     mode_weight = 'g'
