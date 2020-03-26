@@ -35,6 +35,8 @@ function start_button_clicked()
         document.getElementById("check_box").remove();
         document.getElementById("label_box").remove();
     } catch {}
+    try {document.getElementById('submit_to_wms').remove();
+        document.getElementById('submit_paragraph').remove()} catch {}
 
     // create stop button
     button = document.createElement("button");
@@ -110,6 +112,9 @@ function confirm_check_box_clicked() {
     button.setAttribute("class", "btn btn-dark");
     button.setAttribute("id", "submit_to_wms");
     button.innerHTML = "Submit to WMS and start new count";
+    paragraph = document.createElement("p")
+    paragraph.setAttribute("id", "submit_paragraph")
+    document.getElementById("submit_form").appendChild(paragraph)
     document.getElementById("submit_form").appendChild(button);
     document.getElementById ("submit_to_wms").addEventListener ("click", submit_to_wms)
 }
