@@ -6,19 +6,19 @@
 
 <!-- create a form that has two text form inputs and a submit button -->
 {% block main %}
-    <form action="{{ url_for('begin') }}" method="post">
-        <fieldset>
-            <div class="form-group mt-4">
-                <input autocomplete="off" autofocus class="form-control" name="employee_id" placeholder="Enter Employee ID" type="number"/>
-            </div>
+    <form method="POST" action="{{ url_for('begin') }}">
+        <div class="form-group mt-4">{{ form.employee_id_wtf.label }}: {{ form.employee_id_wtf(autofocus=true, class="form-group mt-4") }}</div>
+        {% if form.employee_id_wtf.errors and not first_load %}
+            <ul style="list-style-type:none" class="errors">{% for error in form.employee_id_wtf.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+        {% endif %}
 
-            <div class="form-group mt-4">
-                <input autocomplete="off" autofocus class="form-control" name="scanner_id" placeholder="Enter Scanner ID" type="number"/>
-            </div>
+        <div class="form-group mt-4">{{ form.rf_scanner_id_wtf.label }}: {{ form.rf_scanner_id_wtf(class="form-group mt-4") }}</div>
+        {% if form.rf_scanner_id_wtf.errors and not first_load %}
+            <ul style="list-style-type:none" class="errors">{% for error in form.rf_scanner_id_wtf.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+        {% endif %}
 
-            <div class="form-group">
-                <button class="btn btn-dark" type="submit">Login</button>
-            </div>
-        </fieldset>
+        <div class="form-group">
+                <button class="btn btn-dark" type="submit" name="count_type" value="manual">Log in</button>
+        </div>
     </form>
 {% endblock %}
