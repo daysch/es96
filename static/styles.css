@@ -58,6 +58,15 @@ main
     text-align: center; /* center contents */
 }
 
+.errors
+{
+    text-align: center;
+    color: red;
+    font-size: 15px;
+    font-weight: bold;
+
+}
+
 
 /* table style from http://divtable.com/table-styler/  */
 /*main table.steelBlueCols
