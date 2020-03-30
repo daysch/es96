@@ -28,26 +28,26 @@
     <body class="bg-light">
 
         {% if employee_id == 0 %}
-<!--        <div class="pos-f-t">-->
-<!--            <nav class="navbar bg-white border sticky-top p-2">-->
-<!--                <a class="center" href="#">-->
-<!--                    <img src="/static/sagerlogo.png" alt="logo" width="140" height="60" class="ml-5">-->
-<!--                </a>-->
-<!--            </nav>-->
-<!--        </div>-->
+        <nav class="navbar border bg-white p-2">
+            <img src="/static/sagerlogo.png" alt="logo" width="140" height="60" class="ml-5">
+
+
+
+        </nav>
 
         {% else %}
 
-        <nav class="navbar border bg-white p-2">
-            <img src="/static/sagerlogo.png" alt="logo" width="140" height="60" class="ml-5">
-            <!--<a href="{{ url_for('logout') }}">-->
-                <button class="navbar-toggler mr-5 p-1" type="button" data-toggle="collapse" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="fa fa-sign-out"></i>
-                    <span class="ml-1">Log Out</span>
-                </button>
-            </form>
-            <!--</a>-->
-        </nav>
+
+
+            <nav class="navbar border bg-white p-2">
+                <img src="/static/sagerlogo.png" alt="logo" width="140" height="60" class="ml-5">
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{{ url_for('begin') }}">Logout</a></li>
+
+                </ul>
+
+            </nav>
 
         {% endif %}
 
@@ -60,3 +60,11 @@
     </body>
 
 </html>
+
+<!--<a href="{{ url_for('logout') }}">
+                <button class="navbar-toggler mr-5 p-1" type="button" data-toggle="collapse" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa fa-sign-out"></i>
+                    <span class="ml-1">Log Out</span>
+                </button>
+            </a>
+-->

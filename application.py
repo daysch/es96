@@ -10,7 +10,7 @@ from check_employee_id import *
 from retrieve_order import *
 from flask_wtf import FlaskForm
 from wtforms import FloatField, IntegerField, SelectField, SubmitField
-from wtforms.validators import  NumberRange
+from wtforms.validators import NumberRange
 
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -38,19 +38,26 @@ scanner_id = 0
 
 # classes for the form validation
 class employee_login(FlaskForm):
+    style_EID = {'class': 'form-control', 'autofocus': 'true', 'placeholder': 'Employee ID'}
+    style_RFID = {'class': 'form-control', 'placeholder': 'Scanner ID'}
     employee_id_wtf = IntegerField("Employee ID ",
-                                   [NumberRange(min=0, max=10**10, message="This ID is too long or too short")])
+                                   [NumberRange(min=0, max=10 ** 10, message="This ID is too long or too short")],
+                                   render_kw=style_EID)
     rf_scanner_id_wtf = IntegerField("RF Scanner ID ",
-                                     [NumberRange(min=0, max=10**10, message="This ID is too long or too short")])
+                                     [NumberRange(min=0, max=10 ** 10, message="This ID is too long or too short")],
+                                     render_kw=style_RFID)
     submit = SubmitField("Submit")
 
 
 class manual_entry(FlaskForm):
+    style_pw = {'class': 'form-control', 'placeholder': 'Product Weight'}
+    style_tc = {'class': 'form-control', 'placeholder': 'Target Count'}
+    style_drop_down = {'class':'custom-select'}
     product_weight = FloatField("Product Weight ",
-                                  [NumberRange(min=0, max=10**10, message="This weight is invalid")])
-    target_count = IntegerField("Target Count ", [NumberRange(min=0, max=10**10, message="This quantity is invalid")])
+                                [NumberRange(min=0, max=10 ** 10, message="This weight is invalid")], render_kw=style_pw)
+    target_count = IntegerField("Target Count ", [NumberRange(min=0, max=10 ** 10, message="This quantity is invalid")], render_kw=style_tc)
     weight_unit = SelectField(u'Weight Unit ',
-                              choices=[('g', 'Grams'), ('kg', 'Kilograms'), ('oz', 'Ounces'), ('lbs', 'Pounds')])
+                              choices=[('g', 'Grams'), ('kg', 'Kilograms'), ('oz', 'Ounces'), ('lbs', 'Pounds')], render_kw=style_drop_down)
     submit = SubmitField("Submit")
 
 
@@ -80,10 +87,12 @@ def begin():
     # else if user reached route via GET (after logging out)
     elif request.method == "POST":
         flash("Please login")
-        return render_template("begin.html", form=login_form, first_load=False)
+        return render_template("begin.html", form=login_form, first_load=False, employee_id=employee_id)
     else:
         flash("Please login")
-        return render_template("begin.html", form=login_form, first_load=True)
+        employee_id = 0
+        scanner_id = 0
+        return render_template("begin.html", form=login_form, first_load=True, employee_id=employee_id)
 
 
 @app.route("/enter_product_number", methods=['GET', 'POST'])
@@ -158,7 +167,7 @@ def check_weight():
         return redirect(url_for("begin"))
 
     current_reading = accurate_reading(current_weight_unit)
-    # current_reading = 16 for testing purposes
+    # current_reading = 16 #for testing purposes
     print(current_reading)
     current_count = current_reading / current_product_weight
 
