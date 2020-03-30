@@ -84,6 +84,8 @@ def begin():
         return render_template("begin.html", form=login_form, first_load=False, employee_id=employee_id)
     else:
         flash("Please login")
+        employee_id = 0
+        scanner_id = 0
         return render_template("begin.html", form=login_form, first_load=True, employee_id=employee_id)
 
 
