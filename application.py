@@ -2,7 +2,6 @@ from flask import Flask, flash, redirect, render_template, request, session, url
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions
-from werkzeug.contrib import *
 from readScale import *
 from barcode2Weight import *
 from barcode2OrderQuantity import *
