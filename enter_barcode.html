@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Enter Barcode
+{% endblock %}
+
+<!-- create a form that has two text form inputs and a submit button -->
+{% block main %}
+
+    <form action="{{ url_for('enter_product_number') }}" method="post" class="p-2">
+        <div class="form-group">
+                <button class="btn btn-dark" type="submit" name="count_type" value="retrieve_order">Retrieve current order</button>
+        </div>
+    </form>
+
+    <form action="{{ url_for('enter_product_number') }}" method="post">
+        <fieldset>
+            <p> OR include the product weight and target count </p>
+
+            <div class="form-group">{{ form.product_weight(class="form-control") }}</div>
+            {% if form.product_weight.errors and not first_load %}
+                <ul style="list-style-type:none" class="errors">{% for error in form.product_weight.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+            {% endif %}
+
+            <div class="form-group">{{ form.target_count(class="form-control") }}</div>
+            {% if form.target_count.errors and not first_load %}
+                <ul style="list-style-type:none" class="errors">{% for error in form.target_count.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+            {% endif %}
+
+            <div class="form-group">{{ form.weight_unit.label }}: {{ form.weight_unit(class="form-group") }}</div>
+            {% if form.weight_unit.errors and not first_load %}
+                <ul style="list-style-type:none" class="errors">{% for error in form.weight_unit.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+            {% endif %}
+
+            <div class="form-group">
+                <button class="btn btn-dark" type="submit" name="count_type" value="manual">Start Counting using Manual Input</button>
+            </div>
+        </fieldset>
+    </form>
+
+{% endblock %}
