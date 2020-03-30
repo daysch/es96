@@ -3,7 +3,7 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Counting Overview
+    Counting
 {% endblock %}
 
 {% block main %}
@@ -59,7 +59,7 @@
             <div id='count_messages'></div>
 
             <!-- button to initiate the javascript -->
-            <div id="start_stop_buttons">
+            <div id="start_stop_buttons" class="checkbox">
                 <input type="checkbox" id="confirm_tare" name="confirm_tare">
                 <label for="confirm_tare" id="label_tare" class="confirm_tare_label">Click to confirm no product items are on scale and scale is tared and turned on</label>
             </div>
