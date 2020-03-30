@@ -158,7 +158,7 @@ def check_weight():
     if not employee_id:
         return redirect(url_for("begin"))
 
-    #current_reading = accurate_reading(current_weight_unit)
+    current_reading = accurate_reading(current_weight_unit)
     #current_reading = 16 #for testing purposes
     print(current_reading)
     current_count = current_reading / current_product_weight
