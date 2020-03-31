@@ -1,3 +1,4 @@
+<link href="{{ url_for('static', filename='signin.css') }}" rel="stylesheet" />
 {% extends "layout.html" %}
 
 {% block title %}
@@ -12,7 +13,7 @@
         <a class="center mb-2" href="#"><img src="/static/sagerlogo.png" alt="logo" width="230" height="100"></a>
 
         <div class="form-group mt-2">
-            {{ form.employee_id_wtf.label }}: {{ form.employee_id_wtf(autofocus=true, class="form-group") }}
+            {{ form.employee_id_wtf(autofocus=true, class="form-control") }}
         </div>
 
         {% if form.employee_id_wtf.errors and not first_load %}
@@ -20,7 +21,7 @@
         {% endif %}
 
         <div class="form-group">
-            {{ form.rf_scanner_id_wtf.label }}: {{ form.rf_scanner_id_wtf(autofocus=true, class="form-group") }}
+            {{ form.rf_scanner_id_wtf(autofocus=true, class="form-control") }}
         </div>
 
         {% if form.rf_scanner_id_wtf.errors and not first_load %}
