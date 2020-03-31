@@ -182,18 +182,4 @@ def check_weight():
 
     return jsonify(return_list)
 
-
-@app.route("/logout")
-def logout():
-    # Forget any id
-    global employee_id
-    global scanner_id
-
-    employee_id = 0
-    scanner_id = 0
-
-    # Redirect user to begin
-    return redirect(url_for("begin"))
-
-
 app.run()
