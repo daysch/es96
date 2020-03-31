@@ -64,12 +64,6 @@ main {
     text-align: center; /* center contents */
 }
 
-#logoutlink {
-  color: navy;
-  font-size: 18px;
-  font-weight: bold;
-}
-
 /*button.sager {
     background-color: #015C9F;
     border: none;
