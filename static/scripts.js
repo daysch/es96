@@ -155,7 +155,6 @@ function update_displays()
     // update current count and current weight
     document.getElementById("current_count").innerHTML=data[0] + " parts";
     document.getElementById("current_weight").innerHTML=data[1] + " " + data[3];
-    //"Current Count:  " + "Current Weight:  " +
 
     // indicate whether count is complete after removing current messages
     try {
