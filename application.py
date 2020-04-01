@@ -167,7 +167,7 @@ def check_weight():
         return redirect(url_for("begin"))
 
     current_reading = accurate_reading(current_weight_unit)
-    # current_reading = 16 #for testing purposes
+    #current_reading = 16 #for testing purposes
     print(current_reading)
     current_count = current_reading / current_product_weight
 
@@ -178,22 +178,8 @@ def check_weight():
     if current_count > current_target_qty + within_target_count:
         counting_status = 1
 
-    return_list = [round(current_count), current_reading, counting_status]
+    return_list = [round(current_count), current_reading, counting_status, current_weight_unit]
 
     return jsonify(return_list)
-
-
-@app.route("/logout")
-def logout():
-    # Forget any id
-    global employee_id
-    global scanner_id
-
-    employee_id = 0
-    scanner_id = 0
-
-    # Redirect user to begin
-    return redirect(url_for("begin"))
-
 
 app.run()

@@ -28,26 +28,18 @@
     <body class="bg-light">
 
         {% if employee_id == 0 %}
-<!--        <div class="pos-f-t">-->
-<!--            <nav class="navbar bg-white border sticky-top p-2">-->
-<!--                <a class="center" href="#">-->
-<!--                    <img src="/static/sagerlogo.png" alt="logo" width="140" height="60" class="ml-5">-->
-<!--                </a>-->
-<!--            </nav>-->
-<!--        </div>-->
 
         {% else %}
 
-        <nav class="navbar border bg-white p-2">
-            <img src="/static/sagerlogo.png" alt="logo" width="140" height="60" class="ml-5">
-            <!--<a href="{{ url_for('logout') }}">-->
-                <button class="navbar-toggler mr-5 p-1" type="button" data-toggle="collapse" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+            <nav class="navbar border bg-white p-2">
+                <img src="/static/sagerlogo.png" alt="logo" width="140" height="60" class="ml-5">
+
+                <a href="{{ url_for('begin') }}" class="mr-5 btn btn-light" role="button">
                     <i class="fa fa-sign-out"></i>
                     <span class="ml-1">Log Out</span>
-                </button>
-            </form>
-            <!--</a>-->
-        </nav>
+                </a>
+
+            </nav>
 
         {% endif %}
 
@@ -56,6 +48,16 @@
                 {% block main %}{% endblock %}
             </main>
         </div>
+
+        {% if employee_id == 0 %}
+
+        {% else %}
+
+        <nav class="navbar fixed-bottom border bg-white">
+            <p class="text-muted center mt-3"> ES96 Harvard SEAS &copy; 2020</p>
+        </nav>
+
+        {% endif %}
 
     </body>
 
