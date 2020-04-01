@@ -8,10 +8,9 @@
 
 {% block main %}
 
-    <div class="row p-2 m-2">
+    <div class="row mt-3 mb-3">
         <div class="col-lg-6">
-            <p id="overview_text">Order Overview<p/>
-            <!-- Table with order details from python function-->
+            <p class ="count_text">Order Overview<p/>
             <table class="table table-bordered bg-white">
                 <tbody>
                     <tr>
@@ -42,34 +41,29 @@
                         <td>Target Weight</td>
                         <td>{{target_weight}}</td>
                     </tr>
-
                 </tbody>
             </table>
         </div>
 
-        <div class="col-lg-6 p-2">
-            <div class="col-lg-3 ml-3" style="width: 25%; float:left">
-                <p>Current Count:</p>
-                <p id='current_count' name='current_count' class ="count_text">0</p>
-            </div>
-            <div class="col-lg-3 mr-3" style="width: 25%; float:right">
-                <p>Current Weight:</p>
-                <p id='current_weight' name='current_weight' class ="count_text">0</p>
-            </div>
+        <div class="col-lg-6 mt-5">
+
+            <p class ="count_text">Current Count:</p>
+            <p id='current_count' name='current_count'>0</p>
+            <p class ="count_text">Current Weight:</p>
+            <p id='current_weight' name='current_weight'>0</p>
 
             <!-- create a holder for later messages during the count -->
             <div id='count_messages'></div>
-
             <!-- button to initiate the javascript -->
             <div id="start_stop_buttons" class="checkbox">
                 <input type="checkbox" id="confirm_tare" name="confirm_tare">
-                <label for="confirm_tare" id="label_tare" class="confirm_tare_label">Click to confirm no product items are on scale and scale is tared and turned on</label>
+                <label for="confirm_tare" id="label_tare">Click to confirm no product items are on scale <br> and that scale is tared and turned on</label>
             </div>
         </div>
     </div>
 
     <!-- create container for button to return to first page after count is complete -->
-    <div>
+    <div class="center">
     <form action="{{ url_for('count') }}" method="post" id="submit_form">
         <div class="form-group" id='buttons'>
             <button class="btn btn-dark" id="cancel_count" type="submit" name="wms_submit" value="0" >Cancel and Return to Barcode Input</button>

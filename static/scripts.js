@@ -70,7 +70,7 @@ function stop_button_clicked()
     button = document.createElement("button");
     button.setAttribute("class", "btn btn-dark");
     button.setAttribute("id", "start_button");
-    button.innerHTML = "Restart count";
+    button.innerHTML = "Continue count";
     document.getElementById("start_stop_buttons").appendChild(button);
     document.getElementById ("start_button").addEventListener ("click", start_button_clicked)
 
@@ -153,8 +153,8 @@ function update_displays()
     .done(function(data, textStatus, jqXHR) {
 
     // update current count and current weight
-    document.getElementById("current_count").innerHTML=data[0] + "parts";
-    document.getElementById("current_weight").innerHTML=data[1] + data[3];
+    document.getElementById("current_count").innerHTML=data[0] + " parts";
+    document.getElementById("current_weight").innerHTML=data[1] + " " + data[3];
     //"Current Count:  " + "Current Weight:  " +
 
     // indicate whether count is complete after removing current messages
