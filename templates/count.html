@@ -23,12 +23,8 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <td>License Plate</td>
+                        <td>License Plate Number</td>
                         <td></td>
-                    </tr>
-                    <tr>
-                        <td>Barcode</td>
-                        <td>{{barcode}}</td>
                     </tr>
                     <tr>
                         <td>Product Weight</td>
@@ -51,9 +47,15 @@
             </table>
         </div>
 
-        <div id="count_status_div" class="col-lg-6 p-2">
-            <p id='current_count' name='current_count' class ="count_text">Current Count: 0</p>
-            <p id='current_weight' name='current_weight' class ="count_text">Current Weight: 0</p>
+        <div class="col-lg-6 p-2">
+            <div class="col-lg-3 ml-3" style="width: 25%; float:left">
+                <p>Current Count:</p>
+                <p id='current_count' name='current_count' class ="count_text">0</p>
+            </div>
+            <div class="col-lg-3 mr-3" style="width: 25%; float:right">
+                <p>Current Weight:</p>
+                <p id='current_weight' name='current_weight' class ="count_text">0</p>
+            </div>
 
             <!-- create a holder for later messages during the count -->
             <div id='count_messages'></div>

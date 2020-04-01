@@ -166,8 +166,8 @@ def check_weight():
     if not employee_id:
         return redirect(url_for("begin"))
 
-    current_reading = accurate_reading(current_weight_unit)
-    # current_reading = 16 #for testing purposes
+    #current_reading = accurate_reading(current_weight_unit)
+    current_reading = 16 #for testing purposes
     print(current_reading)
     current_count = current_reading / current_product_weight
 
@@ -178,7 +178,7 @@ def check_weight():
     if current_count > current_target_qty + within_target_count:
         counting_status = 1
 
-    return_list = [round(current_count), current_reading, counting_status]
+    return_list = [round(current_count), current_reading, counting_status, current_weight_unit]
 
     return jsonify(return_list)
 

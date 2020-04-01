@@ -15,7 +15,7 @@
 
     <form action="{{ url_for('enter_product_number') }}" method="post">
         <fieldset>
-            <p> OR include the product weight and target count </p>
+            <p> OR Manually Input the Product Weight and Target Count </p>
 
             <div class="form-group">{{ form.product_weight(class="form-control") }}</div>
             {% if form.product_weight.errors and not first_load %}
