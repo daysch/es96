@@ -3,11 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="864cc3bb-a6e5-46ec-bb44-6738a3f05a02" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/scripts.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/scripts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/begin.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/begin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/count.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/count.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/layout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application.py" beforeDir="false" afterPath="$PROJECT_DIR$/application.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +116,21 @@
       <option name="project" value="LOCAL" />
       <updated>1585728387080</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="css changes on count page">
+      <created>1585734850791</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1585734850791</updated>
+    </task>
+    <task id="LOCAL-00009" summary="small js change">
+      <created>1585734928650</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1585734928650</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -130,13 +140,15 @@
     <MESSAGE value="non-testing app.py uncomment" />
     <MESSAGE value="css changes" />
     <MESSAGE value="changes on count page" />
-    <option name="LAST_COMMIT_MESSAGE" value="changes on count page" />
+    <MESSAGE value="css changes on count page" />
+    <MESSAGE value="small js change" />
+    <option name="LAST_COMMIT_MESSAGE" value="small js change" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="344" y="52" key="CommitChangelistDialog2" timestamp="1585734850613">
+    <state x="344" y="52" key="CommitChangelistDialog2" timestamp="1585734928508">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="344" y="52" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1585734850613" />
+    <state x="344" y="52" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1585734928508" />
     <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1585135899904">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -165,10 +177,10 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="132" y="74" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1585589572653" />
-    <state x="320" y="190" key="Vcs.Push.Dialog.v2" timestamp="1585734861207">
+    <state x="320" y="190" key="Vcs.Push.Dialog.v2" timestamp="1585734936621">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="320" y="190" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1585734861207" />
+    <state x="320" y="190" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1585734936621" />
     <state x="503" y="374" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1585559437523">
       <screen x="0" y="0" width="1440" height="900" />
     </state>

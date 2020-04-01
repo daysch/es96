@@ -2,7 +2,7 @@ from flask import Flask, flash, redirect, render_template, request, session, url
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions
-#from readScale import *
+from readScale import *
 from barcode2Weight import *
 from barcode2OrderQuantity import *
 from submit_to_wms import *
@@ -166,8 +166,8 @@ def check_weight():
     if not employee_id:
         return redirect(url_for("begin"))
 
-    #current_reading = accurate_reading(current_weight_unit)
-    current_reading = 16 #for testing purposes
+    current_reading = accurate_reading(current_weight_unit)
+    #current_reading = 16 #for testing purposes
     print(current_reading)
     current_count = current_reading / current_product_weight
 
