@@ -108,6 +108,7 @@ function stop_button_clicked()
 
 // when the user confirms that he did not add or remove any items after clicking stop, it becomes possible to post to the WMS
 function confirm_check_box_clicked() {
+    document.getElementById("check_box").removeEventListener("click", confirm_check_box_clicked)
     button = document.createElement("button");
     button.setAttribute("class", "btn btn-dark");
     button.setAttribute("id", "submit_to_wms");
