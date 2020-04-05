@@ -5,7 +5,7 @@ main .form-control {
 }
 
 main {
-    overflow-x: auto; /* scroll horizontally as needed */
+    overflow-x: hidden;
     text-align: center; /* center contents */
 }
 
