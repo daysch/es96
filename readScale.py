@@ -22,7 +22,7 @@ def readScale(mode_weight_requested):
                            idProduct=PRODUCT_ID)
 
 # include this when you get an error like 'resource busy'
-    """
+
     for cfg in device:
         for intf in cfg:
             if device.is_kernel_driver_active(intf.bInterfaceNumber):
@@ -30,7 +30,6 @@ def readScale(mode_weight_requested):
                     device.detach_kernel_driver(intf.bInterfaceNumber)
                 except core.USBError as e:
                     sys.exit("Could not detatch kernel driver from interface({0}): {1}".format(intf.bInterfaceNumber, str(e)))
-                    """
 
 
     # use the first/default configuration

@@ -15,7 +15,7 @@
         </div>
 
         {% if form.employee_id_wtf.errors and not first_load %}
-            <ul class="errors" style="list-style-type: none">{% for error in form.employee_id_wtf.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+            <p class="errors">{% for error in form.employee_id_wtf.errors %}{{ error }}<br>{% endfor %}</p>
         {% endif %}
 
         <div class="form-group">
@@ -23,7 +23,7 @@
         </div>
 
         {% if form.rf_scanner_id_wtf.errors and not first_load %}
-            <ul class="errors" style="list-style-type: none">{% for error in form.rf_scanner_id_wtf.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+            <p class="errors">{% for error in form.rf_scanner_id_wtf.errors %}{{ error }}<br>{% endfor %}</p>
         {% endif %}
 
         <div class="form-group">

@@ -30,7 +30,7 @@ function start_button_clicked()
     // remove any old stuff
     document.getElementById('start_button').remove();
     try {document.getElementById('count_status').remove();
-         console.log('removed')} catch {console.log('couldnt remove count status')}
+         console.log('removed')} catch {console.log('could not remove count status')}
     try {
         document.getElementById("check_box").remove();
         document.getElementById("label_box").remove();
@@ -42,7 +42,7 @@ function start_button_clicked()
     button = document.createElement("button");
     button.setAttribute("class", "btn btn-dark");
     button.setAttribute("id", "stop_button");
-    button.innerHTML = "Stop count";
+    button.innerHTML = "Stop Count";
     document.getElementById("start_stop_buttons").appendChild(button);
     document.getElementById ("stop_button").addEventListener ("click", stop_button_clicked)
     main_function()
@@ -76,7 +76,7 @@ function stop_button_clicked()
 
     // check whether count is correct
     console.log(document.getElementById("count_status").innerHTML)
-    if (document.getElementById("count_status").innerHTML == "Count complete") {
+    if (document.getElementById("count_status").innerHTML == "Count Complete!") {
         console.log("count right")
 
         // create a confirm check box
@@ -88,6 +88,7 @@ function stop_button_clicked()
         label = document.createElement("label");
         label.setAttribute("for", "check_box");
         label.setAttribute("id", "label_box");
+        label.setAttribute("class", "ml-2 stop_check");
         label.innerHTML = "Please check that you did not add or remove items after clicking stop";
         document.getElementById("submit_form").appendChild(box);
         document.getElementById("submit_form").appendChild(label);
@@ -102,7 +103,6 @@ function stop_button_clicked()
         paragraph.innerHTML = "Please continue counting or cancel process";
         document.getElementById("count_messages").appendChild(paragraph);
     }
-
 }
 
 
@@ -111,7 +111,7 @@ function confirm_check_box_clicked() {
     button = document.createElement("button");
     button.setAttribute("class", "btn btn-dark");
     button.setAttribute("id", "submit_to_wms");
-    button.innerHTML = "Submit to WMS and start new count";
+    button.innerHTML = "Submit to WMS and Start New Count";
     paragraph = document.createElement("p")
     paragraph.setAttribute("id", "submit_paragraph")
     document.getElementById("submit_form").appendChild(paragraph)
@@ -132,9 +132,6 @@ function submit_to_wms() {
     // add the hidden field
     document.getElementById("buttons").appendChild(hiddenField);
     document.getElementById("submit_form").submit()
-
-
-
 }
 
 const main_function = async () => {
@@ -153,7 +150,11 @@ function update_displays()
     .done(function(data, textStatus, jqXHR) {
 
     // update current count and current weight
-    document.getElementById("current_count").innerHTML=data[0] + " parts";
+    if (data[0] == 1) {
+        document.getElementById("current_count").innerHTML=data[0] + " part";
+    } else {
+        document.getElementById("current_count").innerHTML=data[0] + " parts";
+    }
     document.getElementById("current_weight").innerHTML=data[1] + " " + data[3];
 
     // indicate whether count is complete after removing current messages
@@ -179,7 +180,7 @@ function update_displays()
         paragraph = document.createElement("p");
         paragraph.setAttribute("id", "count_status");
         paragraph.setAttribute("class", "count_right");
-        paragraph.innerHTML = "Count complete";
+        paragraph.innerHTML = "Count Complete!";
         document.getElementById("count_messages").appendChild(paragraph);
         weight_retrieval_in_process = 0
         main_function()
@@ -206,7 +207,7 @@ function update_displays()
             paragraph = document.createElement("p");
             paragraph.setAttribute("id", "count_status");
             paragraph.setAttribute("class", "count_low");
-            paragraph.innerHTML = "Please check that the scale is connected and turned on, and restart the count";
+            paragraph.innerHTML = "Please check that the scale is connected and <br> turned on, and restart the count";
             document.getElementById("count_messages").appendChild(paragraph);
 
             // create a new start button
@@ -214,7 +215,7 @@ function update_displays()
             button = document.createElement("button");
             button.setAttribute("class", "btn btn-dark");
             button.setAttribute("id", "start_button");
-            button.innerHTML = "Continue count";
+            button.innerHTML = "Continue Count";
             document.getElementById("start_stop_buttons").appendChild(button);
             document.getElementById ("start_button").addEventListener ("click", start_button_clicked)
         }

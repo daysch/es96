@@ -8,17 +8,17 @@
 
 {% block main %}
 
-    <div class="row mt-3 mb-3">
-        <div class="col-lg-6">
-            <p class ="count_text">Order Overview<p/>
+    <div class="row mt-3 mb-2">
+        <div class="col-lg-5">
+            <p class ="count_titles">Order Overview<p/>
             <table class="table table-bordered bg-white">
                 <tbody>
                     <tr>
-                        <td>Customer Part Number</td>
+                        <td>Manufacturer Part Number</td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td>Manufacturer Part Number</td>
+                        <td>People Soft Number</td>
                         <td></td>
                     </tr>
                     <tr>
@@ -45,19 +45,19 @@
             </table>
         </div>
 
-        <div class="col-lg-6 mt-5">
+        <div class="col-lg-5 mt-3">
 
-            <p class ="count_text">Current Count:</p>
-            <p id='current_count' name='current_count'>0</p>
-            <p class ="count_text">Current Weight:</p>
-            <p id='current_weight' name='current_weight'>0</p>
+            <p class ="count_titles">Current Count:</p>
+            <p id='current_count' name='current_count' class="counts">0</p>
+            <p class ="count_titles">Current Weight:</p>
+            <p id='current_weight' name='current_weight' class="counts">0</p>
 
             <!-- create a holder for later messages during the count -->
             <div id='count_messages'></div>
             <!-- button to initiate the javascript -->
             <div id="start_stop_buttons" class="checkbox">
+                <label for="confirm_tare" id="label_tare" class="confirm_tare">Click to confirm no product items are on scale <br> and that scale is tared and turned on</label><br>
                 <input type="checkbox" id="confirm_tare" name="confirm_tare">
-                <label for="confirm_tare" id="label_tare">Click to confirm no product items are on scale <br> and that scale is tared and turned on</label>
             </div>
         </div>
     </div>
