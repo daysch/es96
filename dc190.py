@@ -7,6 +7,7 @@ def readScale():
   # I think SPEC 10 needs to be updated to first bit = 1
   # I think SPEC 12 should be set to 11 or 01, and somehow set scale
   # 'when counting' condition to true.
+  # please include link to documentation
 
   scale_serial_port = "COM1" # dependent on serial port number
   path = os.path.dirname(os.path.abspath(__file__)) # relative directory path

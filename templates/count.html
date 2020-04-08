@@ -1,3 +1,4 @@
+<!-- import the javascript to run on this site -->
 <script src='/static/scripts.js'></script>
 
 {% extends "layout.html" %}
@@ -7,7 +8,7 @@
 {% endblock %}
 
 {% block main %}
-
+    <!-- create a table to display relevant info to user -->
     <div class="row mt-3 mb-2">
         <div class="col-lg-6 center">
             <p class ="count_titles">Order Overview<p/>
@@ -45,16 +46,20 @@
             </table>
         </div>
 
+        <!-- holder to indicate current weight and count to the user -->
         <div class="col-lg-6 mt-3 center">
 
             <p class ="count_titles">Current Count:</p>
+
+            <!-- ID is used to identify paragraph for javascript on the page -->
             <p id='current_count' name='current_count' class="counts">0</p>
             <p class ="count_titles">Current Weight:</p>
             <p id='current_weight' name='current_weight' class="counts">0</p>
 
             <!-- create a holder for later messages during the count -->
             <div id='count_messages'></div>
-            <!-- button to initiate the javascript -->
+
+            <!-- button to initiate the javascript counting process -->
             <div id="start_stop_buttons" class="checkbox">
                 <label for="confirm_tare" id="label_tare" class="confirm_tare">Click to confirm no product items are on scale <br> and that scale is tared and turned on</label><br>
                 <input type="checkbox" id="confirm_tare" name="confirm_tare">
@@ -66,6 +71,7 @@
     <div class="center">
     <form action="{{ url_for('count') }}" method="post" id="submit_form">
         <div class="form-group" id='buttons'>
+            <!-- value = 0 indicates to the python script that the count was aborted -->
             <button class="btn btn-dark" id="cancel_count" type="submit" name="wms_submit" value="0" >Cancel and Return to Barcode Input</button>
         </div>
     </form>

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-
+<!-- this page sets the environment for the other html pages to make sure we do not have to double all the code -->
+<!-- here is some info about conditional statements etc in html
+https://retentionscience.zendesk.com/hc/en-us/articles/115003025814-How-To-Build-HTML-for-Conditional-Statements -->
 <html lang="en">
 
     <head>
@@ -8,6 +10,7 @@
         <meta charset="utf-8"/>
         <meta content="initial-scale=1, width=device-width" name="viewport"/>
 
+        <!-- get sager logo -->
         <link href="{{ url_for('static', filename='sagerlogo.png') }}" rel="icon">
 
         <!-- documentation at http://getbootstrap.com/docs/4.1/, alternative themes at https://bootswatch.com/ -->
@@ -16,8 +19,10 @@
         <!-- link for navbar icon -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 
+        <!-- link css stylesheet (only for visual improvements -->
         <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet" />
 
+        <!-- link to jquery backend to enable javascript on counting page and bootstrap -->
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -27,10 +32,18 @@
 
     <body class="bg-light">
 
-        {% if employee_id == 0 %}
 
-        {% else %}
+        <!-- this sets up a framework to hold the flashed messages -->
+        {% if get_flashed_messages() %}
+            <header>
+                <div class="alert alert-info" role="alert">
+                    {{ get_flashed_messages() | join(" ") }}
+                </div>
+            </header>
+        {% endif %}
 
+        <!-- ensure the logout button is only visible when the user is actually logged in -->
+        {% if employee_id != 0 %}
             <nav class="navbar border bg-white p-2">
                 <img src="/static/sagerlogo.png" alt="logo" width="140" height="60" class="ml-5">
 
@@ -38,25 +51,22 @@
                     <i class="fa fa-sign-out"></i>
                     <span class="ml-1">Log Out</span>
                 </a>
-
             </nav>
 
         {% endif %}
 
+        <!-- create the environment for the page's html -->
         <div class="container">
             <main>
                 {% block main %}{% endblock %}
             </main>
         </div>
 
-        {% if employee_id == 0 %}
-
-        {% else %}
-
-        <nav class="navbar fixed-bottom border bg-white">
-            <p class="text-muted center mt-3"> ES96 Harvard SEAS &copy; 2020</p>
-        </nav>
-
+        <!-- change the message at the bottom of the page if the user is logged in -->
+        {% if employee_id != 0 %}
+            <nav class="navbar fixed-bottom border bg-white">
+                <p class="text-muted center mt-3"> ES96 Harvard SEAS 2020</p>
+            </nav>
         {% endif %}
 
     </body>

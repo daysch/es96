@@ -4,19 +4,25 @@
     Enter Barcode
 {% endblock %}
 
-<!-- create a form that has two text form inputs and a submit button -->
+<!-- create two separate forms, one for order retrieval and one for a manual input -->
 {% block main %}
 
+    <!-- set up form for retrieval, indicated by value="retrieve_order", which is requested in the python function
+    enter_product_number() using the name="count_type" -->
     <form action="{{ url_for('enter_product_number') }}" method="post" class="p-2 mt-4">
+        <!-- only a submit button is required here -->
         <div class="form-group">
                 <button class="btn btn-dark" type="submit" name="count_type" value="retrieve_order">Retrieve Current Order from WMS</button>
         </div>
     </form>
 
+    <!-- create a separate form for manual submission, indicated by the value on the submit button which is "manual" -->
     <form action="{{ url_for('enter_product_number') }}" method="post">
         <fieldset>
             <p class="count_titles"> Manual Input</p>
 
+            <!-- create inputs linked to the wtforms setup in python and show any errors,
+            more info: https://wtforms.readthedocs.io/en/stable/crash_course.html -->
             <div class="form-group">{{ form.product_weight(class="form-control") }}</div>
             {% if form.product_weight.errors and not first_load %}
                 <p class="errors">{% for error in form.product_weight.errors %}{{ error }}<br>{% endfor %}</p>
@@ -32,6 +38,7 @@
                 <p class="errors">{% for error in form.weight_unit.errors %}{{ error }}<br>{% endfor %}</p>
             {% endif %}
 
+            <!-- create submit button, indicating that the count_type is manual -->
             <div class="form-group">
                 <button class="btn btn-dark" type="submit" name="count_type" value="manual">Start Counting using Manual Input</button>
             </div>

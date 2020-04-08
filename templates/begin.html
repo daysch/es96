@@ -6,28 +6,45 @@
 
 {% block main %}
 
+    <!-- set up the login form, and link the python page used to evaluate the form ,
+    more info: https://wtforms.readthedocs.io/en/stable/crash_course.html-->
     <form method="POST" action="{{ url_for('begin') }}" class="mt-5">
 
         <img src="/static/sagerlogo.png" alt="logo" width="230" height="100" class="mb-2">
 
+        <!-- holder to enter the employee ID -->
         <div class="form-group mt-2">
             {{ form.employee_id_wtf(autofocus=true, class="form-control") }}
         </div>
 
+        <!-- holder for error messages, but only display them, if there was actually an incorrect preceding form submission -->
         {% if form.employee_id_wtf.errors and not first_load %}
             <p class="errors">{% for error in form.employee_id_wtf.errors %}{{ error }}<br>{% endfor %}</p>
         {% endif %}
 
+        <!-- holder to enter the rf scanner ID -->
         <div class="form-group">
-            {{ form.rf_scanner_id_wtf(autofocus=true, class="form-control") }}
+            {{ form.rf_scanner_id_wtf(class="form-control") }}
         </div>
 
+        <!-- holder for error messages, but only display them, if there was actually an incorrect preceding form submission -->
         {% if form.rf_scanner_id_wtf.errors and not first_load %}
             <p class="errors">{% for error in form.rf_scanner_id_wtf.errors %}{{ error }}<br>{% endfor %}</p>
         {% endif %}
 
+        <!-- holder to enter the distribution center ID -->
         <div class="form-group">
-            <button class="btn btn-dark btn-lg" type="submit" name="login" value="manual">Log In</button>
+            {{ form.dc_id(class="form-control") }}
+        </div>
+
+        <!-- holder for error messages, but only display them, if there was actually an incorrect preceding form submission -->
+        {% if form.dc_id.errors and not first_load %}
+            <p class="errors">{% for error in form.dc_id.errors %}{{ error }}<br>{% endfor %}</p>
+        {% endif %}
+
+        <!-- submit button -->
+        <div class="form-group">
+            <button class="btn btn-dark btn-lg" type="submit" >Log In</button>
         </div>
 
         <p class="mt-4 text-muted"> ES96 Harvard SEAS &copy; 2020</p>
