@@ -12,6 +12,7 @@ except:
 # use the function at the bottom of this script, accurate_reading(mode_weight_requested), which returns a stable value
 # mode_weight_requested can take the values 'g' for grams or 'oz' for ounces, 'kg' for kilograms and 'lbs' for pounds
 def readScale(mode_weight_requested):
+
     # these are conversion factors
     ounces_per_gram = 0.035274
     ounces_per_pound = 16
@@ -21,38 +22,42 @@ def readScale(mode_weight_requested):
     VENDOR_ID = 0x0922
     PRODUCT_ID = 0x8003
 
-    # find the USB device
-    device = core.find(idVendor=VENDOR_ID,
-                       idProduct=PRODUCT_ID)
+    try:
+        # find the USB device
+        device = core.find(idVendor=VENDOR_ID,
+                           idProduct=PRODUCT_ID)
 
-    # use the default configuration
-    device.set_configuration()
+        # use the default configuration
+        device.set_configuration()
 
-    # first endpoint, this is again specific to the Dymo scale
-    endpoint = device[0][(0, 0)][0]
+        # first endpoint, this is again specific to the Dymo scale
+        endpoint = device[0][(0, 0)][0]
 
-    # read a data packet, it will try so 10 times before throwing the error to the function calling, in this case
-    # accurate_reading()
-    attempts = 10
-    data = None
-    while data is None:
-        try:
-            data = device.read(endpoint.bEndpointAddress,
-                               endpoint.wMaxPacketSize)
+        # read a data packet, it will try so 10 times before throwing the error to the function calling, in this case
+        # accurate_reading()
+        attempts = 10
+        data = None
+        while data is None:
+            try:
+                data = device.read(endpoint.bEndpointAddress,
+                                   endpoint.wMaxPacketSize)
 
-        except core.USBError as e:
-            data = None
-            if e.args == ('Operation timed out',):
-                continue
-            attempts -= 1
-            if attempts < 0:
-                print(e.args)
-                print('Error in readscale')
-                util.dispose_resources(device)
-                return 'Error'
+            except core.USBError as e:
+                data = None
+                if e.args == ('Operation timed out',):
+                    continue
+                attempts -= 1
+                if attempts < 0:
+                    print(e.args)
+                    print('Error in readscale')
+                    util.dispose_resources(device)
+                    return 'Error'
 
-    # this releases the usb scale
-    util.dispose_resources(device)
+        # this releases the usb scale
+        util.dispose_resources(device)
+    except:
+        print('Error in readscale')
+        return 'Not connected'
 
     # determine the weight units used by the scale, these can only be ounces or grams
     mode_weight = 'g'
@@ -110,6 +115,6 @@ def accurate_reading(mode_requested):
         previous_reading = current_reading
         current_reading = readScale(mode_requested)
         time.sleep(reading_time)
-        if current_reading == 'Error':
-            return 'Error'
+        if current_reading == 'Not connected':
+            return 'Not connected'
     return previous_reading

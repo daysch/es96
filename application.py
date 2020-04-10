@@ -1,15 +1,16 @@
-from flask import Flask, flash, redirect, render_template, request, url_for, jsonify
+from flask import Flask, flash, redirect, render_template, request, url_for, jsonify, session
 from flask_session import Session
-from tempfile import mkdtemp
+from flask_wtf import FlaskForm
+from wtforms import FloatField, IntegerField, SelectField, SubmitField
+from wtforms.validators import NumberRange
+
+# import helper functions
 from readScale import *
 from barcode2Weight import *
 from barcode2OrderQuantity import *
 from submit_to_wms import *
 from check_employee_id import *
 from retrieve_order import *
-from flask_wtf import FlaskForm
-from wtforms import FloatField, IntegerField, SelectField, SubmitField
-from wtforms.validators import NumberRange
 
 # Configure application see here for details:
 # https://flask.palletsprojects.com/en/0.12.x/quickstart/#a-minimal-application
@@ -18,6 +19,7 @@ app = Flask(__name__)
 # Configure session to use filesystem (https://pythonhosted.org/Flask-Session/#quickstart)
 app.config["SESSION_TYPE"] = "filesystem"  # this needs to be set to use a secret key, which is required to use wtforms
 app.secret_key = 'supersecretkey'
+host_address = '127.0.0.1'
 Session(app)
 
 # store these as global variables and update later
@@ -25,9 +27,13 @@ MOVE_number_psoft = 0
 current_target_qty = 0
 current_product_weight = 0
 current_weight_unit = 0
+manual_order = False
 employee_id = 0
 scanner_id = 0
 dc_id = 0
+
+# these variables are used to indicate error messages, if the submission to the WMS was impossible
+wms_submit_unsuccessful = False
 
 
 # classes for the form validation
@@ -39,9 +45,10 @@ class employee_login(FlaskForm):
 
     # these define the field types in this form, and include some validators to make sure the input is acceptable.
     # More info here: https://wtforms.readthedocs.io/en/stable/crash_course.html
-    employee_id_wtf = IntegerField("Employee ID ",
-                                   [NumberRange(min=0, max=10 ** 10, message="This ID is too long or too short")],
-                                   render_kw=style_EID)
+    employee_id_wtf = IntegerField("Employee ID ",  # this is the label of this field
+                                   [NumberRange(min=0, max=10 ** 10, message="This ID is too long or too short")],  #
+                                   # these are validators and a customized error message
+                                   render_kw=style_EID)  # this specifies some of the visual appearance of the field
     rf_scanner_id_wtf = IntegerField("RF Scanner ID ",
                                      [NumberRange(min=0, max=10 ** 10, message="This ID is too long or too short")],
                                      render_kw=style_RFID)
@@ -85,6 +92,7 @@ def begin():
     global employee_id
     global scanner_id
     global dc_id
+    global wms_submit_unsuccessful
 
     # if the employee login form was successfully submitted, without errors in the wtf validations
     if login_form.validate_on_submit():
@@ -93,16 +101,23 @@ def begin():
         employee_id = login_form.employee_id_wtf.data
         scanner_id = login_form.rf_scanner_id_wtf.data
         dc_id = login_form.dc_id.data
+        check_id_val = check_employee_id(employee_id, scanner_id, dc_id)
 
         # check whether the employee id is correct using wms system and matches rf id and dc id
-        if not check_employee_id(employee_id, scanner_id, dc_id):
+        if check_id_val != 'successful':
+            employee_id = 0
+            scanner_id = 0
+            dc_id = 0
 
-            # flash is a way of showing messages to the user, they are not necessary, but can be helpful
-            flash("Employee ID or Scanner ID are incorrect")
-            return redirect(url_for("begin"))
+            if check_id_val == 'no connection':
+                return render_template("begin.html", form=login_form, first_load=True, employee_id=employee_id,
+                                       connection=False, ID_found=True)
+            if check_id_val == 'employee not found':
+                return render_template("begin.html", form=login_form, first_load=True, employee_id=employee_id,
+                                       connection=True, ID_found=False)
 
         # if the credentials are correct, redirect to the next page to start order selection
-        return redirect(url_for("enter_product_number"))
+        return redirect(url_for("setup_count"))
 
     # if the form was incorrectly filled out, first_load=False indicates to the wtform html to show the appropriate
     # errors
@@ -110,7 +125,8 @@ def begin():
 
         # flash is a way of showing messages to the user, they are not necessary, but can be helpful
         flash("Please login")
-        return render_template("begin.html", form=login_form, first_load=False, employee_id=employee_id)
+        return render_template("begin.html", form=login_form, first_load=False, employee_id=employee_id,
+                               connection=True, ID_found=True)
 
     # else if user reached route via GET (after logging out), first_load shows the html to hide wtforms errors
     else:
@@ -121,14 +137,15 @@ def begin():
         employee_id = 0
         scanner_id = 0
         dc_id = 0
-        return render_template("begin.html", form=login_form, first_load=True, employee_id=employee_id)
+        wms_submit_unsuccessful = False
+        return render_template("begin.html", form=login_form, first_load=True, employee_id=employee_id,
+                               connection=True, ID_found=True)
 
 
 # this page is intended to set up the counting process, by either retrieving the current order, or entering a manual
 # order form
-@app.route("/enter_product_number", methods=['GET', 'POST'])
-def enter_product_number():
-
+@app.route("/setup_count", methods=['GET', 'POST'])
+def setup_count():
     # set up the manual order form, again no csrf token, info here: https://flask-wtf.readthedocs.io/en/latest/csrf.html
     manual_entry_form = manual_entry(meta={'csrf': False})
 
@@ -138,15 +155,16 @@ def enter_product_number():
 
     # if user filled out the manual entry form
     if manual_entry_form.validate_on_submit():
-
         # retrieve data from submission form and redefine global variables
         global current_weight_unit
         global current_product_weight
         global current_target_qty
+        global manual_order
 
         current_weight_unit = manual_entry_form.weight_unit.data
         current_product_weight = manual_entry_form.product_weight.data
         current_target_qty = manual_entry_form.target_count.data
+        manual_order = True
 
         # lead the user to the actual count site
         return redirect(url_for("count"))
@@ -161,26 +179,50 @@ def enter_product_number():
         if count_type == "retrieve_order":
             # get the required info from the WMS
             global MOVE_number_psoft
-            [MOVE_number_psoft, current_product_weight, current_weight_unit, current_target_qty] = retrieve_order(
-                scanner_id)
+            order = retrieve_order(scanner_id)
+
+            # check whether there are any errors with the request
+            if order == 'Database Error':
+                return render_template("setup_count.html", form=manual_entry_form, employee_id=employee_id,
+                                       first_load=True, no_orders=False, database_connection_available=False,
+                                       general_order_error=False, wms_submit_error=wms_submit_unsuccessful)
+            elif order == 'No orders':
+                return render_template("setup_count.html", form=manual_entry_form, employee_id=employee_id,
+                                       first_load=True, no_orders=True, database_connection_available=True,
+                                       general_order_error=False, wms_submit_error=wms_submit_unsuccessful)
+            elif type(order) != list or len(order) is not 4:  # this indicates the return value is not a correct list, so there is some other error
+                return render_template("setup_count.html", form=manual_entry_form, employee_id=employee_id,
+                                       first_load=True, no_orders=False, database_connection_available=True,
+                                       general_order_error=True, wms_submit_error=wms_submit_unsuccessful)
+
+            # no errors
+            [MOVE_number_psoft, current_product_weight, current_weight_unit, current_target_qty] = order
+
             return redirect(url_for("count"))
 
         # this means that the manual entry form was incorrectly filled out, reload the page and show error messages
         else:
-            return render_template("enter_barcode.html", form=manual_entry_form, employee_id=employee_id)
+            return render_template("setup_count.html", form=manual_entry_form, employee_id=employee_id,
+                                   first_load=False, no_orders=False, database_connection_available=True,
+                                   general_order_error=False, wms_submit_error=wms_submit_unsuccessful)
 
     # else if user reached route via GET (as after completing the count)
     elif request.method == "GET":
-        return render_template("enter_barcode.html", form=manual_entry_form, employee_id=employee_id, first_load=True)
+        return render_template("setup_count.html", form=manual_entry_form, employee_id=employee_id, first_load=True,
+                               no_orders=False, database_connection_available=True,
+                               general_order_error=False, wms_submit_error=wms_submit_unsuccessful)
 
     # this should not be reachable
     else:
-        return render_template("enter_barcode.html", form=manual_entry_form, employee_id=employee_id)
+        return render_template("setup_count.html", form=manual_entry_form, employee_id=employee_id, no_orders=False,
+                               database_connection_available=True,
+                               general_order_error=False, wms_submit_error=wms_submit_unsuccessful)
 
 
 # set up website for the actual counting process
 @app.route("/count", methods=["GET", "POST"])
 def count():
+    global wms_submit_unsuccessful
 
     # check credentials have been entered
     if not employee_id:
@@ -188,17 +230,21 @@ def count():
 
     # if user completed count
     if request.method == "POST":
-
+        global manual_order
         # check whether the count was completed successfully, if submit_condition is 0, the count was cancelled,
-        # otherwise it was completed
-        submit_condition = request.form.get("wms_submit")
-        if submit_condition == "1":
-
-            # call the function to submit completed count to the WMS
-            submit_to_wms(MOVE_number_psoft)
+        # otherwise it was completed. Also do not submit manual orders
+        submit_condition = request.form.get("count_complete")
+        if submit_condition == "1" and not manual_order:
+            # call the function to submit completed count to the WMS and check whether an error message is needed
+            submit_return_val = submit_to_wms(MOVE_number_psoft)
+            if not submit_return_val:
+                wms_submit_unsuccessful = True
+            else:
+                wms_submit_unsuccessful = False
 
         # redirect user to page to retrieve next order
-        return redirect(url_for("enter_product_number"))
+        manual_order = False
+        return redirect(url_for("setup_count"))
 
     # else if user reached route via GET (after entering the product barcode or retrieving order)
     else:
@@ -213,13 +259,14 @@ def count():
 # target has been reached
 @app.route("/check_weight")
 def check_weight():
-
     # ensure credentials are correctly set
     if not employee_id:
         return redirect(url_for("begin"))
 
     # retrieve the current weight, and calculate the current count
     current_reading = accurate_reading(current_weight_unit)
+    if current_reading == 'Not connected':
+        return jsonify('Not connected')
     current_count = current_reading / current_product_weight
 
     # counting status is -1 if the count is under, 0 if its correct, 1 if its over
@@ -231,7 +278,7 @@ def check_weight():
         counting_status = 1
 
     # prepare info for the json request, for more info on JSON and AJAX:
-    # https://flask.palletsprojects.com/en/1.1.x/patterns/jquery/
+    # https://api.jquery.com/jQuery.getJSON/
     return_list = [round(current_count), current_reading, counting_status, current_weight_unit]
 
     # return data to json request page
@@ -239,4 +286,4 @@ def check_weight():
 
 
 # start up the application when python application.py is executed
-app.run()
+app.run(host=host_address)
