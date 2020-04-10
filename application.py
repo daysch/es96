@@ -190,7 +190,7 @@ def setup_count():
                 return render_template("setup_count.html", form=manual_entry_form, employee_id=employee_id,
                                        first_load=True, no_orders=True, database_connection_available=True,
                                        general_order_error=False, wms_submit_error=wms_submit_unsuccessful)
-            elif type(order) != list or len(order) is not 4:  # this indicates the return value is not a correct list, so there is some other error
+            elif type(order) != list or len(order) != 4:  # this indicates the return value is not a correct list, so there is some other error
                 return render_template("setup_count.html", form=manual_entry_form, employee_id=employee_id,
                                        first_load=True, no_orders=False, database_connection_available=True,
                                        general_order_error=True, wms_submit_error=wms_submit_unsuccessful)
