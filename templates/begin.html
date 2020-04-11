@@ -42,12 +42,20 @@
             <p class="errors">{% for error in form.dc_id.errors %}{{ error }}<br>{% endfor %}</p>
         {% endif %}
 
+        {% if not connection %}
+            <p class="errors">No connection to validate your credentials could be established</p>
+        {% endif %}
+
+        {% if not ID_found %}
+            <p class="errors">Your credentials are invalid</p>
+        {% endif %}
+
         <!-- submit button -->
         <div class="form-group">
             <button class="btn btn-dark btn-lg" type="submit" >Log In</button>
         </div>
 
-        <p class="mt-4 text-muted"> ES96 Harvard SEAS &copy; 2020</p>
+        <p class="mt-4 text-muted"> ES96 Harvard SEAS 2020</p>
 
     </form>
 

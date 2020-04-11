@@ -267,6 +267,8 @@ def check_weight():
     current_reading = accurate_reading(current_weight_unit)
     if current_reading == 'Not connected':
         return jsonify('Not connected')
+    if current_reading == 'Other error':
+        return jsonify('Other error in readScale()')
     current_count = current_reading / current_product_weight
 
     # counting status is -1 if the count is under, 0 if its correct, 1 if its over

@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Enter Barcode
+{% endblock %}
+
+<!-- create two separate forms, one for order retrieval and one for a manual input -->
+{% block main %}
+
+    <!-- set up form for retrieval, indicated by value="retrieve_order", which is requested in the python function
+    setup_count() using the name="count_type" -->
+    <form action="{{ url_for('setup_count') }}" method="post" class="p-2 mt-4">
+        <!-- only a submit button is required here -->
+        <div class="form-group">
+                <button class="btn btn-dark" type="submit" name="count_type" value="retrieve_order">Retrieve Current Order from WMS</button>
+        </div>
+    </form>
+    <p></p>
+    <!-- display message if no errors are available for this user, no connection is available, or some other error occurred -->
+    {% if no_orders %}
+        <p class="errors">You have no current orders assigned</p>
+    {% endif %}
+
+    {% if not database_connection_available %}
+        <p class="errors">No connection to the databases could be established</p>
+    {% endif %}
+
+    {% if general_order_error %}
+        <p class="errors">There has been an error retrieving your order</p>
+    {% endif %}
+
+    {% if wms_submit_error %}
+        <p class="errors">There has been an error submitting your last completed order to the WMS</p>
+    {% endif %}
+
+    <!-- create a separate form for manual submission, indicated by the value on the submit button which is "manual" -->
+    <form action="{{ url_for('setup_count') }}" method="post">
+        <fieldset>
+            <p class="count_titles"> Manual Input</p>
+
+            <!-- create inputs linked to the wtforms setup in python and show any errors,
+            more info: https://wtforms.readthedocs.io/en/stable/crash_course.html -->
+            <div class="form-group">{{ form.product_weight(class="form-control") }}</div>
+            {% if form.product_weight.errors and not first_load %}
+                <p class="errors">{% for error in form.product_weight.errors %}{{ error }}<br>{% endfor %}</p>
+            {% endif %}
+
+            <div class="form-group">{{ form.target_count(class="form-control") }}</div>
+            {% if form.target_count.errors and not first_load %}
+                <p class="errors">{% for error in form.target_count.errors %}{{ error }}<br>{% endfor %}</p>
+            {% endif %}
+
+            <div class="form-group">{{ form.weight_unit.label }}: {{ form.weight_unit(class="form-group") }}</div>
+            {% if form.weight_unit.errors and not first_load %}
+                <p class="errors">{% for error in form.weight_unit.errors %}{{ error }}<br>{% endfor %}</p>
+            {% endif %}
+
+            <!-- create submit button, indicating that the count_type is manual -->
+            <div class="form-group">
+                <button class="btn btn-dark" type="submit" name="count_type" value="manual">Start Counting using Manual Input</button>
+            </div>
+        </fieldset>
+    </form>
+
+{% endblock %}

@@ -59,7 +59,7 @@
             <!-- create a holder for later messages during the count -->
             <div id='count_messages'></div>
 
-            <!-- button to initiate the javascript counting process -->
+            <!-- checkbox to initiate the javascript counting process -->
             <div id="start_stop_buttons" class="checkbox">
                 <label for="confirm_tare" id="label_tare" class="confirm_tare">Click to confirm no product items are on scale <br> and that scale is tared and turned on</label><br>
                 <input type="checkbox" id="confirm_tare" name="confirm_tare">
@@ -72,7 +72,7 @@
     <form action="{{ url_for('count') }}" method="post" id="submit_form">
         <div class="form-group" id='buttons'>
             <!-- value = 0 indicates to the python script that the count was aborted -->
-            <button class="btn btn-dark" id="cancel_count" type="submit" name="wms_submit" value="0" >Cancel and Return to Barcode Input</button>
+            <button class="btn btn-dark" id="cancel_count" type="submit" name="count_complete" value="0" >Cancel and Return to Barcode Input</button>
         </div>
     </form>
     </div>

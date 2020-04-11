@@ -137,14 +137,11 @@ function confirm_check_box_clicked() {
 
 // this function submits the count to the python script, which can then communicate with the WMS
 function submit_to_wms() {
-    // remove the cancel button
-    document.getElementById("cancel_count").remove();
-
     // create a hidden field to contain a value that shows the python backend, that the count has been completed
     // the field is hidden to the user, since the type="hidden"
     hiddenField = document.createElement('input');
     hiddenField.type = 'hidden';
-    hiddenField.name = "wms_submit";
+    hiddenField.name = "count_complete";
     hiddenField.value = "1";
 
     // add the hidden field to the page in the lower part of the page
@@ -168,64 +165,102 @@ function retrieve_readings()
 
 // this function retrieves the current readings from the python backend, and recalls retrieve_readings when that is completed
 // if it cannot retrieve the readings it will display an error message to the user, since most errors in normal
-// operation are caused by incorrect scale setup, the message includes that
+// operation are caused by incorrect scale setup, the message shows that
 function update_displays()
 {
-    // get updated weight data from python backend, reflect this in the global variables
-    // this uses jquery. more info here: https://flask.palletsprojects.com/en/1.1.x/patterns/jquery/
+    // start getting updated weight data from python backend, reflect this in the global variables
+    // this uses jquery. more info here: https://api.jquery.com/jQuery.getJSON/
     weight_retrieval_in_process = 1
     $.getJSON("/check_weight")
 
     // when the info has been retrieved successfully, update the displays and recall the retrieve_readings function
     .done(function(data, textStatus, jqXHR) {
+    console.log(data)
 
-    // update current count and current weight, data[0] denotes the current count, data[1] indicates the current weight
-    //, data[3] indicates the current unit
-    if (data[0] == 1) {
-        document.getElementById("current_count").innerHTML=data[0] + " part";
-    } else {
-        document.getElementById("current_count").innerHTML=data[0] + " parts";
-    }
-    document.getElementById("current_weight").innerHTML=data[1] + " " + data[3];
-
-    // indicate whether count is complete after removing current count messages
-    try {
-            document.getElementById("count_status").remove();
-
-        } catch (err) {}
-
-    // if the count is too high
-    if (data[2] == 1) {
-        // creating and appending new count message & recall retrieve_readings() & indicate weight retrieval is complete
-        paragraph = document.createElement("p");
-        paragraph.setAttribute("id", "count_status");
-        paragraph.setAttribute("class", "count_over");
-        paragraph.innerHTML = "You have counted too many items";
-        document.getElementById("count_messages").appendChild(paragraph);
-        weight_retrieval_in_process = 0
-        retrieve_readings()
-
-    // if the count is correct
-    } else if (data[2] == 0) {
-        // creating and appending new count message
-        paragraph = document.createElement("p");
-        paragraph.setAttribute("id", "count_status");
-        paragraph.setAttribute("class", "count_right");
-        paragraph.innerHTML = "Count Complete!";
-        document.getElementById("count_messages").appendChild(paragraph);
-        weight_retrieval_in_process = 0
-        retrieve_readings()
-
-    // if the count is low
-    } else if (data[2] == -1) {
-        // creating and appending new count message
+    // check whether the scale is not connected
+    if (data == 'Not connected') {
         paragraph = document.createElement("p");
         paragraph.setAttribute("id", "count_status");
         paragraph.setAttribute("class", "count_low");
-        paragraph.innerHTML = "You have counted too few items";
+        paragraph.innerHTML = "Please check that the scale is connected and <br> turned on, and restart the count";
         document.getElementById("count_messages").appendChild(paragraph);
-        weight_retrieval_in_process = 0
-        retrieve_readings()
+
+        // create a new start button, add it and setup an event listener
+        document.getElementById('stop_button').remove()
+        button = document.createElement("button");
+        button.setAttribute("class", "btn btn-dark");
+        button.setAttribute("id", "start_button");
+        button.innerHTML = "Continue Count";
+        document.getElementById("start_stop_buttons").appendChild(button);
+        document.getElementById ("start_button").addEventListener ("click", start_button_clicked)
+        counting_process_active = 0
+        return 0
+    } else if (data='Other Error in readScale()') {
+        paragraph = document.createElement("p");
+        paragraph.setAttribute("id", "count_status");
+        paragraph.setAttribute("class", "count_low");
+        paragraph.innerHTML = "There has been an error connecting to the scale <br> please refer to a supervisor";
+        document.getElementById("count_messages").appendChild(paragraph);
+
+        // create a new start button, add it and setup an event listener
+        document.getElementById('stop_button').remove()
+        button = document.createElement("button");
+        button.setAttribute("class", "btn btn-dark");
+        button.setAttribute("id", "start_button");
+        button.innerHTML = "Continue Count";
+        document.getElementById("start_stop_buttons").appendChild(button);
+        document.getElementById ("start_button").addEventListener ("click", start_button_clicked)
+        counting_process_active = 0
+    } else {
+
+        // update current count and current weight, data[0] denotes the current count, data[1] indicates the current weight
+        //, data[3] indicates the current unit
+        if (data[0] == 1) {
+            document.getElementById("current_count").innerHTML=data[0] + " part";
+        } else {
+            document.getElementById("current_count").innerHTML=data[0] + " parts";
+        }
+        document.getElementById("current_weight").innerHTML=data[1] + " " + data[3];
+
+        // indicate whether count is complete after removing current count messages
+        try {
+                document.getElementById("count_status").remove();
+
+            } catch (err) {}
+
+        // if the count is too high
+        if (data[2] == 1) {
+            // creating and appending new count message & recall retrieve_readings() & indicate weight retrieval is complete
+            paragraph = document.createElement("p");
+            paragraph.setAttribute("id", "count_status");
+            paragraph.setAttribute("class", "count_over");
+            paragraph.innerHTML = "You have counted too many items";
+            document.getElementById("count_messages").appendChild(paragraph);
+            weight_retrieval_in_process = 0
+            retrieve_readings()
+
+        // if the count is correct
+        } else if (data[2] == 0) {
+            // creating and appending new count message
+            paragraph = document.createElement("p");
+            paragraph.setAttribute("id", "count_status");
+            paragraph.setAttribute("class", "count_right");
+            paragraph.innerHTML = "Count Complete!";
+            document.getElementById("count_messages").appendChild(paragraph);
+            weight_retrieval_in_process = 0
+            retrieve_readings()
+
+        // if the count is low
+        } else if (data[2] == -1) {
+            // creating and appending new count message
+            paragraph = document.createElement("p");
+            paragraph.setAttribute("id", "count_status");
+            paragraph.setAttribute("class", "count_low");
+            paragraph.innerHTML = "You have counted too few items";
+            document.getElementById("count_messages").appendChild(paragraph);
+            weight_retrieval_in_process = 0
+            retrieve_readings()
+            }
         }
 
 
@@ -241,7 +276,7 @@ function update_displays()
             paragraph = document.createElement("p");
             paragraph.setAttribute("id", "count_status");
             paragraph.setAttribute("class", "count_low");
-            paragraph.innerHTML = "Please check that the scale is connected and <br> turned on, and restart the count";
+            paragraph.innerHTML = "There has been an error retrieving the current reading, please check the documentation";
             document.getElementById("count_messages").appendChild(paragraph);
 
             // create a new start button, add it and setup an event listener
@@ -252,6 +287,7 @@ function update_displays()
             button.innerHTML = "Continue Count";
             document.getElementById("start_stop_buttons").appendChild(button);
             document.getElementById ("start_button").addEventListener ("click", start_button_clicked)
+            counting_process_active = 0
         }
         return 0
     });
