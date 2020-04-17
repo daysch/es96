@@ -1,4 +1,4 @@
-def retrieve_order(scanner_id):
+def retrieve_order(scanner_id, cursor):
     try:
         getdata = 0
     except:

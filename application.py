@@ -11,6 +11,7 @@ from barcode2OrderQuantity import *
 from submit_to_wms import *
 from check_employee_id import *
 from retrieve_order import *
+from SetupConn import *
 
 # Configure application see here for details:
 # https://flask.palletsprojects.com/en/0.12.x/quickstart/#a-minimal-application
@@ -34,6 +35,9 @@ dc_id = 0
 
 # these variables are used to indicate error messages, if the submission to the WMS was impossible
 wms_submit_unsuccessful = False
+
+# here we setup the connection to the WMS. this cursor object can later be used to retrieve data from the databases
+wms_cursor = setup_conn()
 
 
 # classes for the form validation
@@ -101,7 +105,7 @@ def begin():
         employee_id = login_form.employee_id_wtf.data
         scanner_id = login_form.rf_scanner_id_wtf.data
         dc_id = login_form.dc_id.data
-        check_id_val = check_employee_id(employee_id, scanner_id, dc_id)
+        check_id_val = check_employee_id(employee_id, scanner_id, dc_id, wms_cursor)
 
         # check whether the employee id is correct using wms system and matches rf id and dc id
         if check_id_val != 'successful':
@@ -179,7 +183,7 @@ def setup_count():
         if count_type == "retrieve_order":
             # get the required info from the WMS
             global MOVE_number_psoft
-            order = retrieve_order(scanner_id)
+            order = retrieve_order(scanner_id, wms_cursor)
 
             # check whether there are any errors with the request
             if order == 'Database Error':
