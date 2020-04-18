@@ -1,10 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="864cc3bb-a6e5-46ec-bb44-6738a3f05a02" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/es96.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/es96.iml" afterDir="false" />
+    <list default="true" id="864cc3bb-a6e5-46ec-bb44-6738a3f05a02" name="Default Changelist" comment="setup connection to sager's db">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SetupConn.py" beforeDir="false" afterPath="$PROJECT_DIR$/SetupConn.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WMS_errros_caught/SetupConn.py" beforeDir="false" afterPath="$PROJECT_DIR$/WMS_errros_caught/SetupConn.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WMS_errros_caught/check_employee_id.py" beforeDir="false" afterPath="$PROJECT_DIR$/WMS_errros_caught/check_employee_id.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_sql_queries.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_sql_queries.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,7 +49,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../es961" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Python.SetupConn">
+  <component name="RunManager" selected="Python.application">
     <configuration name="SetupConn" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="es96" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -74,8 +94,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.SetupConn" />
         <item itemvalue="Python.application" />
+        <item itemvalue="Python.SetupConn" />
       </list>
     </recent_temporary>
   </component>
@@ -174,11 +194,29 @@
       <option name="project" value="LOCAL" />
       <updated>1586108334961</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="setup connection to sager's db">
+      <created>1587122202401</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1587122202401</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="UnknownFeatures">
     <option featureType="com.intellij.fileTypeFactory" implementationName="*.js" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="non-testing app.py uncomment" />
@@ -188,7 +226,8 @@
     <MESSAGE value="small js change" />
     <MESSAGE value="uncomment scale testing lines" />
     <MESSAGE value="minor css changes to count page" />
-    <option name="LAST_COMMIT_MESSAGE" value="minor css changes to count page" />
+    <MESSAGE value="setup connection to sager's db" />
+    <option name="LAST_COMMIT_MESSAGE" value="setup connection to sager's db" />
   </component>
   <component name="WindowStateProjectService">
     <state x="344" y="52" key="CommitChangelistDialog2" timestamp="1586108334790">
@@ -200,38 +239,43 @@
     </state>
     <state x="488" y="150" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1587109418077" />
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1585135899904" />
-    <state width="1345" height="182" key="GridCell.Tab.0.bottom" timestamp="1587121011027">
+    <state width="1345" height="182" key="GridCell.Tab.0.bottom" timestamp="1587142809013">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1345" height="182" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1587121011027" />
+    <state width="1345" height="182" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1587142809013" />
     <state width="1419" height="243" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1586108607465" />
-    <state width="1345" height="182" key="GridCell.Tab.0.center" timestamp="1587121011027">
+    <state width="1345" height="182" key="GridCell.Tab.0.center" timestamp="1587142809013">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1345" height="182" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1587121011027" />
+    <state width="1345" height="182" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1587142809013" />
     <state width="1419" height="243" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1586108607464" />
-    <state width="1345" height="182" key="GridCell.Tab.0.left" timestamp="1587121011027">
+    <state width="1345" height="182" key="GridCell.Tab.0.left" timestamp="1587142809013">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1345" height="182" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1587121011027" />
+    <state width="1345" height="182" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1587142809013" />
     <state width="1419" height="243" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1586108607464" />
-    <state width="1345" height="182" key="GridCell.Tab.0.right" timestamp="1587121011027">
+    <state width="1345" height="182" key="GridCell.Tab.0.right" timestamp="1587142809013">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1345" height="182" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1587121011027" />
+    <state width="1345" height="182" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1587142809013" />
     <state width="1419" height="243" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1586108607464" />
+    <state x="0" y="28" width="1345" height="626" key="MergeDialog" timestamp="1587206101950">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="0" y="28" width="1345" height="626" key="MergeDialog/0.0.1366.738@0.0.1366.738" timestamp="1587206101950" />
     <state x="431" y="173" key="MultipleFileMergeDialog" timestamp="1585599457135">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="431" y="173" key="MultipleFileMergeDialog/0.0.1440.900@0.0.1440.900" timestamp="1585599457135" />
-    <state x="218" y="0" key="SettingsEditor" timestamp="1587120580142">
+    <state x="218" y="0" key="SettingsEditor" timestamp="1587122860539">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="218" y="0" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1587120580142" />
+    <state x="218" y="0" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1587122860539" />
     <state x="132" y="74" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1586160768007" />
-    <state x="320" y="190" key="Vcs.Push.Dialog.v2" timestamp="1586108344268">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state x="304" y="156" key="Vcs.Push.Dialog.v2" timestamp="1587122292797">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
+    <state x="304" y="156" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1587122292797" />
     <state x="320" y="190" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1586108344268" />
     <state x="503" y="374" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1585559437523">
       <screen x="0" y="0" width="1440" height="900" />
