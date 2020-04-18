@@ -1,10 +1,10 @@
 def retrieve_order(scanner_id):
-    # this function will only be called with a nonzero cursor
     try:
         getdata = 0
     except:
         # if there is a retrieval error
         return 'Retrieval Error'
+    # return 'No connection' if no connetion could be established
 
     # if no orders are available
     # return 'No orders'

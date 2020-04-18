@@ -1,7 +1,7 @@
 def submit_to_wms(MOVE_number):
-    # this funcion will only be called with a nonzero cursor
     if MOVE_number != 0:
         # do stuff here
+        # return 'No connection' if no connetion could be established
 
         pass
         # if cursor is None:
