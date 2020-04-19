@@ -36,12 +36,6 @@ dc_id = 0
 # these variables are used to indicate error messages, if the submission to the WMS was impossible
 wms_submit_unsuccessful = False
 
-# here we setup the connection to the WMS. this cursor object can later be used to retrieve data from the databases
-wms_cursor = setup_conn(None)
-connection_established = False
-if wms_cursor:
-    connection_established = True
-
 
 # classes for the form validation
 class employee_login(FlaskForm):
