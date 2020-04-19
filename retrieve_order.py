@@ -1,9 +1,10 @@
-def retrieve_order(scanner_id, cursor):
+def retrieve_order(scanner_id):
     try:
         getdata = 0
     except:
-        print("database connection impossible")
-        return 'Database Error'
+        # if there is a retrieval error
+        return 'Retrieval Error'
+    # return 'No connection' if no connetion could be established
 
     # if no orders are available
     # return 'No orders'
