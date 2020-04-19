@@ -36,9 +36,6 @@ dc_id = 0
 # these variables are used to indicate error messages, if the submission to the WMS was impossible
 wms_submit_unsuccessful = False
 
-# here we setup the connection to the WMS. this cursor object can later be used to retrieve data from the databases
-wms_cursor = setup_conn()
-
 
 # classes for the form validation
 class employee_login(FlaskForm):
@@ -105,7 +102,8 @@ def begin():
         employee_id = login_form.employee_id_wtf.data
         scanner_id = login_form.rf_scanner_id_wtf.data
         dc_id = login_form.dc_id.data
-        check_id_val = check_employee_id(employee_id, scanner_id, dc_id, wms_cursor)
+
+        check_id_val = check_employee_id(employee_id, scanner_id, dc_id)
 
         # check whether the employee id is correct using wms system and matches rf id and dc id
         if check_id_val != 'successful':
@@ -113,12 +111,18 @@ def begin():
             scanner_id = 0
             dc_id = 0
 
-            if check_id_val == 'no connection':
+            if check_id_val=='No connection':
                 return render_template("begin.html", form=login_form, first_load=True, employee_id=employee_id,
-                                       connection=False, ID_found=True)
-            if check_id_val == 'employee not found':
+                                       connection=False, ID_not_found=False, retrieval_error=False, gen_error=False)
+            elif check_id_val == 'employee not found':
                 return render_template("begin.html", form=login_form, first_load=True, employee_id=employee_id,
-                                       connection=True, ID_found=False)
+                                       connection=True, ID_found=False, retrieval_error=False, gen_error=False)
+            elif check_id_val == 'Retrieval Error':
+                return render_template("begin.html", form=login_form, first_load=True, employee_id=employee_id,
+                                       connection=True, ID_not_found=False, retrieval_error=True, gen_error=False)
+            else:
+                return render_template("begin.html", form=login_form, first_load=True, employee_id=employee_id,
+                                       connection=True, ID_not_found=False, retrieval_error=False, gen_error=True)
 
         # if the credentials are correct, redirect to the next page to start order selection
         return redirect(url_for("setup_count"))
@@ -130,7 +134,7 @@ def begin():
         # flash is a way of showing messages to the user, they are not necessary, but can be helpful
         flash("Please login")
         return render_template("begin.html", form=login_form, first_load=False, employee_id=employee_id,
-                               connection=True, ID_found=True)
+                               connection=True, ID_not_found=False, retrieval_error=False, gen_error=False)
 
     # else if user reached route via GET (after logging out), first_load shows the html to hide wtforms errors
     else:
@@ -143,7 +147,7 @@ def begin():
         dc_id = 0
         wms_submit_unsuccessful = False
         return render_template("begin.html", form=login_form, first_load=True, employee_id=employee_id,
-                               connection=True, ID_found=True)
+                               connection=True, ID_not_found=False, retrieval_error=False, gen_error=False)
 
 
 # this page is intended to set up the counting process, by either retrieving the current order, or entering a manual
@@ -181,22 +185,35 @@ def setup_count():
 
         # if the user clicked the button to retrieve the order on their RF scanner
         if count_type == "retrieve_order":
-            # get the required info from the WMS
+
+            # get the required info from the WMS, but only try, if the cursor in nonzero
             global MOVE_number_psoft
-            order = retrieve_order(scanner_id, wms_cursor)
+
+            order = retrieve_order(scanner_id)
+
+            # get the required info from the WMS, but only try, if the cursor in nonzero
+            if order == 'No connection':
+                return render_template("setup_count.html", form=manual_entry_form, employee_id=employee_id,
+                                        first_load=True, no_orders=False, database_connection_available=False,
+                                       data_base_retrieval_error=False, general_order_error=False,
+                                       wms_submit_error=wms_submit_unsuccessful)
 
             # check whether there are any errors with the request
-            if order == 'Database Error':
+            elif order=='Retrieval Error':
                 return render_template("setup_count.html", form=manual_entry_form, employee_id=employee_id,
-                                       first_load=True, no_orders=False, database_connection_available=False,
+                                       first_load=True, no_orders=True, database_connection_available=True,
+                                       data_base_retrieval_error=True,
                                        general_order_error=False, wms_submit_error=wms_submit_unsuccessful)
             elif order == 'No orders':
                 return render_template("setup_count.html", form=manual_entry_form, employee_id=employee_id,
                                        first_load=True, no_orders=True, database_connection_available=True,
+                                       data_base_retrieval_error=False,
                                        general_order_error=False, wms_submit_error=wms_submit_unsuccessful)
-            elif type(order) != list or len(order) != 4:  # this indicates the return value is not a correct list, so there is some other error
+            elif type(order) != list or len(order) != 4:  # this indicates the return value is not a correct list,
+                # so there is some other error
                 return render_template("setup_count.html", form=manual_entry_form, employee_id=employee_id,
                                        first_load=True, no_orders=False, database_connection_available=True,
+                                       data_base_retrieval_error=False,
                                        general_order_error=True, wms_submit_error=wms_submit_unsuccessful)
 
             # no errors
@@ -207,19 +224,23 @@ def setup_count():
         # this means that the manual entry form was incorrectly filled out, reload the page and show error messages
         else:
             return render_template("setup_count.html", form=manual_entry_form, employee_id=employee_id,
-                                   first_load=False, no_orders=False, database_connection_available=True,
+                                   first_load=False, no_orders=False,
+                                   database_connection_available=True,
+                                   data_base_retrieval_error=False,
                                    general_order_error=False, wms_submit_error=wms_submit_unsuccessful)
 
     # else if user reached route via GET (as after completing the count)
     elif request.method == "GET":
         return render_template("setup_count.html", form=manual_entry_form, employee_id=employee_id, first_load=True,
                                no_orders=False, database_connection_available=True,
+                               data_base_retrieval_error=False,
                                general_order_error=False, wms_submit_error=wms_submit_unsuccessful)
 
     # this should not be reachable
     else:
         return render_template("setup_count.html", form=manual_entry_form, employee_id=employee_id, no_orders=False,
                                database_connection_available=True,
+                               data_base_retrieval_error=False, first_load=False,
                                general_order_error=False, wms_submit_error=wms_submit_unsuccessful)
 
 
@@ -240,7 +261,9 @@ def count():
         submit_condition = request.form.get("count_complete")
         if submit_condition == "1" and not manual_order:
             # call the function to submit completed count to the WMS and check whether an error message is needed
-            submit_return_val = submit_to_wms(MOVE_number_psoft)
+            submit_return_val = submit_to_wms(MOVE_number_psoft,)
+
+            # evaluate whether submission was successful and create indicator to be shown on the setup_count page
             if not submit_return_val:
                 wms_submit_unsuccessful = True
             else:
