@@ -14,22 +14,24 @@ https://retentionscience.zendesk.com/hc/en-us/articles/115003025814-How-To-Build
         <link href="{{ url_for('static', filename='sagerlogo.png') }}" rel="icon">
 
         <!-- documentation at http://getbootstrap.com/docs/4.1/, alternative themes at https://bootswatch.com/ -->
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="{{ url_for('static', filename='bootstrap_css.css') }}" rel="stylesheet"/>
 
-        <!-- link for navbar icon -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+        <!-- link for navbar icon "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='ajax_css.css') }}" />
 
         <!-- link css stylesheet (only for visual improvements -->
         <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet" />
 
-        <!-- link to jquery backend to enable javascript on counting page and bootstrap -->
-        <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        <!-- link to jquery backend to enable javascript on counting page and bootstrap "https://code.jquery.com/jquery-latest.min.js"
+        "https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"-->
+        <script src="{{ url_for('static', filename='jquery_latest.js') }}"></script>
+        <script src="{{ url_for('static', filename='bootstrap_js.js') }}"></script>
 
-        <!-- include source code for typeahead: https://github.com/corejavascript/typeahead.js/blob/master/doc/jquery_typeahead.md -->
-        <script src="https://cdn.rawgit.com/corejavascript/typeahead.js/master/dist/typeahead.jquery.js"></script>
-        <!-- http://handlebarsjs.com/ -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+        <!-- include source code for typeahead: https://github.com/corejavascript/typeahead.js/blob/master/doc/jquery_typeahead.md
+        "https://cdn.rawgit.com/corejavascript/typeahead.js/master/dist/typeahead.jquery.js"-->
+        <script src="{{ url_for('static', filename='typeahead_backend.js') }}"></script>
+        <!-- http://handlebarsjs.com/ "https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"-->
+        <script src="{{ url_for('static', filename='handlebars_backend.js') }}"></script>
 
         <title>ES96 counting: {% block title %}{% endblock %}</title>
 
