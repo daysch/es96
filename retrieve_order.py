@@ -1,4 +1,4 @@
-def retrieve_specific_order_info(scanner_id, psoft_id):
+def retrieve_specific_order_info(scanner_id, order_id):
     try:
         getdata = 0
     except:
