@@ -24,7 +24,7 @@ host_address = '127.0.0.1'
 Session(app)
 
 # store these as global variables and update later
-MOVE_number_psoft = 0
+psoft_id = 0
 current_target_qty = 0
 current_product_weight = 0
 current_weight_unit = 0
@@ -32,6 +32,7 @@ manual_order = False
 employee_id = 0
 scanner_id = 0
 dc_id = 0
+all_current_orders_at_location = []
 
 # these variables are used to indicate error messages, if the submission to the WMS was impossible
 wms_submit_unsuccessful = False
@@ -78,8 +79,21 @@ class manual_entry(FlaskForm):
     submit = SubmitField("Submit")
 
 
-# Define confidence interval (the percentage of the weight within which you want the desired scale reading)
-within_target_count = 0.5  # this means that if the count is within .5 of the target, the count is assumed to be
+# this label creates an input such that the employee can enter the Psoft number they are currently picking for
+class enter_psoft_current_order(FlaskForm):
+    style_psoft = {'class': 'form-control', 'autofocus': 'true', 'id': 'q',
+                   'placeholder': 'Enter current Psoft # and select', 'autocomplete':"off"} # turn off autocomplete
+                                                                                            # to not have any
+                                                                                            # suggestions on type ahead
+    psoft_label = IntegerField("RF Scanner ID ",
+                               [NumberRange(min=0, max=10 ** 10, message="This ID is too long or too short")],
+                               render_kw=style_psoft)
+    submit = SubmitField("Submit")
+
+
+# this means that if the count is within .5 (e.g. 3.4 is acutal count, when target count is 3) of the target,
+# the count is assumed to be correct
+within_target_count = 0.5
 
 
 # see https://flask.palletsprojects.com/en/0.12.x/quickstart/#a-minimal-application for more info on the function
@@ -111,7 +125,7 @@ def begin():
             scanner_id = 0
             dc_id = 0
 
-            if check_id_val=='No connection':
+            if check_id_val == 'No connection':
                 return render_template("begin.html", form=login_form, first_load=True, employee_id=employee_id,
                                        connection=False, ID_not_found=False, retrieval_error=False, gen_error=False)
             elif check_id_val == 'employee not found':
@@ -156,92 +170,101 @@ def begin():
 def setup_count():
     # set up the manual order form, again no csrf token, info here: https://flask-wtf.readthedocs.io/en/latest/csrf.html
     manual_entry_form = manual_entry(meta={'csrf': False})
+    psoft_label_form = enter_psoft_current_order(meta={'csrf': False})
 
     # ensure user credentials are validated
     if not employee_id:
         return redirect(url_for("begin"))
 
-    # if user filled out the manual entry form
-    if manual_entry_form.validate_on_submit():
-        # retrieve data from submission form and redefine global variables
-        global current_weight_unit
-        global current_product_weight
-        global current_target_qty
-        global manual_order
-
-        current_weight_unit = manual_entry_form.weight_unit.data
-        current_product_weight = manual_entry_form.product_weight.data
-        current_target_qty = manual_entry_form.target_count.data
-        manual_order = True
-
-        # lead the user to the actual count site
-        return redirect(url_for("count"))
-
-    # if the user submitted just the button
+    # if some submission happened
     if request.method == "POST":
 
-        # determine whether a manual order is placed, or whether an order is retrieved
-        count_type = request.form.get("count_type")
+        # checking whether both forms were filled out, in that case, show error message to user
+        if manual_entry_form.validate_on_submit() and psoft_label_form.validate_on_submit():
+            return render_template("setup_count.html", manual_form=manual_entry_form,
+                                   psoft_form=psoft_label_form, employee_id=employee_id,
+                                   first_load=True, both_forms_filled_out=True,
+                                   wms_submit_error=wms_submit_unsuccessful)
 
-        # if the user clicked the button to retrieve the order on their RF scanner
-        if count_type == "retrieve_order":
+        # if user filled out the manual entry form
+        if manual_entry_form.validate_on_submit():
+            # retrieve data from submission form and redefine global variables
+            global current_weight_unit
+            global current_product_weight
+            global current_target_qty
+            global manual_order
 
-            # get the required info from the WMS, but only try, if the cursor in nonzero
-            global MOVE_number_psoft
+            current_weight_unit = manual_entry_form.weight_unit.data
+            current_product_weight = manual_entry_form.product_weight.data
+            current_target_qty = manual_entry_form.target_count.data
+            manual_order = True
 
-            order = retrieve_order(scanner_id)
+            # lead the user to the actual count site
+            return redirect(url_for("count"))
 
-            # get the required info from the WMS, but only try, if the cursor in nonzero
+        # if the user submitted just the psoft ID, this means they are trying to retrieve the order they are picking for
+        if psoft_label_form.validate_on_submit():
+
+            # retrieve the entered psoft number
+            global psoft_id
+            psoft_id = psoft_label_form.psoft_label.data
+
+            # get the required info from the WMS
+            order = retrieve_specific_order_info(scanner_id, psoft_id)
+
+            # if no connection to the database could be established
             if order == 'No connection':
-                return render_template("setup_count.html", form=manual_entry_form, employee_id=employee_id,
-                                        first_load=True, no_orders=False, database_connection_available=False,
-                                       data_base_retrieval_error=False, general_order_error=False,
-                                       wms_submit_error=wms_submit_unsuccessful)
+                return render_template("setup_count.html", manual_form=manual_entry_form,
+                                       psoft_form=psoft_label_form, employee_id=employee_id,
+                                       database_connection_unavailable=True,
+                                       first_load=True, wms_submit_error=wms_submit_unsuccessful)
 
-            # check whether there are any errors with the request
-            elif order=='Retrieval Error':
-                return render_template("setup_count.html", form=manual_entry_form, employee_id=employee_id,
-                                       first_load=True, no_orders=True, database_connection_available=True,
-                                       data_base_retrieval_error=True,
-                                       general_order_error=False, wms_submit_error=wms_submit_unsuccessful)
+            # check whether there are any errors with the retrieval
+            elif order == 'Retrieval Error':
+                return render_template("setup_count.html", manual_form=manual_entry_form,
+                                       psoft_form=psoft_label_form, employee_id=employee_id,
+                                       first_load=True, retrieval_error=True, wms_submit_error=wms_submit_unsuccessful)
+
+            # if no errors are assigned to the location
             elif order == 'No orders':
-                return render_template("setup_count.html", form=manual_entry_form, employee_id=employee_id,
-                                       first_load=True, no_orders=True, database_connection_available=True,
-                                       data_base_retrieval_error=False,
-                                       general_order_error=False, wms_submit_error=wms_submit_unsuccessful)
-            elif type(order) != list or len(order) != 4:  # this indicates the return value is not a correct list,
-                # so there is some other error
-                return render_template("setup_count.html", form=manual_entry_form, employee_id=employee_id,
-                                       first_load=True, no_orders=False, database_connection_available=True,
-                                       data_base_retrieval_error=False,
+                return render_template("setup_count.html", manual_form=manual_entry_form,
+                                       psoft_form=psoft_label_form, employee_id=employee_id,
+                                       first_load=True, no_orders=True, wms_submit_error=wms_submit_unsuccessful)
+
+            # this indicates the return value is not a correct list, so there is some other error
+            elif type(order) != list or len(order) != 4:
+                return render_template("setup_count.html", manual_form=manual_entry_form,
+                                       psoft_form=psoft_label_form, employee_id=employee_id,
+                                       first_load=True,
                                        general_order_error=True, wms_submit_error=wms_submit_unsuccessful)
 
             # no errors
-            [MOVE_number_psoft, current_product_weight, current_weight_unit, current_target_qty] = order
+            [psoft_id, current_product_weight, current_weight_unit, current_target_qty] = order
 
             return redirect(url_for("count"))
 
         # this means that the manual entry form was incorrectly filled out, reload the page and show error messages
         else:
-            return render_template("setup_count.html", form=manual_entry_form, employee_id=employee_id,
-                                   first_load=False, no_orders=False,
-                                   database_connection_available=True,
-                                   data_base_retrieval_error=False,
-                                   general_order_error=False, wms_submit_error=wms_submit_unsuccessful)
+            return render_template("setup_count.html", manual_form=manual_entry_form,
+                                   psoft_form=psoft_label_form, employee_id=employee_id,
+                                   first_load=False, wms_submit_error=wms_submit_unsuccessful)
 
     # else if user reached route via GET (as after completing the count)
-    elif request.method == "GET":
-        return render_template("setup_count.html", form=manual_entry_form, employee_id=employee_id, first_load=True,
-                               no_orders=False, database_connection_available=True,
-                               data_base_retrieval_error=False,
-                               general_order_error=False, wms_submit_error=wms_submit_unsuccessful)
-
-    # this should not be reachable
     else:
-        return render_template("setup_count.html", form=manual_entry_form, employee_id=employee_id, no_orders=False,
-                               database_connection_available=True,
-                               data_base_retrieval_error=False, first_load=False,
-                               general_order_error=False, wms_submit_error=wms_submit_unsuccessful)
+
+        # update the current orders for typeahead.
+        global all_current_orders_at_location
+        all_current_orders_at_location = retrieve_all_order_ids(scanner_id)
+        if all_current_orders_at_location == 'General Error':
+            return render_template("setup_count.html", manual_form=manual_entry_form, all_order_retrieval_error=True,
+                                   psoft_form=psoft_label_form, employee_id=employee_id, first_load=True,
+                                   wms_submit_error=wms_submit_unsuccessful)
+
+
+        # return html
+        return render_template("setup_count.html", manual_form=manual_entry_form,
+                               psoft_form=psoft_label_form, employee_id=employee_id, first_load=True,
+                               wms_submit_error=wms_submit_unsuccessful)
 
 
 # set up website for the actual counting process
@@ -261,7 +284,7 @@ def count():
         submit_condition = request.form.get("count_complete")
         if submit_condition == "1" and not manual_order:
             # call the function to submit completed count to the WMS and check whether an error message is needed
-            submit_return_val = submit_to_wms(MOVE_number_psoft,)
+            submit_return_val = submit_to_wms(psoft_id)
 
             # evaluate whether submission was successful and create indicator to be shown on the setup_count page
             if not submit_return_val:
@@ -312,6 +335,43 @@ def check_weight():
 
     # return data to json request page
     return jsonify(return_list)
+
+# this function serves the javascript on /setup_count, it compares the id entered so far with all the ids at the
+# current location, and returns the matches
+@app.route("/get_ids")
+def get_ids():
+
+    # ensure credentials are correctly set
+    if not employee_id:
+        return redirect(url_for("begin"))
+
+    # retrieve the id entered so far
+    start_id = request.args.get("q")
+    return_ids = []
+
+    # if no orders could be retrieved
+    if type(all_current_orders_at_location) != list:
+        return jsonify({'psoft_id': 'no orders available, check command line'})
+
+    # check which ids start the same as the id entered so far
+    for current_id in all_current_orders_at_location:
+
+        # split the current_id into chunks with the same length of the input so far
+        len_chunks = len(start_id)
+
+        # convert the integer current_id to a string
+        current_id = str(current_id)
+
+        # split current id into chunks of same length as the input supplied, iterating though all digits in current_id
+        chunks = set([current_id[i:i + len_chunks] for i in range(0, len(current_id)-len_chunks+1)])
+
+        if start_id in chunks:
+            return_ids.append({'psoft_id': current_id})
+
+    # prepare info for the json request, for more info on JSON and AJAX:
+    # https://api.jquery.com/jQuery.getJSON/
+    # return data to json request page
+    return jsonify(return_ids)
 
 
 # start up the application when python application.py is executed

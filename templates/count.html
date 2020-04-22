@@ -1,10 +1,12 @@
-<!-- import the javascript to run on this site -->
-<script src='/static/scripts.js'></script>
-
 {% extends "layout.html" %}
 
 {% block title %}
     Counting
+{% endblock %}
+
+<!-- import the javascript to run on this site -->
+{% block javascript %}
+<script src='/static/count.js'></script>
 {% endblock %}
 
 {% block main %}

@@ -23,15 +23,22 @@ https://retentionscience.zendesk.com/hc/en-us/articles/115003025814-How-To-Build
         <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet" />
 
         <!-- link to jquery backend to enable javascript on counting page and bootstrap -->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://code.jquery.com/jquery-latest.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
+        <!-- include source code for typeahead: https://github.com/corejavascript/typeahead.js/blob/master/doc/jquery_typeahead.md -->
+        <script src="https://cdn.rawgit.com/corejavascript/typeahead.js/master/dist/typeahead.jquery.js"></script>
+        <!-- http://handlebarsjs.com/ -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+
         <title>ES96 counting: {% block title %}{% endblock %}</title>
+
+        <!-- enable page specific javascript -->
+        {%block javascript%}{% endblock %}
 
     </head>
 
     <body class="bg-light">
-
 
         <!-- this sets up a framework to hold the flashed messages -->
         {% if get_flashed_messages() %}

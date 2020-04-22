@@ -43,10 +43,18 @@
         {% endif %}
 
         {% if not connection %}
-            <p class="errors">No connection to validate your credentials could be established</p>
+            <p class="errors">No connection to the databases could be established</p>
         {% endif %}
 
-        {% if not ID_found %}
+        {% if retrieval_error %}
+            <p class="errors">We could establish a database connection, but there was an error retrieving your data</p>
+        {% endif %}
+
+        {% if gen_error %}
+            <p class="errors">There has been a general error, please check the command window</p>
+        {% endif %}
+
+        {% if ID_not_found %}
             <p class="errors">Your credentials are invalid</p>
         {% endif %}
 

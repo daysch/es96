@@ -1,5 +1,10 @@
 {% extends "layout.html" %}
 
+<!-- app's own JavaScript -->
+{% block javascript %}
+<script src="{{ url_for('static', filename='setup_count.js') }}"></script>
+{% endblock %}
+
 {% block title %}
     Enter Barcode
 {% endblock %}
@@ -7,22 +12,34 @@
 <!-- create two separate forms, one for order retrieval and one for a manual input -->
 {% block main %}
 
-    <!-- set up form for retrieval, indicated by value="retrieve_order", which is requested in the python function
-    setup_count() using the name="count_type" -->
+    <!-- set up form for retrieval, where the user will enter the psoft number of their current order, and include a typeahead for quicker entry-->
     <form action="{{ url_for('setup_count') }}" method="post" class="p-2 mt-4">
-        <!-- only a submit button is required here -->
+        <!-- entry for the psoft number -->
+        <div class="form-group">{{ psoft_form.psoft_label(class="form-control") }}</div>
+            {% if psoft_form.psoft_label.errors and not first_load %}
+                <p class="errors">{% for error in psoft_form.psoft_label.errors %}{{ error }}<br>{% endfor %}</p>
+            {% endif %}
+
+        <!--submit button -->
         <div class="form-group">
-                <button class="btn btn-dark" type="submit" name="count_type" value="retrieve_order">Retrieve Current Order from WMS</button>
+                <button class="btn btn-dark" type="submit" name="count_type" value="retrieve_order">Retrieve this order from WMS</button>
         </div>
     </form>
+
+
+
     <p></p>
-    <!-- display message if no errors are available for this user, no connection is available, or some other error occurred -->
+    <!-- display message if no errors are available for this user, no connection is available, or other errors occurred -->
     {% if no_orders %}
         <p class="errors">You have no current orders assigned</p>
     {% endif %}
 
-    {% if not database_connection_available %}
+    {% if database_connection_unavailable %}
         <p class="errors">No connection to the databases could be established</p>
+    {% endif %}
+
+    {% if data_base_retrieval_error %}
+        <p class="errors">We could connect to the databases, but couldn't get your data</p>
     {% endif %}
 
     {% if general_order_error %}
@@ -33,6 +50,14 @@
         <p class="errors">There has been an error submitting your last completed order to the WMS</p>
     {% endif %}
 
+    {% if both_forms_filled_out %}
+        <p class="errors">Please fill out only one of the forms</p>
+    {% endif %}
+
+    {% if all_order_retrieval_error %}
+        <p class="errors">There has been an error retrieving the orders assigned to your location</p>
+    {% endif %}
+
     <!-- create a separate form for manual submission, indicated by the value on the submit button which is "manual" -->
     <form action="{{ url_for('setup_count') }}" method="post">
         <fieldset>
@@ -40,19 +65,19 @@
 
             <!-- create inputs linked to the wtforms setup in python and show any errors,
             more info: https://wtforms.readthedocs.io/en/stable/crash_course.html -->
-            <div class="form-group">{{ form.product_weight(class="form-control") }}</div>
-            {% if form.product_weight.errors and not first_load %}
-                <p class="errors">{% for error in form.product_weight.errors %}{{ error }}<br>{% endfor %}</p>
+            <div class="form-group">{{ manual_form.product_weight(class="form-control") }}</div>
+            {% if manual_form.product_weight.errors and not first_load %}
+                <p class="errors">{% for error in manual_form.product_weight.errors %}{{ error }}<br>{% endfor %}</p>
             {% endif %}
 
-            <div class="form-group">{{ form.target_count(class="form-control") }}</div>
-            {% if form.target_count.errors and not first_load %}
-                <p class="errors">{% for error in form.target_count.errors %}{{ error }}<br>{% endfor %}</p>
+            <div class="form-group">{{ manual_form.target_count(class="form-control") }}</div>
+            {% if manual_form.target_count.errors and not first_load %}
+                <p class="errors">{% for error in manual_form.target_count.errors %}{{ error }}<br>{% endfor %}</p>
             {% endif %}
 
-            <div class="form-group">{{ form.weight_unit.label }}: {{ form.weight_unit(class="form-group") }}</div>
-            {% if form.weight_unit.errors and not first_load %}
-                <p class="errors">{% for error in form.weight_unit.errors %}{{ error }}<br>{% endfor %}</p>
+            <div class="form-group">{{ manual_form.weight_unit.label }}: {{ manual_form.weight_unit(class="form-group") }}</div>
+            {% if manual_form.weight_unit.errors and not first_load %}
+                <p class="errors">{% for error in manual_form.weight_unit.errors %}{{ error }}<br>{% endfor %}</p>
             {% endif %}
 
             <!-- create submit button, indicating that the count_type is manual -->
