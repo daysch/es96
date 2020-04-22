@@ -1,4 +1,4 @@
-def retrieve_specific_order_info(scanner_id, order_id):
+def retrieve_specific_order_info(scanner_id, license_plate):
     try:
         getdata = 0
     except:
@@ -14,7 +14,7 @@ def retrieve_specific_order_info(scanner_id, order_id):
 
 
 # this function should return all order IDs assigned to the same location as the employee scanned
-def retrieve_all_order_ids(scanner_id):
+def retrieve_all_license_plates(scanner_id):
     try:
         getdata = 0
     except:

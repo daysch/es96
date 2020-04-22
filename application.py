@@ -1,8 +1,8 @@
 from flask import Flask, flash, redirect, render_template, request, url_for, jsonify, session
 from flask_session import Session
 from flask_wtf import FlaskForm
-from wtforms import FloatField, IntegerField, SelectField, SubmitField
-from wtforms.validators import NumberRange
+from wtforms import FloatField, IntegerField, SelectField, SubmitField, StringField
+from wtforms.validators import NumberRange, Length
 
 # import helper functions
 from readScale import *
@@ -24,7 +24,7 @@ host_address = '127.0.0.1'
 Session(app)
 
 # store these as global variables and update later
-order_id = 0
+license_plate = 0
 current_target_qty = 0
 current_product_weight = 0
 current_weight_unit = 0
@@ -80,14 +80,14 @@ class manual_entry(FlaskForm):
 
 
 # this label creates an input such that the employee can enter the order id number they are currently picking for
-class enter_order_id_current_order(FlaskForm):
-    style_order_id = {'class': 'form-control', 'autofocus': 'true', 'id': 'q',
-                   'placeholder': 'Enter current Order ID # and select', 'autocomplete':"off"} # turn off autocomplete
+class enter_license_plate_current_order(FlaskForm):
+    style_license_plate = {'class': 'form-control', 'autofocus': 'true', 'id': 'q',
+                   'placeholder': 'Enter current license plate and select', 'autocomplete':"off"} # turn off autocomplete
                                                                                             # to not have any
                                                                                             # suggestions on type ahead
-    order_id_label = IntegerField("RF Scanner ID ",
-                               [NumberRange(min=0, max=10 ** 10, message="This ID is too long or too short")],
-                               render_kw=style_order_id)
+    license_plate_input = StringField("License plate ",
+                               [Length(min=0, max=30, message="This plate is too long or too short")],
+                               render_kw=style_license_plate)
     submit = SubmitField("Submit")
 
 
@@ -170,7 +170,7 @@ def begin():
 def setup_count():
     # set up the manual order form, again no csrf token, info here: https://flask-wtf.readthedocs.io/en/latest/csrf.html
     manual_entry_form = manual_entry(meta={'csrf': False})
-    order_id_label_form = enter_order_id_current_order(meta={'csrf': False})
+    license_plate_form = enter_license_plate_current_order(meta={'csrf': False})
 
     # ensure user credentials are validated
     if not employee_id:
@@ -180,9 +180,9 @@ def setup_count():
     if request.method == "POST":
 
         # checking whether both forms were filled out, in that case, show error message to user
-        if manual_entry_form.validate_on_submit() and order_id_label_form.validate_on_submit():
+        if manual_entry_form.validate_on_submit() and license_plate_form.validate_on_submit():
             return render_template("setup_count.html", manual_form=manual_entry_form,
-                                   order_id_form=order_id_label_form, employee_id=employee_id,
+                                   license_plate_form=license_plate_form, employee_id=employee_id,
                                    first_load=True, both_forms_filled_out=True,
                                    wms_submit_error=wms_submit_unsuccessful)
 
@@ -202,51 +202,51 @@ def setup_count():
             # lead the user to the actual count site
             return redirect(url_for("count"))
 
-        # if the user submitted just the order_id, this means they are trying to retrieve the order they are picking for
-        if order_id_label_form.validate_on_submit():
+        # if the user submitted just the license_plate, this means they are trying to retrieve the order they are picking for
+        if license_plate_form.validate_on_submit():
 
-            # retrieve the entered order_id number
-            global order_id
-            order_id = order_id_label_form.order_id_label.data
+            # retrieve the entered license_plate number
+            global license_plate
+            license_plate = license_plate_form.license_plate_input.data
 
             # get the required info from the WMS
-            order = retrieve_specific_order_info(scanner_id, order_id)
+            order = retrieve_specific_order_info(scanner_id, license_plate)
 
             # if no connection to the database could be established
             if order == 'No connection':
                 return render_template("setup_count.html", manual_form=manual_entry_form,
-                                       order_id_form=order_id_label_form, employee_id=employee_id,
+                                       license_plate_form=license_plate_form, employee_id=employee_id,
                                        database_connection_unavailable=True,
                                        first_load=True, wms_submit_error=wms_submit_unsuccessful)
 
             # check whether there are any errors with the retrieval
             elif order == 'Retrieval Error':
                 return render_template("setup_count.html", manual_form=manual_entry_form,
-                                       order_id_form=order_id_label_form, employee_id=employee_id,
+                                       license_plate_form=license_plate_form, employee_id=employee_id,
                                        first_load=True, retrieval_error=True, wms_submit_error=wms_submit_unsuccessful)
 
             # if no errors are assigned to the location
             elif order == 'No orders':
                 return render_template("setup_count.html", manual_form=manual_entry_form,
-                                       order_id_form=order_id_label_form, employee_id=employee_id,
+                                       license_plate_form=license_plate_form, employee_id=employee_id,
                                        first_load=True, no_orders=True, wms_submit_error=wms_submit_unsuccessful)
 
             # this indicates the return value is not a correct list, so there is some other error
             elif type(order) != list or len(order) != 4:
                 return render_template("setup_count.html", manual_form=manual_entry_form,
-                                       order_id_form=order_id_label_form, employee_id=employee_id,
+                                       license_plate_form=license_plate_form, employee_id=employee_id,
                                        first_load=True,
                                        general_order_error=True, wms_submit_error=wms_submit_unsuccessful)
 
             # no errors
-            [order_id, current_product_weight, current_weight_unit, current_target_qty] = order
+            [license_plate, current_product_weight, current_weight_unit, current_target_qty] = order
 
             return redirect(url_for("count"))
 
         # this means that the manual entry form was incorrectly filled out, reload the page and show error messages
         else:
             return render_template("setup_count.html", manual_form=manual_entry_form,
-                                   order_id_form=order_id_label_form, employee_id=employee_id,
+                                   license_plate_form=license_plate_form, employee_id=employee_id,
                                    first_load=False, wms_submit_error=wms_submit_unsuccessful)
 
     # else if user reached route via GET (as after completing the count)
@@ -254,16 +254,16 @@ def setup_count():
 
         # update the current orders for typeahead.
         global all_current_orders_at_location
-        all_current_orders_at_location = retrieve_all_order_ids(scanner_id)
+        all_current_orders_at_location = retrieve_all_license_plates(scanner_id)
         if all_current_orders_at_location == 'General Error':
             return render_template("setup_count.html", manual_form=manual_entry_form, all_order_retrieval_error=True,
-                                   order_id_form=order_id_label_form, employee_id=employee_id, first_load=True,
+                                   license_plate_form=license_plate_form, employee_id=employee_id, first_load=True,
                                    wms_submit_error=wms_submit_unsuccessful)
 
 
         # return html
         return render_template("setup_count.html", manual_form=manual_entry_form,
-                               order_id_form=order_id_label_form, employee_id=employee_id, first_load=True,
+                               license_plate_form=license_plate_form, employee_id=employee_id, first_load=True,
                                wms_submit_error=wms_submit_unsuccessful)
 
 
@@ -284,7 +284,7 @@ def count():
         submit_condition = request.form.get("count_complete")
         if submit_condition == "1" and not manual_order:
             # call the function to submit completed count to the WMS and check whether an error message is needed
-            submit_return_val = submit_to_wms(order_id)
+            submit_return_val = submit_to_wms(license_plate)
 
             # evaluate whether submission was successful and create indicator to be shown on the setup_count page
             if not submit_return_val:
@@ -351,7 +351,7 @@ def get_ids():
 
     # if no orders could be retrieved
     if type(all_current_orders_at_location) != list:
-        return jsonify({'order_id': 'no orders available, check command line'})
+        return jsonify({'license_plate': 'no orders available, check command line'})
 
     # check which ids start the same as the id entered so far
     for current_id in all_current_orders_at_location:
@@ -366,7 +366,7 @@ def get_ids():
         chunks = set([current_id[i:i + len_chunks] for i in range(0, len(current_id)-len_chunks+1)])
 
         if start_id in chunks:
-            return_ids.append({'order_id': current_id})
+            return_ids.append({'license_plate': current_id})
 
     # prepare info for the json request, for more info on JSON and AJAX:
     # https://api.jquery.com/jQuery.getJSON/

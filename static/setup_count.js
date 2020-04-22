@@ -30,13 +30,13 @@ $(document).ready(function() {
         minLength: 3 // at least three numbers need to be entered for the typeahead to start searching for suggestions
     },
     {
-        display: function(suggestion) { return suggestion["order_id"]; }, // fill the input, once a suggestion is selected
+        display: function(suggestion) { return suggestion["license_plate"]; }, // fill the input, once a suggestion is selected
         limit: 10, // max number of suggestions
         source: get_ids, // use get_ids function to retrieve possible ids
         templates: {    // show retrieved suggestions to user
             suggestion: Handlebars.compile( // handlebars enables easier html processing of the returned json data
                 "<div>" +
-                "{{order_id}}" +
+                "{{license_plate}}" +
                 "</div>"
             )
         }

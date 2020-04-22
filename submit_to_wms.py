@@ -1,4 +1,4 @@
-def submit_to_wms(MOVE_number):
+def submit_to_wms(license_plate):
     if MOVE_number != 0:
         # do stuff here
         # return 'No connection' if no connetion could be established

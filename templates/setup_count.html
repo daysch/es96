@@ -12,12 +12,12 @@
 <!-- create two separate forms, one for order retrieval and one for a manual input -->
 {% block main %}
 
-    <!-- set up form for retrieval, where the user will enter the order_id number of their current order, and include a typeahead for quicker entry-->
+    <!-- set up form for retrieval, where the user will enter the license_plate number of their current order, and include a typeahead for quicker entry-->
     <form action="{{ url_for('setup_count') }}" method="post" class="p-2 mt-4">
-        <!-- entry for the order_id number -->
-        <div class="form-group">{{ order_id_form.order_id_label(class="form-control") }}</div>
-            {% if order_id_form.order_id_label.errors and not first_load %}
-                <p class="errors">{% for error in order_id_form.order_id_label.errors %}{{ error }}<br>{% endfor %}</p>
+        <!-- entry for the license_plate number -->
+        <div class="form-group">{{ license_plate_form.license_plate_input(class="form-control") }}</div>
+            {% if license_plate_form.license_plate_input.errors and not first_load %}
+                <p class="errors">{% for error in license_plate_form.license_plate_input.errors %}{{ error }}<br>{% endfor %}</p>
             {% endif %}
 
         <!--submit button -->
