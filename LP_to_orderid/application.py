@@ -36,8 +36,8 @@ all_current_orders_at_location = []
 wms_submit_unsuccessful = False
 
 # creating the global cursor
-cursor = setup_conn(None)
-
+#cursor = setup_conn(None)
+cursor = setup_conn()
 
 # classes for the form validation
 class employee_login(FlaskForm):
@@ -234,7 +234,7 @@ def setup_count():
 
         # update the current orders for typeahead.
         global all_current_orders_at_location
-        all_current_orders_at_location = retrieve_all_license_plates(scanner_id, cursor)
+        all_current_orders_at_location = retrieve_all_tasks(scanner_id, cursor)
         if all_current_orders_at_location == 'General Error':
             return render_template("setup_count.html", manual_form=manual_entry_form, all_order_retrieval_error=True,
                                    employee_id=employee_id, first_load=True,

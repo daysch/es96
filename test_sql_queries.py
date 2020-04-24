@@ -1,12 +1,14 @@
 import jaydebeapi
 import jpype
+import pandas
+from SetupConn import *
 
 # Sets up connection
-jvm_path = jpype.getDefaultJVMPath()
-jpype.startJVM(jvm_path, '-Djava.class.path=C:\ojdbc10.jar')
-con = jaydebeapi.connect("oracle.jdbc.driver.OracleDriver", "jdbc:oracle:thin:@wmsdbtst01.sager.com:1521:MV10TST",
-                         ["TSTMOVE", "TSTMOVE"])
-curs = con.cursor()
+# jvm_path = jpype.getDefaultJVMPath()
+# jpype.startJVM(jvm_path, '-Djava.class.path=C:\ojdbc10.jar')
+# con = jaydebeapi.connect("oracle.jdbc.driver.OracleDriver", "jdbc:oracle:thin:@wmsdbtst01.sager.com:1521:MV10TST",
+#                          ["TSTMOVE", "TSTMOVE"])
+# curs = con.cursor()
 
 # Retrieves table names
 #curs.execute("SELECT table_name FROM all_tables ORDER BY table_name")
@@ -29,15 +31,68 @@ curs = con.cursor()
 #curs.execute("SELECT * FROM location A WHERE A.zone_code = 'EQUIPMENT-Z' AND A.location_status = 'AVL'") #no output
 #curs.execute("SELECT * FROM equipment") #no scanners here
 
-# Retrieve dc code
-
 # Retrieve product weight given product id
 #product_id = 'ALPFIT2213/16CLR500' # valid id for testing, this will ultimately be extracted from the product order
 #curs.execute("SELECT weight FROM product_uom WHERE product_id='{}'".format(product_id))
 
 # Retrieve all current picks ordered by path_sequence
 #curs.execute("SELECT A.dc_code, A.task_id, A.full_pick_ind, A.source_location_no, A.path_sequence, A.license_plate_no, A.product_id, A.allocated_qty, A.picked_qty FROM task_master A where A.task_type = 'PICKING' AND A.task_status = 'AVL' ORDER BY A.path_sequence")
+#curs.execute("SELECT A.product_id, A.allocated_qty, A.source_location_no, A.license_plate_no, A.order_id, A.task_id FROM task_master A where A.task_type = 'PICKING' AND A.task_status = 'AVL' AND A.dc_code = 'DC004' ORDER BY A.task_id")
 
-list = curs.fetchall()
+# Retrieve product id, qty and order id given license_plate_no
+#license_plate_no = 'R001409288'
+#curs.execute("SELECT A.product_id, A.allocated_qty, A.order_id FROM task_master A where A.license_plate_no = '{}' AND A.task_type = 'PICKING' AND A.task_status = 'AVL' ORDER BY A.path_sequence".format(license_plate_no))
 
-print(list)
+#curs.execute("SELECT A.source_location_no FROM task_master A where A.task_type = 'PICKING' AND A.task_status = 'AVL' ORDER BY A.path_sequence")
+
+# select all tasks from DC001 in shelves and order by task_id
+# curs = setup_conn()
+# def test_function(curs):
+#
+#     if not jpype.isJVMStarted():
+#         curs = setup_conn()
+#
+#     curs.execute(
+#         "SELECT A.task_id, A.license_plate_no, A.product_id, A.allocated_qty, A.source_location_no FROM task_master A where A.dc_code = 'DC001' AND A.task_type = 'PICKING' AND A.task_status = 'AVL' ORDER BY A.task_id")
+#     output = curs.fetchall()
+#     filter_shelves = list(filter(lambda x : x[4][0] == 'S', output))
+#     print(filter_shelves)
+#     return
+
+curs = setup_conn()
+curs.execute(
+        "SELECT A.task_id, A.license_plate_no, A.product_id, A.allocated_qty, A.source_location_no FROM task_master A where A.dc_code = 'DC001' AND A.task_type = 'PICKING' AND A.task_status = 'AVL' ORDER BY A.task_id")
+output = curs.fetchall()
+filter_shelves = list(filter(lambda x : x[4][0] == 'S', output))
+
+all_tasks = []
+
+for i in range(len(filter_shelves)):
+    entry = dict({'task_id': filter_shelves[i][0], 'license_plates_contained':filter_shelves[i][1], 'quantity_requested': filter_shelves[i][3]})
+    all_tasks.append(entry)
+
+print(all_tasks)
+
+# print(output)
+
+# all_tasks = []
+# initial_task_id = filter_shelves[0][0]
+# for i in range(len(filter_shelves)):
+#     if i = 0:
+#         current_task_id = filter_shelves[i][0]
+#         license_plates = [filter_shelves[i][1]]
+#         product_ids = [filter_shelves[i][2]]
+#         quantities = [filter_shelves[i][3]]
+#         entry = dict({'task_id': current_task_id, 'license_plates_contained':[], 'quantity_requested': [10, 20]})
+#     current_task_id = filter_shelves[i][0]
+#     elif current_task_id = initial_task_id:
+#     all_tasks.append(entry)
+
+
+# Retrieve weight from on-hand items
+# fields = ["Weight","Weight_UOM","MOVE_Part_Number"]
+# data = pandas.read_csv('DC001 On Hand Items.csv', usecols=fields)
+# record = data.loc[data["MOVE_Part_Number"] == 'TXM200-112']
+# weight_unit = record["Weight_UOM"]
+# weight = record["Weight"]
+# print(weight, weight_unit)
