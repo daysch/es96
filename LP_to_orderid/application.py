@@ -35,6 +35,9 @@ all_current_orders_at_location = []
 # these variables are used to indicate error messages, if the submission to the WMS was impossible
 wms_submit_unsuccessful = False
 
+# creating the global cursor
+cursor = setup_conn(None)
+
 
 # classes for the form validation
 class employee_login(FlaskForm):
@@ -103,7 +106,7 @@ def begin():
         scanner_id = login_form.rf_scanner_id_wtf.data
         dc_id = login_form.dc_id.data
 
-        check_id_val = check_employee_id(employee_id, scanner_id, dc_id)
+        check_id_val = check_employee_id(employee_id, scanner_id, dc_id, cursor)
 
         # check whether the employee id is correct using wms system and matches rf id and dc id
         if check_id_val != 'successful':
@@ -165,16 +168,16 @@ def setup_count():
     if request.method == "POST":
 
         # check whether the user selected a order based on a license plate
-        global order_id
+        global task_id
         global current_weight_unit
         global current_product_weight
         global current_target_qty
-        order_id = request.form.get("order_id")
+        task_id = request.form.get("task_id")
 
         # this means an order needs to be retrieved
-        if order_id:
+        if task_id:
             # get the required info from the WMS
-            order = retrieve_specific_order_info(scanner_id, order_id)
+            order = retrieve_specific_order_info(scanner_id, task_id, cursor)
 
             # if no connection to the database could be established
             if order == 'No connection':
@@ -203,7 +206,7 @@ def setup_count():
                                        general_order_error=True, wms_submit_error=wms_submit_unsuccessful)
 
             # no errors
-            [order_id, current_product_weight, current_weight_unit, current_target_qty] = order
+            [task_id, current_product_weight, current_weight_unit, current_target_qty] = order
 
             return redirect(url_for("count"))
 
@@ -231,7 +234,7 @@ def setup_count():
 
         # update the current orders for typeahead.
         global all_current_orders_at_location
-        all_current_orders_at_location = retrieve_all_license_plates(scanner_id)
+        all_current_orders_at_location = retrieve_all_license_plates(scanner_id, cursor)
         if all_current_orders_at_location == 'General Error':
             return render_template("setup_count.html", manual_form=manual_entry_form, all_order_retrieval_error=True,
                                    employee_id=employee_id, first_load=True,
@@ -260,7 +263,7 @@ def count():
         submit_condition = request.form.get("count_complete")
         if submit_condition == "1" and not manual_order:
             # call the function to submit completed count to the WMS and check whether an error message is needed
-            submit_return_val = submit_to_wms(order_id)
+            submit_return_val = submit_to_wms(task_id, cursor)
 
             # evaluate whether submission was successful and create indicator to be shown on the setup_count page
             if not submit_return_val:
@@ -327,8 +330,14 @@ def get_ids():
     return_orders = []
 
     # if no orders could be retrieved
-    if type(all_current_orders_at_location) != list:
-        return jsonify([{'license_plate': 'no orders available, check command line'}])
+    if all_current_orders_at_location == 'General Error':
+        return jsonify([{'task_id': 'there was an error retrieving orders check command line', 'license_plates_contained': 0,
+                         'quantity_requested': 0}])
+
+    # if orders could be retrieved, but either none were assigned, or none with proper weight data were assigned
+    if all_current_orders_at_location == 'No orders':
+        return jsonify([{'task_id': 'No orders with weight data were found', 'license_plates_contained': 0,
+                         'quantity_requested': 0}])
 
     # check which ids start the same as the id entered so far
     for order in all_current_orders_at_location:
@@ -365,8 +374,13 @@ def get_full_orders():
     return_orders = []
 
     # if no orders could be retrieved
-    if type(all_current_orders_at_location) != list:
-        return jsonify([{'order_id': 'no orders available check command line', 'license_plates_contained': 0,
+    if all_current_orders_at_location == 'General Error':
+        return jsonify([{'task_id': 'there was an error retrieving orders check command line', 'license_plates_contained': 0,
+                         'quantity_requested': 0}])
+
+    # if orders could be retrieved, but either none were assigned, or none with proper weight data were assigned
+    if all_current_orders_at_location == 'No orders':
+        return jsonify([{'task_id': 'No orders with weight data were found', 'license_plates_contained': 0,
                          'quantity_requested': 0}])
 
     # check which ids start the same as the id entered so far
@@ -377,12 +391,12 @@ def get_full_orders():
                 # determine which position the license plate has within the order's license plate list to find
                 # the corresponding quantity
                 quantity_index = order['license_plates_contained'].index(current_id)
-                return_orders.append({'order_id': order['order_id'], 'license_plate': current_id,
+                return_orders.append({'task_id': order['task_id'], 'license_plate': current_id,
                                       'quantity_requested': order['quantity_requested'][quantity_index]})
 
     # return data to json request page
     if len(return_orders) == 0:
-        return jsonify([{'order_id': 'no orders available LP may be incorrect', 'license_plates_contained': 0,
+        return jsonify([{'task_id': 'no orders available LP may be incorrect', 'license_plates_contained': 0,
                          'quantity_requested': 0}])
 
     return jsonify(return_orders)

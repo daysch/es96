@@ -2,7 +2,7 @@
 min_length_correct_LP = 3
 
 // this function retrieves the entered license plate from the text input field
-function get_order_ids() {
+function get_task_ids() {
 
     // try to remove any existing error messages
     try {document.getElementById("incomplete_LP").remove()} catch{}
@@ -49,7 +49,7 @@ function get_full_orders(query) {
         console.log(errorThrown.toString());
 
         // call table creator with error message
-        create_table_from_order_info([{'order_id': 'no orders available check command line and console', 'license_plates_contained': 0,
+        create_table_from_order_info([{'task_id': 'no orders available check command line and console', 'license_plates_contained': 0,
                          'quantity_requested': 0}]);
     });
 }
@@ -115,7 +115,7 @@ function create_table_from_order_info(data) {
 
         // add order id to row
         content_for_row = document.createElement("td");
-        content_for_row.innerHTML = data[i].order_id
+        content_for_row.innerHTML = data[i].task_id
         document.getElementById("body_row"+i).appendChild(content_for_row)
 
         // add license plate to row
@@ -180,8 +180,8 @@ function confirm_check_box_clicked(i, data) {
     // the field is hidden to the user, since the type="hidden"
     hiddenField = document.createElement('input');
     hiddenField.type = 'hidden';
-    hiddenField.name = "order_id";
-    hiddenField.value = data[i].order_id;
+    hiddenField.name = "task_id";
+    hiddenField.value = data[i].task_id;
 
     // add the hidden field to the page in the lower part of the page
     document.getElementById("confirmation_quantity").appendChild(hiddenField);

@@ -14,6 +14,7 @@ def setup_conn(cursor):
     else:
         cursor = cursor
         # first close the connection then reopen
+        return cursor
 
 
     # if connection was unsuccessful, return None

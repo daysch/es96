@@ -1,4 +1,4 @@
-def check_employee_id(employee_id, scanner_id, dc_id):
+def check_employee_id(employee_id, scanner_id, dc_id, cursor):
     # if there is a database retrieval error, return 'Retrieval Error'
     # if the employee could not be found return 'employee not found'
     # otherwise return successful
