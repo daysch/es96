@@ -6,7 +6,6 @@ from wtforms.validators import NumberRange, Length
 
 # import helper functions
 from readScale import *
-from submit_to_wms import *
 from check_employee_id import *
 from retrieve_order import *
 from SetupConn import *
