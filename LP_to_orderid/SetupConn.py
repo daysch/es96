@@ -1,4 +1,4 @@
-def setup_conn(cursor):
+def setup_conn():
     try:
         import jaydebeapi
         import jpype

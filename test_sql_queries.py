@@ -45,49 +45,7 @@ from SetupConn import *
 
 #curs.execute("SELECT A.source_location_no FROM task_master A where A.task_type = 'PICKING' AND A.task_status = 'AVL' ORDER BY A.path_sequence")
 
-# select all tasks from DC001 in shelves and order by task_id
-# curs = setup_conn()
-# def test_function(curs):
-#
-#     if not jpype.isJVMStarted():
-#         curs = setup_conn()
-#
-#     curs.execute(
-#         "SELECT A.task_id, A.license_plate_no, A.product_id, A.allocated_qty, A.source_location_no FROM task_master A where A.dc_code = 'DC001' AND A.task_type = 'PICKING' AND A.task_status = 'AVL' ORDER BY A.task_id")
-#     output = curs.fetchall()
-#     filter_shelves = list(filter(lambda x : x[4][0] == 'S', output))
-#     print(filter_shelves)
-#     return
-
-curs = setup_conn()
-curs.execute(
-        "SELECT A.task_id, A.license_plate_no, A.product_id, A.allocated_qty, A.source_location_no FROM task_master A where A.dc_code = 'DC001' AND A.task_type = 'PICKING' AND A.task_status = 'AVL' ORDER BY A.task_id")
-output = curs.fetchall()
-filter_shelves = list(filter(lambda x : x[4][0] == 'S', output))
-
-all_tasks = []
-
-for i in range(len(filter_shelves)):
-    entry = dict({'task_id': filter_shelves[i][0], 'license_plates_contained':filter_shelves[i][1], 'quantity_requested': filter_shelves[i][3]})
-    all_tasks.append(entry)
-
-print(all_tasks)
-
-# print(output)
-
-# all_tasks = []
-# initial_task_id = filter_shelves[0][0]
-# for i in range(len(filter_shelves)):
-#     if i = 0:
-#         current_task_id = filter_shelves[i][0]
-#         license_plates = [filter_shelves[i][1]]
-#         product_ids = [filter_shelves[i][2]]
-#         quantities = [filter_shelves[i][3]]
-#         entry = dict({'task_id': current_task_id, 'license_plates_contained':[], 'quantity_requested': [10, 20]})
-#     current_task_id = filter_shelves[i][0]
-#     elif current_task_id = initial_task_id:
-#     all_tasks.append(entry)
-
+#filter_shelves = list(filter(lambda x : x[4][0] == 'S', output))
 
 # Retrieve weight from on-hand items
 # fields = ["Weight","Weight_UOM","MOVE_Part_Number"]

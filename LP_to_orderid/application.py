@@ -5,6 +5,8 @@ from wtforms import FloatField, IntegerField, SelectField, SubmitField, StringFi
 from wtforms.validators import NumberRange, Length
 
 # import helper functions
+#from LP_to_orderid.retrieve_order import retrieve_all_tasks
+#from LP_to_orderid.SetupConn import setup_conn
 from readScale import *
 from submit_to_wms import *
 from check_employee_id import *
@@ -35,6 +37,8 @@ all_current_orders_at_location = []
 # these variables are used to indicate error messages, if the submission to the WMS was impossible
 wms_submit_unsuccessful = False
 
+# try start database connection
+cursor = setup_conn()
 
 # classes for the form validation
 class employee_login(FlaskForm):
@@ -210,7 +214,9 @@ def setup_count():
     else:
 
         # update the current orders for typeahead.
+        print('before')
         all_current_orders_at_location = retrieve_all_tasks(scanner_id, cursor)
+        print(all_current_orders_at_location)
 
         # accounting for error messages
         all_order_gen_error_val = False
