@@ -55,7 +55,8 @@ def readScale(mode_weight_requested):
 
         # this releases the usb scale
         util.dispose_resources(device)
-    except:
+    except Exception as e:
+        print(e)
         print('Error in readscale')
         return 'Not connected'
 
@@ -70,19 +71,23 @@ def readScale(mode_weight_requested):
     scaling_factor = scaling_factor - 256
     scaling_factor = 10 ** scaling_factor
 
+    # check whether the unit of mass is acceptable
+    if mode_weight_requested.lower() not in ['g', 'kg', 'kgs', 'lb', 'lbs', 'pounds', 'oz']:
+        return 'Unsupported UOM'
+
     # determine the current reading and convert, using formulas from
     # http://steventsnyder.com/reading-a-dymo-usb-scale-using-python/
     if mode_weight == 'g':
         reading = (data[4] + (256 * data[5]))
 
         # convert if necessary to requested format
-        if mode_weight_requested == 'oz':
+        if mode_weight_requested.lower() == 'oz':
             reading = reading * ounces_per_gram
 
-        if mode_weight_requested == 'kg':
+        if mode_weight_requested.lower() == 'kg' or mode_weight_requested.lower() == 'kgs':
             reading = reading / 1000
 
-        if mode_weight_requested == 'lbs':
+        if mode_weight_requested.lower() == 'lb' or mode_weight_requested.lower() == 'lbs' or mode_weight_requested.lower() == 'pounds':
             reading = reading * ounces_per_gram / ounces_per_pound
 
     # this means the scale is set to ounces
@@ -93,10 +98,10 @@ def readScale(mode_weight_requested):
         if mode_weight_requested == 'g':
             reading = reading / ounces_per_gram
 
-        if mode_weight_requested == 'kg':
+        if mode_weight_requested.lower() == 'kg' or mode_weight_requested.lower() == 'kgs':
             reading = reading / ounces_per_gram / 1000
 
-        if mode_weight_requested == 'lbs':
+        if mode_weight_requested.lower() == 'lb' or mode_weight_requested.lower() == 'lbs' or mode_weight_requested.lower() == 'pounds':
             reading = reading / ounces_per_pound
 
     return reading

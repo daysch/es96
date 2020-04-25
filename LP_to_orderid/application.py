@@ -5,8 +5,6 @@ from wtforms import FloatField, IntegerField, SelectField, SubmitField, StringFi
 from wtforms.validators import NumberRange, Length
 
 # import helper functions
-#from LP_to_orderid.retrieve_order import retrieve_all_tasks
-#from LP_to_orderid.SetupConn import setup_conn
 from readScale import *
 from submit_to_wms import *
 from check_employee_id import *
@@ -28,14 +26,12 @@ task_id = 0
 current_target_qty = 0
 current_product_weight = 0
 current_weight_unit = 0
-manual_order = False
+current_lp = 0
 employee_id = 0
 scanner_id = 0
 dc_id = 0
 all_current_orders_at_location = []
 
-# these variables are used to indicate error messages, if the submission to the WMS was impossible
-wms_submit_unsuccessful = False
 
 # classes for the form validation
 class employee_login(FlaskForm):
@@ -94,7 +90,6 @@ def begin():
     global employee_id
     global scanner_id
     global dc_id
-    global wms_submit_unsuccessful
 
     # if the employee login form was successfully submitted, without errors in the wtf validations
     if login_form.validate_on_submit():
@@ -146,7 +141,6 @@ def begin():
         employee_id = 0
         scanner_id = 0
         dc_id = 0
-        wms_submit_unsuccessful = False
         return render_template("begin.html", form=login_form, first_load=True, employee_id=employee_id,
                                connection=True, ID_not_found=False, retrieval_error=False, gen_error=False)
 
@@ -172,6 +166,7 @@ def setup_count():
         global current_weight_unit
         global current_product_weight
         global current_target_qty
+        global current_lp
         task_id = request.form.get("task_id")
 
         # this means an order needs to be retrieved. this can only be reached, if no errors occurred previously
@@ -185,18 +180,17 @@ def setup_count():
             current_product_weight = float(order['product_weight'][0])
             current_weight_unit = str(order['uom'][0])
             current_target_qty = int(order['quantity_requested'][0])
+            current_lp = str(order['license_plates_contained'][0])
 
             return redirect(url_for("count"))
 
         # if user filled out the manual entry form
         if manual_entry_form.validate_on_submit():
             # retrieve data from submission form and redefine global variables
-            global manual_order
-
             current_weight_unit = manual_entry_form.weight_unit.data
             current_product_weight = manual_entry_form.product_weight.data
             current_target_qty = manual_entry_form.target_count.data
-            manual_order = True
+            current_lp = 0
 
             # lead the user to the actual count site
             return redirect(url_for("count"))
@@ -205,7 +199,7 @@ def setup_count():
         else:
             return render_template("setup_count.html", manual_form=manual_entry_form,
                                    employee_id=employee_id,
-                                   first_load=False, wms_submit_error=wms_submit_unsuccessful)
+                                   first_load=False)
 
     # else if user reached route via GET (as after completing the count)
     else:
@@ -240,14 +234,12 @@ def setup_count():
         return render_template("setup_count.html", manual_form=manual_entry_form,
                                all_order_gen_error=all_order_gen_error_val, no_orders=no_orders_error_val,
                                employee_id=employee_id, first_load=True, retrieval_error=retrieval_error_val,
-                               wms_submit_error=wms_submit_unsuccessful,
                                database_connection_unavailable=connection_unavailable_error_val)
 
 
 # set up website for the actual counting process
 @app.route("/count", methods=["GET", "POST"])
 def count():
-    global wms_submit_unsuccessful
 
     # check credentials have been entered
     if not employee_id:
@@ -255,22 +247,6 @@ def count():
 
     # if user completed count
     if request.method == "POST":
-        global manual_order
-        # check whether the count was completed successfully, if submit_condition is 0, the count was cancelled,
-        # otherwise it was completed. Also do not submit manual orders
-        submit_condition = request.form.get("count_complete")
-        if submit_condition == "1" and not manual_order:
-            # call the function to submit completed count to the WMS and check whether an error message is needed
-            submit_return_val = submit_to_wms(task_id)
-
-            # evaluate whether submission was successful and create indicator to be shown on the setup_count page
-            if not submit_return_val:
-                wms_submit_unsuccessful = True
-            else:
-                wms_submit_unsuccessful = False
-
-        # redirect user to page to retrieve next order
-        manual_order = False
         return redirect(url_for("setup_count"))
 
     # else if user reached route via GET (after entering the product barcode or retrieving order)
@@ -279,7 +255,7 @@ def count():
         return render_template("count.html", prod_weight=current_product_weight, weight_unit=current_weight_unit,
                                target_count=current_target_qty,
                                target_weight=current_product_weight * current_target_qty,
-                               employee_id=employee_id)
+                               employee_id=employee_id, lp=current_lp)
 
 
 # this function serves the javascript on /count, it returns the current weight, the current count, and whether the
@@ -296,6 +272,8 @@ def check_weight():
         return jsonify('Not connected')
     if current_reading == 'Other error':
         return jsonify('Other error in readScale()')
+    if current_reading == 'Unsupported UOM':
+        return jsonify('Unsupported UOM')
     current_count = current_reading / current_product_weight
 
     # counting status is -1 if the count is under, 0 if its correct, 1 if its over

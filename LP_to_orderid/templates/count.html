@@ -16,6 +16,7 @@
             <p class ="count_titles">Order Overview<p/>
             <table class="table table-bordered bg-white">
                 <tbody>
+                <!--
                     <tr>
                         <td>Manufacturer Part Number</td>
                         <td></td>
@@ -24,9 +25,10 @@
                         <td>People Soft Number</td>
                         <td></td>
                     </tr>
+                    -->
                     <tr>
                         <td>License Plate Number</td>
-                        <td></td>
+                        <td>{{lp}}</td>
                     </tr>
                     <tr>
                         <td>Product Weight</td>
@@ -74,7 +76,7 @@
     <form action="{{ url_for('count') }}" method="post" id="submit_form">
         <div class="form-group" id='buttons'>
             <!-- value = 0 indicates to the python script that the count was aborted -->
-            <button class="btn btn-dark" id="cancel_count" type="submit" name="count_complete" value="0" >Cancel and Return to Barcode Input</button>
+            <button class="btn btn-dark" id="cancel_count" type="submit" >Cancel and Return to Barcode Input</button>
         </div>
     </form>
     </div>

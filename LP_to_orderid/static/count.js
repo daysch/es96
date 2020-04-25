@@ -43,7 +43,7 @@ function start_button_clicked()
         document.getElementById("check_box").remove();
         document.getElementById("label_box").remove();
     } catch {}
-    try {document.getElementById('submit_to_wms').remove();
+    try {document.getElementById('complete_count').remove();
         document.getElementById('submit_paragraph').remove()} catch {}
 
     // create stop button with an event listener to trigger the stop_button_clicked function and add it to the page
@@ -120,29 +120,27 @@ function stop_button_clicked()
 
 // when the user confirms that he did not add or remove any items after clicking stop, it becomes possible to post to the WMS
 // this function sets up the submit button to the main page and adds an event listener to that button. it does not
-// actually submit, but rather triggers another function submit_to_wms(), which is necessary to indicate to the
+// actually submit, but rather triggers another function complete_count(), which is necessary to indicate to the
 // python whether the submission was successful
 function confirm_check_box_clicked() {
     document.getElementById("check_box").removeEventListener("click", confirm_check_box_clicked)
     button = document.createElement("button");
     button.setAttribute("class", "btn btn-dark");
-    button.setAttribute("id", "submit_to_wms");
-    button.innerHTML = "Submit to WMS and Start New Count";
+    button.setAttribute("id", "complete_count");
+    button.innerHTML = "Complete and Setup New Count";
     paragraph = document.createElement("p")
     paragraph.setAttribute("id", "submit_paragraph")
     document.getElementById("submit_form").appendChild(paragraph)
     document.getElementById("submit_form").appendChild(button);
-    document.getElementById ("submit_to_wms").addEventListener ("click", submit_to_wms)
+    document.getElementById ("complete_count").addEventListener ("click", complete_count)
 }
 
 // this function submits the count to the python script, which can then communicate with the WMS
-function submit_to_wms() {
+function complete_count() {
     // create a hidden field to contain a value that shows the python backend, that the count has been completed
     // the field is hidden to the user, since the type="hidden"
     hiddenField = document.createElement('input');
     hiddenField.type = 'hidden';
-    hiddenField.name = "count_complete";
-    hiddenField.value = "1";
 
     // add the hidden field to the page in the lower part of the page
     document.getElementById("buttons").appendChild(hiddenField);
@@ -195,11 +193,28 @@ function update_displays()
         document.getElementById ("start_button").addEventListener ("click", start_button_clicked)
         counting_process_active = 0
         return 0
-    } else if (data='Other Error in readScale()') {
+    } else if (data=='Other Error in readScale()') {
         paragraph = document.createElement("p");
         paragraph.setAttribute("id", "count_status");
         paragraph.setAttribute("class", "count_low");
         paragraph.innerHTML = "There has been an error connecting to the scale <br> please refer to a supervisor";
+        document.getElementById("count_messages").appendChild(paragraph);
+
+        // create a new start button, add it and setup an event listener
+        document.getElementById('stop_button').remove()
+        button = document.createElement("button");
+        button.setAttribute("class", "btn btn-dark");
+        button.setAttribute("id", "start_button");
+        button.innerHTML = "Continue Count";
+        document.getElementById("start_stop_buttons").appendChild(button);
+        document.getElementById ("start_button").addEventListener ("click", start_button_clicked)
+        counting_process_active = 0
+
+    } else if (data=='Unsupported UOM') {
+        paragraph = document.createElement("p");
+        paragraph.setAttribute("id", "count_status");
+        paragraph.setAttribute("class", "count_low");
+        paragraph.innerHTML = "This unit of measurement is not supported";
         document.getElementById("count_messages").appendChild(paragraph);
 
         // create a new start button, add it and setup an event listener

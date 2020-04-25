@@ -182,9 +182,9 @@ function confirm_check_box_clicked(i, data) {
     hiddenField.type = 'hidden';
     hiddenField.name = "task_id";
     hiddenField.value = data[i].task_id;
-
-    // add the hidden field to the page in the lower part of the page
     document.getElementById("confirmation_quantity").appendChild(hiddenField);
+
+    // submit
     document.getElementById("retrieve_order_form").submit()
 }
 
