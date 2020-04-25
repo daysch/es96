@@ -22,7 +22,7 @@ host_address = '127.0.0.1'
 Session(app)
 
 # store these as global variables and update later
-order_id = 0
+task_id = 0
 current_target_qty = 0
 current_product_weight = 0
 current_weight_unit = 0
@@ -35,9 +35,6 @@ all_current_orders_at_location = []
 # these variables are used to indicate error messages, if the submission to the WMS was impossible
 wms_submit_unsuccessful = False
 
-# creating the global cursor
-#cursor = setup_conn(None)
-cursor = setup_conn()
 
 # classes for the form validation
 class employee_login(FlaskForm):
@@ -157,6 +154,8 @@ def begin():
 # order form
 @app.route("/setup_count", methods=['GET', 'POST'])
 def setup_count():
+    global all_current_orders_at_location
+
     # set up the manual order form, again no csrf token, info here: https://flask-wtf.readthedocs.io/en/latest/csrf.html
     manual_entry_form = manual_entry(meta={'csrf': False})
 
@@ -174,39 +173,17 @@ def setup_count():
         global current_target_qty
         task_id = request.form.get("task_id")
 
-        # this means an order needs to be retrieved
+        # this means an order needs to be retrieved. this can only be reached, if no errors occurred previously
         if task_id:
-            # get the required info from the WMS
-            order = retrieve_specific_order_info(scanner_id, task_id, cursor)
+            # get the required info by from the list of all orders
+            for orders in all_current_orders_at_location:
+                if str(orders['task_id']) == str(task_id):
+                    order = orders
 
-            # if no connection to the database could be established
-            if order == 'No connection':
-                return render_template("setup_count.html", manual_form=manual_entry_form,
-                                       employee_id=employee_id,
-                                       database_connection_unavailable=True,
-                                       first_load=True, wms_submit_error=wms_submit_unsuccessful)
-
-            # check whether there are any errors with the retrieval
-            elif order == 'Retrieval Error':
-                return render_template("setup_count.html", manual_form=manual_entry_form,
-                                       employee_id=employee_id,
-                                       first_load=True, retrieval_error=True, wms_submit_error=wms_submit_unsuccessful)
-
-            # if no errors are assigned to the location
-            elif order == 'No orders':
-                return render_template("setup_count.html", manual_form=manual_entry_form,
-                                       employee_id=employee_id,
-                                       first_load=True, no_orders=True, wms_submit_error=wms_submit_unsuccessful)
-
-            # this indicates the return value is not a correct list, so there is some other error
-            elif type(order) != list or len(order) != 4:
-                return render_template("setup_count.html", manual_form=manual_entry_form,
-                                       employee_id=employee_id,
-                                       first_load=True,
-                                       general_order_error=True, wms_submit_error=wms_submit_unsuccessful)
-
-            # no errors
-            [task_id, current_product_weight, current_weight_unit, current_target_qty] = order
+            # reassign global variables
+            current_product_weight = float(order['product_weight'][0])
+            current_weight_unit = str(order['uom'][0])
+            current_target_qty = int(order['quantity_requested'][0])
 
             return redirect(url_for("count"))
 
@@ -233,17 +210,37 @@ def setup_count():
     else:
 
         # update the current orders for typeahead.
-        global all_current_orders_at_location
         all_current_orders_at_location = retrieve_all_tasks(scanner_id, cursor)
+
+        # accounting for error messages
+        all_order_gen_error_val = False
+        no_orders_error_val = False
+        retrieval_error_val = False
+        connection_unavailable_error_val = False
+
+        # if there was some general error (specific error messages printed in retrieve_order.py)
         if all_current_orders_at_location == 'General Error':
-            return render_template("setup_count.html", manual_form=manual_entry_form, all_order_retrieval_error=True,
-                                   employee_id=employee_id, first_load=True,
-                                   wms_submit_error=wms_submit_unsuccessful)
+            all_order_gen_error_val = True
+        # if no orders with weight data were found
+        elif all_current_orders_at_location == 'No orders' or len(all_current_orders_at_location) == 0:
+            no_orders_error_val=True
+        # if there was a retrieval error
+        elif all_current_orders_at_location == 'Retrieval error':
+            retrieval_error_val = True
+        # if no connection could be established
+        elif all_current_orders_at_location == 'No connection':
+            connection_unavailable_error_val = True
+
+        # if the return val is not a list something else went wrong
+        elif type(all_current_orders_at_location) != list:
+            all_order_gen_error_val = True
 
         # return html
         return render_template("setup_count.html", manual_form=manual_entry_form,
-                               employee_id=employee_id, first_load=True,
-                               wms_submit_error=wms_submit_unsuccessful)
+                               all_order_gen_error=all_order_gen_error_val, no_orders=no_orders_error_val,
+                               employee_id=employee_id, first_load=True, retrieval_error=retrieval_error_val,
+                               wms_submit_error=wms_submit_unsuccessful,
+                               database_connection_unavailable=connection_unavailable_error_val)
 
 
 # set up website for the actual counting process
@@ -329,16 +326,6 @@ def get_ids():
     start_id = request.args.get("q")
     return_orders = []
 
-    # if no orders could be retrieved
-    if all_current_orders_at_location == 'General Error':
-        return jsonify([{'task_id': 'there was an error retrieving orders check command line', 'license_plates_contained': 0,
-                         'quantity_requested': 0}])
-
-    # if orders could be retrieved, but either none were assigned, or none with proper weight data were assigned
-    if all_current_orders_at_location == 'No orders':
-        return jsonify([{'task_id': 'No orders with weight data were found', 'license_plates_contained': 0,
-                         'quantity_requested': 0}])
-
     # check which ids start the same as the id entered so far
     for order in all_current_orders_at_location:
         for current_id in order['license_plates_contained']:
@@ -353,6 +340,11 @@ def get_ids():
 
             if start_id in chunks and not any(item['license_plate'] == current_id for item in return_orders):
                 return_orders.append({'license_plate': current_id})
+
+    # return data to json request page
+    if len(return_orders) == 0:
+        return jsonify([{'task_id': 'no orders available for this LP', 'license_plates_contained': 0,
+                         'quantity_requested': 0}])
 
     # prepare info for the json request, for more info on JSON and AJAX:
     # https://api.jquery.com/jQuery.getJSON/
@@ -372,16 +364,6 @@ def get_full_orders():
     # retrieve the id entered so far and determine whether just the license plate is requested, or the full order info
     license_plate_requested = request.args.get("q")
     return_orders = []
-
-    # if no orders could be retrieved
-    if all_current_orders_at_location == 'General Error':
-        return jsonify([{'task_id': 'there was an error retrieving orders check command line', 'license_plates_contained': 0,
-                         'quantity_requested': 0}])
-
-    # if orders could be retrieved, but either none were assigned, or none with proper weight data were assigned
-    if all_current_orders_at_location == 'No orders':
-        return jsonify([{'task_id': 'No orders with weight data were found', 'license_plates_contained': 0,
-                         'quantity_requested': 0}])
 
     # check which ids start the same as the id entered so far
     for order in all_current_orders_at_location:
