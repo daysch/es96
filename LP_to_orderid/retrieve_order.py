@@ -1,5 +1,31 @@
 from SetupConn import *
+"""
+def retrieve_specific_order_info(scanner_id, task_id, curs, all_current_orders_at_location):
+    # this function retrieves the correct order from all_current_orders_at_location
 
+    # find order given task_id
+    product_id = 0
+    quantity = 0
+    for order in all_current_orders_at_location:
+        if task_id == order['task_id']:
+            product_id = order['product_ids'][0]
+            quantity = order['quantity_requested'][0]
+
+    if product_id == 0 or quantity == 0:
+        return 'No orders'
+
+    # select weight and weight unit using acquired product_id from DC On Hand Items
+    fields = ["Weight", "Weight UOM", "MOVE Part Number"]
+    data = pandas.read_csv('DC001 On Hand Items.csv', usecols=fields)
+    record = data.loc[data["MOVE Part Number"] == product_id]
+    weight = pandas.Index.tolist(record["Weight"])
+    weight_unit = pandas.Index.tolist(record["Weight UOM"])
+
+    order = [product_id, float(weight[0]), weight_unit[0], quantity]
+    print(order)
+
+    return order
+"""
 
 # this function should return all orders assigned to the same location, as well as the license
 # plates contained, and the quantity requested. it should only return those that have product weights associated
