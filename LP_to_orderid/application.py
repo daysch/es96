@@ -214,9 +214,7 @@ def setup_count():
     else:
 
         # update the current orders for typeahead.
-        print('before')
         all_current_orders_at_location = retrieve_all_tasks(scanner_id, cursor)
-        print(all_current_orders_at_location)
 
         # accounting for error messages
         all_order_gen_error_val = False

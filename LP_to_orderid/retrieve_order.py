@@ -66,7 +66,6 @@ def retrieve_all_tasks(scanner_id, curs):
                               'product_weight': [order[5]],
                               'uom': [order[6]]})
                 all_tasks.append(entry)
-            print(all_tasks)
 
             return all_tasks
 
