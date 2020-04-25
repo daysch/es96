@@ -37,9 +37,6 @@ all_current_orders_at_location = []
 # these variables are used to indicate error messages, if the submission to the WMS was impossible
 wms_submit_unsuccessful = False
 
-# try start database connection
-cursor = setup_conn()
-
 # classes for the form validation
 class employee_login(FlaskForm):
     # these determine the visual appearance of the forms
@@ -107,7 +104,7 @@ def begin():
         scanner_id = login_form.rf_scanner_id_wtf.data
         dc_id = login_form.dc_id.data
 
-        check_id_val = check_employee_id(employee_id, scanner_id, dc_id, cursor)
+        check_id_val = check_employee_id(employee_id, scanner_id, dc_id)
 
         # check whether the employee id is correct using wms system and matches rf id and dc id
         if check_id_val != 'successful':
@@ -214,7 +211,7 @@ def setup_count():
     else:
 
         # update the current orders for typeahead.
-        all_current_orders_at_location = retrieve_all_tasks(scanner_id, cursor)
+        all_current_orders_at_location = retrieve_all_tasks(scanner_id)
 
         # accounting for error messages
         all_order_gen_error_val = False
@@ -264,7 +261,7 @@ def count():
         submit_condition = request.form.get("count_complete")
         if submit_condition == "1" and not manual_order:
             # call the function to submit completed count to the WMS and check whether an error message is needed
-            submit_return_val = submit_to_wms(task_id, cursor)
+            submit_return_val = submit_to_wms(task_id)
 
             # evaluate whether submission was successful and create indicator to be shown on the setup_count page
             if not submit_return_val:

@@ -2,7 +2,7 @@ from SetupConn import *
 import pandas
 
 
-def retrieve_all_tasks(scanner_id, curs):
+def retrieve_all_tasks(scanner_id):
     # this function should query for all orders assigned to DC001 and shelves
     # it returns the license plates, product ids, allocated quantities, weights and uoms per task id
 
