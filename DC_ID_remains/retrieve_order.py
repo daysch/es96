@@ -18,11 +18,11 @@ def retrieve_all_tasks(dc_id):
 
         try:
             try:
-                # select all tasks from DC001 and order by task_id
+                # select all tasks from given DC and order by task_id
                 curs.execute(
                     "SELECT A.task_id, A.license_plate_no, A.allocated_qty, A.product_id, A.source_location_no FROM "
-                    "task_master A where A.dc_code = 'DC001' AND A.task_type = 'PICKING' AND A.task_status = 'AVL' "
-                    "ORDER BY A.task_id")
+                    "task_master A where A.dc_code = {} AND A.task_type = 'PICKING' AND A.task_status = 'AVL' "
+                    "ORDER BY A.task_id".format(dc_id))
                 output = curs.fetchall()
             except Exception as e:
                 print(e)
@@ -46,7 +46,7 @@ def retrieve_all_tasks(dc_id):
                 record = data.loc[data["MOVE Part Number"] == order[3]]
                 current_weight = pandas.Index.tolist(record["Weight"])[0]
                 current_uom = pandas.Index.tolist(record["Weight UOM"])[0]
-                if not current_weight and not current_uom:
+                if not current_weight or not current_uom:
                     continue
                 else:
                     order.append(current_weight)

@@ -20,10 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="864cc3bb-a6e5-46ec-bb44-6738a3f05a02" name="Default Changelist" comment="cursor working baby">
-      <change beforePath="$PROJECT_DIR$/LP_to_orderid/application.py" beforeDir="false" afterPath="$PROJECT_DIR$/LP_to_orderid/application.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LP_to_orderid/check_employee_id.py" beforeDir="false" afterPath="$PROJECT_DIR$/LP_to_orderid/check_employee_id.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LP_to_orderid/retrieve_order.py" beforeDir="false" afterPath="$PROJECT_DIR$/LP_to_orderid/retrieve_order.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LP_to_orderid/submit_to_wms.py" beforeDir="false" afterPath="$PROJECT_DIR$/LP_to_orderid/submit_to_wms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/es96.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/es96.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +52,7 @@
       <recent name="C:\Users\samsung\PycharmProjects\es96\WMS_errros_caught" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.application (1)">
+  <component name="RunManager" selected="Python.application">
     <configuration name="application (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="es96" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -97,6 +95,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="application" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="es96" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/DC_ID_remains" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/DC_ID_remains/application.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="retrieve_order (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="es96" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -110,27 +129,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/LP_to_orderid/retrieve_order.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="retrieve_order" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="es96" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/WMS_errros_caught" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/WMS_errros_caught/retrieve_order.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -162,11 +160,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.application" />
         <item itemvalue="Python.application (1)" />
         <item itemvalue="Python.retrieve_order (1)" />
         <item itemvalue="Python.test_sql_queries" />
         <item itemvalue="Python.application (2)" />
-        <item itemvalue="Python.retrieve_order" />
       </list>
     </recent_temporary>
   </component>
@@ -325,12 +323,13 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="non-testing app.py uncomment" />
@@ -349,10 +348,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="cursor working baby" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="344" y="52" key="CommitChangelistDialog2" timestamp="1586108334790">
+    <state x="344" y="52" key="CommitChangelistDialog2" timestamp="1587923032203">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="344" y="52" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1586108334790" />
+    <state x="344" y="52" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1587923032203" />
     <state x="34" y="53" width="1182" height="554" key="DiffContextDialog" timestamp="1587820132657">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -362,26 +361,26 @@
     </state>
     <state x="488" y="150" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1587109418077" />
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1585135899904" />
-    <state width="1345" height="205" key="GridCell.Tab.0.bottom" timestamp="1587820293604">
-      <screen x="0" y="0" width="1366" height="738" />
+    <state width="1419" height="243" key="GridCell.Tab.0.bottom" timestamp="1587922924671">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="1345" height="205" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1587820293604" />
-    <state width="1419" height="243" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1586108607465" />
-    <state width="1345" height="205" key="GridCell.Tab.0.center" timestamp="1587820293604">
-      <screen x="0" y="0" width="1366" height="738" />
+    <state width="1419" height="243" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1587922924671" />
+    <state width="1419" height="243" key="GridCell.Tab.0.center" timestamp="1587922924670">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="1345" height="205" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1587820293604" />
-    <state width="1419" height="243" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1586108607464" />
-    <state width="1345" height="205" key="GridCell.Tab.0.left" timestamp="1587820293604">
-      <screen x="0" y="0" width="1366" height="738" />
+    <state width="1419" height="243" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1587922924670" />
+    <state width="1419" height="243" key="GridCell.Tab.0.left" timestamp="1587922924669">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="1345" height="205" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1587820293604" />
-    <state width="1419" height="243" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1586108607464" />
-    <state width="1345" height="205" key="GridCell.Tab.0.right" timestamp="1587820293604">
-      <screen x="0" y="0" width="1366" height="738" />
+    <state width="1419" height="243" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1587922924669" />
+    <state width="1419" height="243" key="GridCell.Tab.0.right" timestamp="1587922924671">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="1345" height="205" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1587820293604" />
-    <state width="1419" height="243" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1586108607464" />
+    <state width="1419" height="243" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1587922924671" />
     <state x="0" y="28" width="1345" height="626" key="MergeDialog" timestamp="1587743926977">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -390,11 +389,11 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="431" y="173" key="MultipleFileMergeDialog/0.0.1440.900@0.0.1440.900" timestamp="1585599457135" />
-    <state x="218" y="0" key="SettingsEditor" timestamp="1587661900379">
-      <screen x="0" y="0" width="1366" height="738" />
+    <state x="132" y="74" key="SettingsEditor" timestamp="1587920835354">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="218" y="0" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1587661900379" />
-    <state x="132" y="74" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1586160768007" />
+    <state x="132" y="74" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1587920835354" />
     <state x="304" y="156" key="Vcs.Push.Dialog.v2" timestamp="1587820593151">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
