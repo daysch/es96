@@ -37,11 +37,11 @@ dc_id = 0
 class select_dc_id(FlaskForm):
     style_drop_down = {'class': 'custom-select'}
     dc_id_entry = SelectField(u'Please select your Distribution Center ID ',
-                             choices=[('DC001', 'DC 001'),
-                                      ('DC002', 'DC 002'),
-                                      ('DC003', 'DC 003'),
-                                      ('DC004', 'DC 004'),
-                                      ('DC005', 'DC 005')],
+                             choices=[('DC001', 'DC001'),
+                                      ('DC002', 'DC002'),
+                                      ('DC003', 'DC003'),
+                                      ('DC004', 'DC004'),
+                                      ('DC005', 'DC005')],
                              render_kw=style_drop_down)
     submit = SubmitField("Submit")
 
