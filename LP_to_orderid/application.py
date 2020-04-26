@@ -321,8 +321,7 @@ def get_ids():
 
     # return data to json request page
     if len(return_orders) == 0:
-        return jsonify([{'task_id': 'no orders available for this LP', 'license_plates_contained': 0,
-                         'quantity_requested': 0}])
+        return jsonify([{'license_plate': 'no orders available for this LP'}])
 
     # prepare info for the json request, for more info on JSON and AJAX:
     # https://api.jquery.com/jQuery.getJSON/
