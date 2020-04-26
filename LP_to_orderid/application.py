@@ -356,7 +356,7 @@ def get_full_orders():
 
     # return data to json request page
     if len(return_orders) == 0:
-        return jsonify([{'task_id': 'no orders available LP may be incorrect', 'license_plates_contained': 0,
+        return jsonify([{'task_id': 'no orders available for this LP', 'license_plates_contained': 0,
                          'quantity_requested': 0}])
 
     return jsonify(return_orders)
