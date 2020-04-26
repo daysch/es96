@@ -21,8 +21,8 @@ def retrieve_all_tasks(dc_id):
                 # select all tasks from DC001 and order by task_id
                 curs.execute(
                     "SELECT A.task_id, A.license_plate_no, A.allocated_qty, A.product_id, A.source_location_no FROM "
-                    "task_master A where A.dc_code = :dc_code AND A.task_type = 'PICKING' AND A.task_status = 'AVL' "
-                    "ORDER BY A.task_id", dc_code=dc_id)
+                    "task_master A where A.dc_code = 'DC001' AND A.task_type = 'PICKING' AND A.task_status = 'AVL' "
+                    "ORDER BY A.task_id")
                 output = curs.fetchall()
             except Exception as e:
                 print(e)
