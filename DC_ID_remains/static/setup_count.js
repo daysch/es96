@@ -128,31 +128,31 @@ function create_table_from_order_info(data) {
         content_for_row.innerHTML = data[i].quantity_requested
         document.getElementById("body_row"+i).appendChild(content_for_row)
 
-        if (data[i].license_plates_contained != 0) {
-            // add button to submit to row with a listener
-            // create table entry
-            content_for_row = document.createElement("td");
-            content_for_row.setAttribute("id", "button_row"+i)
-            document.getElementById("body_row"+i).appendChild(content_for_row)
+        // add button to submit to row with a listener
+        // create table entry
+        content_for_row = document.createElement("td");
+        content_for_row.setAttribute("id", "button_row"+i)
+        document.getElementById("body_row"+i).appendChild(content_for_row)
 
-            // create button
-            button = document.createElement("button");
-            button.setAttribute("class", "btn btn-dark");
-            button.setAttribute("id", "button"+i);
-            button.innerHTML = "Start Count";
-            document.getElementById("button_row"+i).appendChild(button)
-            current_row = i
-            document.getElementById("button"+i).addEventListener("click", function() {table_button_clicked(current_row, data)}, false)
-        }
+        // create button
+        button = document.createElement("button");
+        button.setAttribute("class", "btn btn-dark");
+        button.setAttribute("id", "button"+i);
+        button.setAttribute("onclick", "table_button_clicked("+data[i].quantity_requested+','+data[i].task_id+')')
+        button.innerHTML = "Start Count";
+        document.getElementById("button_row"+i).appendChild(button)
     }
 }
 
 
 // create a checkbox to confirm the target count
-function table_button_clicked(i, data) {
+function table_button_clicked(quantity_requested, task_id) {
 
-    // remove any existing checkbox
-    document.getElementById("confirmation_quantity").innerHTML=''
+    // remove any existing checkbox and it's label
+    try{
+        document.getElementById("label_box").remove()
+        document.getElementById("check_box").remove()
+        } catch {}
 
     // create a confirm check box
     box = document.createElement("input");
@@ -165,23 +165,23 @@ function table_button_clicked(i, data) {
     label.setAttribute("for", "check_box");
     label.setAttribute("id", "label_box");
     label.setAttribute("class", "ml-2 stop_check");
-    label.innerHTML = "Confirm that your target count is " + data[i].quantity_requested + " and submit. <br> Otherwise please retrieve your license plate again <br> or select a different order from the table";
+    label.innerHTML = "Confirm that your target count is " + quantity_requested + " and submit. <br> Otherwise please retrieve your license plate again <br> or select a different order from the table";
     document.getElementById("confirmation_quantity").appendChild(box);
     document.getElementById("confirmation_quantity").appendChild(label);
 
     // add event listener to checkbox to call confirm_check_box_clicked
-    document.getElementById ("check_box").addEventListener ("click", function() {confirm_check_box_clicked(i, data)}, false)
+    document.getElementById ("check_box").addEventListener ("click", function() {confirm_check_box_clicked(task_id)}, false)
 }
 
 
 // this function will submit the selected order id
-function confirm_check_box_clicked(i, data) {
+function confirm_check_box_clicked(task_id) {
     // create a hidden field to contain a value that shows the python backend, that the count has been completed
     // the field is hidden to the user, since the type="hidden"
     hiddenField = document.createElement('input');
     hiddenField.type = 'hidden';
     hiddenField.name = "task_id";
-    hiddenField.value = data[i].task_id;
+    hiddenField.value = task_id;
     document.getElementById("confirmation_quantity").appendChild(hiddenField);
 
     // submit
