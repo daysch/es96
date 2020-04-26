@@ -33,7 +33,7 @@ def retrieve_all_tasks(dc_id):
 
             # check if any orders
             if not filter_shelves:
-                print('no orders in DC001 shelves')
+                print('no orders in shelves')
                 return 'No orders'
 
             # filter for orders that have weight data in DC001 On Hand Items

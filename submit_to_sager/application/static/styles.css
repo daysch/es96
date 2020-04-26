@@ -1,0 +1,128 @@
+/* General */
+main .form-control {
+    display: inline-block; /* center form controls */
+    width: auto; /* override Bootstrap's 100% width for form controls */
+}
+
+
+main {
+    text-align: center; /* center contents */
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 600px;
+}
+
+@font-face {
+  font-family: SagerFont;
+  src: url('Avalon.ttf');
+}
+
+/* for layout.html */
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* for begin.html */
+.errors {
+    display: block;
+    text-align: center;
+    color: red;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+/* for count.html */
+
+td {
+    border: 1px #244186;
+    font-size: 16px;
+    color: #666666;
+    text-align: center;
+}
+
+.count_titles {
+    text-align: center;
+    color: #244186;
+    font-size: 23px;
+    font-weight: bold;
+    font-family: SagerFont;
+}
+
+.counts {
+    font-size: 20px;
+}
+
+.confirm_tare {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* css for java generated html elements */
+
+.count_incomplete{
+    font-size: 18px;
+    font-weight: bold;
+    color: red;
+}
+
+.count_over{
+    font-size: 18px;
+    font-weight: bold;
+    color: red;
+}
+
+.count_right{
+    font-size: 18px;
+    font-weight: bold;
+    color: #19A044;
+}
+
+.count_low{
+    font-size: 18px;
+    font-weight: bold;
+    color: red;
+}
+
+.stop_check{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* stylize text box for typeahead */
+#q
+{
+    /* override typeahead.js's transparent background */
+    background-color: #ffffff !important;
+
+    /* text box's width */
+    width: 500px;
+}
+
+/* stylize typeahead.js a la http://twitter.github.io/typeahead.js/css/examples.css */
+.tt-menu
+{
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 1px;
+    max-height: 150px;
+    overflow-y: auto;
+    width: 500px;
+}
+.tt-suggestion.tt-cursor {
+    background-color: #0097cf;
+    color: #fff;
+    cursor: pointer;
+}
+.tt-suggestion {
+    margin: 0;
+    padding: 6px 12px;
+}
+
+
+
+
+
+
