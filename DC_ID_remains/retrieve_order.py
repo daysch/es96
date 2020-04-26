@@ -6,7 +6,7 @@ def retrieve_all_tasks(dc_id):
     # this function should query for all orders assigned to DC001 and shelves
     # it returns the license plates, product ids, allocated quantities, weights and uoms per task id
 
-    use_actual_database = True
+    use_actual_database = False
 
     if use_actual_database:
 
@@ -21,7 +21,7 @@ def retrieve_all_tasks(dc_id):
                 # select all tasks from given DC and order by task_id
                 curs.execute(
                     "SELECT A.task_id, A.license_plate_no, A.allocated_qty, A.product_id, A.source_location_no FROM "
-                    "task_master A where A.dc_code = {} AND A.task_type = 'PICKING' AND A.task_status = 'AVL' "
+                    "task_master A where A.dc_code = '{}' AND A.task_type = 'PICKING' AND A.task_status = 'AVL' "
                     "ORDER BY A.task_id".format(dc_id))
                 output = curs.fetchall()
             except Exception as e:
