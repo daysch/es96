@@ -97,6 +97,7 @@ def setup_dc_id():
     # if the page was retrieved using a GET method (just retrieving the page)
     # first_load = True will suppress form related error messages
     else:
+        dc_id = 0
         return render_template("setup_dc_id.html", dc_form=dc_form, first_load=True)
 
 
