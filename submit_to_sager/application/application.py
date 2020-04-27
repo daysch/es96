@@ -129,11 +129,8 @@ def setup_count():
         if task_id:
             # get the required info by from the list of all orders
             for orders in all_current_orders_at_location:
-                print(orders['task_id'])
-                print(task_id)
                 if str(orders['task_id']) == str(task_id):
                     order = orders
-
 
             # reassign global variables
             current_product_weight = float(order['product_weight'][0])

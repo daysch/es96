@@ -1,8 +1,8 @@
 from SetupConn import *
 import pandas
-import requests # pip install requests
+import requests  # pip install requests
 import csv
-from datetime import datetime
+from datetime import datetime, timedelta
 from pytz import timezone
 
 # set timezone
@@ -19,7 +19,9 @@ def update_weights():
 
         # this code is based on: https://stackoverflow.com/questions/35371043/use-python-requests-to-download-csv
         with requests.Session() as s:
-            download = s.get(csv_url)
+
+            # limit the time this is allowed to take
+            download = s.get(csv_url, timeout=3)
 
             decoded_content = download.content.decode('utf-8')
 
@@ -44,7 +46,7 @@ def update_weights():
         print('Using local version, could not update')
         fields = ["MOVE Part Number"]
         data = pandas.read_csv('DC001 On Hand Items.csv', usecols=fields)
-        return data["MOVE Part Number"][len(data["MOVE Part Number"])-1]
+        return data["MOVE Part Number"][len(data["MOVE Part Number"]) - 1]
 
 
 def retrieve_all_tasks(dc_id):
@@ -130,4 +132,3 @@ def retrieve_all_tasks(dc_id):
                  'product_weight': [5], 'uom': ['g']},
                 {'task_id': 1341078, 'license_plates_contained': ['l1432534'],
                  'quantity_requested': [60], 'product_weight': [5], 'uom': ['g']}]
-

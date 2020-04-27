@@ -44,7 +44,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/submit_to_sager/application" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/submit_to_sager" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -417,11 +417,11 @@
     <option name="LAST_COMMIT_MESSAGE" value="timeout for the google sheets retrieval" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="459" y="60" key="CommitChangelistDialog2" timestamp="1587996890027">
+    <state x="459" y="60" key="CommitChangelistDialog2" timestamp="1587997042347">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="344" y="52" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1587923581589" />
-    <state x="459" y="60" key="CommitChangelistDialog2/0.0.1920.1040/3840.0.960.500@0.0.1920.1040" timestamp="1587996890027" />
+    <state x="459" y="60" key="CommitChangelistDialog2/0.0.1920.1040/3840.0.960.500@0.0.1920.1040" timestamp="1587997042347" />
     <state x="34" y="53" width="1182" height="554" key="DiffContextDialog" timestamp="1587820132657">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -468,12 +468,12 @@
     </state>
     <state x="218" y="0" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1587661900379" />
     <state x="132" y="74" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1587920835354" />
-    <state x="427" y="220" key="Vcs.Push.Dialog.v2" timestamp="1587996896956">
+    <state x="427" y="220" key="Vcs.Push.Dialog.v2" timestamp="1587997050614">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="304" y="156" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1587820593151" />
     <state x="320" y="190" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1587923613239" />
-    <state x="427" y="220" key="Vcs.Push.Dialog.v2/0.0.1920.1040/3840.0.960.500@0.0.1920.1040" timestamp="1587996896956" />
+    <state x="427" y="220" key="Vcs.Push.Dialog.v2/0.0.1920.1040/3840.0.960.500@0.0.1920.1040" timestamp="1587997050614" />
     <state x="503" y="374" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1585559437523">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
