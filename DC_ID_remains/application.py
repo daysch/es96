@@ -159,7 +159,11 @@ def setup_count():
     else:
 
         # update the current orders for typeahead.
-        all_current_orders_at_location = retrieve_all_tasks(dc_id)
+        return_tasks = retrieve_all_tasks(dc_id)
+
+        # retrieve weight database update indicator and then retrieve list with all orders
+        time_weight_database_updated = return_tasks[-1]
+        all_current_orders_at_location = return_tasks[0:-1]
 
         # accounting for error messages
         all_order_gen_error_val = False
@@ -179,7 +183,6 @@ def setup_count():
         # if no connection could be established
         elif all_current_orders_at_location == 'No connection':
             connection_unavailable_error_val = True
-
         # if the return val is not a list something else went wrong
         elif type(all_current_orders_at_location) != list:
             all_order_gen_error_val = True
@@ -188,7 +191,8 @@ def setup_count():
         return render_template("setup_count.html", manual_form=manual_entry_form,
                                all_order_gen_error=all_order_gen_error_val, no_orders=no_orders_error_val,
                                first_load=True, retrieval_error=retrieval_error_val, dc_id=dc_id,
-                               database_connection_unavailable=connection_unavailable_error_val)
+                               database_connection_unavailable=connection_unavailable_error_val,
+                               time_weight_update=time_weight_database_updated[0:19])
 
 
 # set up website for the actual counting process

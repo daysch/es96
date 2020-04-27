@@ -67,6 +67,11 @@
         {% if all_order_gen_error %}
             <p class="errors">There has been an error retrieving the orders assigned to your location</p>
         {% endif %}
+
+        <!-- print timestamp from database update -->
+        <p class="count_right">The weight database was last updated at</p>
+        <p class="count_right">{{time_weight_update}}</p>
+
     </div>
 
     <!-- set up form for retrieval, that will be submitted by the javascript-->
