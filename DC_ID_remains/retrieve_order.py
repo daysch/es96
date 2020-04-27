@@ -12,7 +12,7 @@ def retrieve_all_tasks(dc_id):
     # this function should query for all orders assigned to DC001 and shelves
     # it returns the license plates, product ids, allocated quantities, weights and uoms per task id
 
-    use_actual_database = False
+    use_actual_database = True
 
     # try to download and update weight database, otherwise continue to use old database
     try:
