@@ -129,8 +129,11 @@ def setup_count():
         if task_id:
             # get the required info by from the list of all orders
             for orders in all_current_orders_at_location:
+                print(orders['task_id'])
+                print(task_id)
                 if str(orders['task_id']) == str(task_id):
                     order = orders
+
 
             # reassign global variables
             current_product_weight = float(order['product_weight'][0])
@@ -158,12 +161,9 @@ def setup_count():
     # else if user reached route via GET (as after completing the count)
     else:
 
-        # update the current orders for typeahead.
-        return_tasks = retrieve_all_tasks(dc_id)
-
-        # retrieve weight database update indicator and then retrieve list with all orders
-        time_weight_database_updated = return_tasks[-1]
-        all_current_orders_at_location = return_tasks[0:-1]
+        # update the current orders for typeahead. and update the weights database
+        time_weight_database_updated = update_weights()
+        all_current_orders_at_location = retrieve_all_tasks(dc_id)
 
         # accounting for error messages
         all_order_gen_error_val = False
@@ -186,6 +186,7 @@ def setup_count():
         # if the return val is not a list something else went wrong
         elif type(all_current_orders_at_location) != list:
             all_order_gen_error_val = True
+            time_weight_database_updated = 'Not updated'
 
         # return html
         return render_template("setup_count.html", manual_form=manual_entry_form,

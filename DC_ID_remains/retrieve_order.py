@@ -8,12 +8,8 @@ from pytz import timezone
 # set timezone
 tz = timezone('US/Eastern')
 
-def retrieve_all_tasks(dc_id):
-    # this function should query for all orders assigned to DC001 and shelves
-    # it returns the license plates, product ids, allocated quantities, weights and uoms per task id
 
-    use_actual_database = True
-
+def update_weights():
     # try to download and update weight database, otherwise continue to use old database
     try:
         # link was generated like this:
@@ -37,13 +33,25 @@ def retrieve_all_tasks(dc_id):
                     writer_object.writerow(row)
 
                 # add a row to include a datestamp at position of MOVE part number in last row
-                writer_object.writerow([0,0,0,datetime.now(tz),0,0,0,0,0,0,0,0])
+                writer_object.writerow([0, 0, 0, datetime.now(tz), 0, 0, 0, 0, 0, 0, 0, 0])
 
-            print('Updated onhand items')
+            print('Updated on-hand items')
+            return str(datetime.now((tz)))
 
+    # if no update was possible, read out the last time stamp
     except Exception as e:
         print(e)
         print('Using local version, could not update')
+        fields = ["MOVE Part Number"]
+        data = pandas.read_csv('DC001 On Hand Items.csv', usecols=fields)
+        return data["MOVE Part Number"][len(data["MOVE Part Number"])-1]
+
+
+def retrieve_all_tasks(dc_id):
+    # this function should query for all orders assigned to DC001 and shelves
+    # it returns the license plates, product ids, allocated quantities, weights and uoms per task id
+
+    use_actual_database = True
 
     if use_actual_database:
 
@@ -104,7 +112,7 @@ def retrieve_all_tasks(dc_id):
                               'uom': [order[6]]})
                 all_tasks.append(entry)
 
-            return [all_tasks, data["MOVE Part Number"][len(data["MOVE Part Number"])-1]]
+            return all_tasks
 
         except Exception as e:
             print(e)
@@ -121,5 +129,5 @@ def retrieve_all_tasks(dc_id):
                 {'task_id': 1115610, 'license_plates_contained': ['l1432534'], 'quantity_requested': [10],
                  'product_weight': [5], 'uom': ['g']},
                 {'task_id': 1341078, 'license_plates_contained': ['l1432534'],
-                 'quantity_requested': [60], 'product_weight': [5], 'uom': ['g']}, data["MOVE Part Number"][len(data["MOVE Part Number"])-1]]
+                 'quantity_requested': [60], 'product_weight': [5], 'uom': ['g']}]
 

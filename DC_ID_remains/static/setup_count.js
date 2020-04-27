@@ -138,7 +138,7 @@ function create_table_from_order_info(data) {
         button = document.createElement("button");
         button.setAttribute("class", "btn btn-dark");
         button.setAttribute("id", "button"+i);
-        button.setAttribute("onclick", "table_button_clicked("+data[i].quantity_requested+','+data[i].task_id+')')
+        button.setAttribute("onclick", "table_button_clicked("+data[i].quantity_requested+',"'+data[i].task_id+'")')
         button.innerHTML = "Start Count";
         document.getElementById("button_row"+i).appendChild(button)
     }
@@ -147,7 +147,6 @@ function create_table_from_order_info(data) {
 
 // create a checkbox to confirm the target count
 function table_button_clicked(quantity_requested, task_id) {
-
     // remove any existing checkbox and it's label
     try{
         document.getElementById("label_box").remove()
@@ -176,6 +175,7 @@ function table_button_clicked(quantity_requested, task_id) {
 
 // this function will submit the selected order id
 function confirm_check_box_clicked(task_id) {
+
     // create a hidden field to contain a value that shows the python backend, that the count has been completed
     // the field is hidden to the user, since the type="hidden"
     hiddenField = document.createElement('input');
