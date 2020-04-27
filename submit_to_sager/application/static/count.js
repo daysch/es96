@@ -173,7 +173,6 @@ function update_displays()
 
     // when the info has been retrieved successfully, update the displays and recall the retrieve_readings function
     .done(function(data, textStatus, jqXHR) {
-    console.log(data)
 
     // check whether the scale is not connected
     if (data == 'Not connected') {
