@@ -82,13 +82,13 @@ def readScale(mode_weight_requested):
 
         # convert if necessary to requested format
         if mode_weight_requested.lower() == 'oz':
-            reading = reading * ounces_per_gram
+            reading = round(reading * ounces_per_gram, 2)
 
         if mode_weight_requested.lower() == 'kg' or mode_weight_requested.lower() == 'kgs':
             reading = reading / 1000
 
         if mode_weight_requested.lower() == 'lb' or mode_weight_requested.lower() == 'lbs' or mode_weight_requested.lower() == 'pounds':
-            reading = reading * ounces_per_gram / ounces_per_pound
+            reading = round(reading * ounces_per_gram / ounces_per_pound, 2)
 
     # this means the scale is set to ounces
     else:
@@ -96,13 +96,13 @@ def readScale(mode_weight_requested):
 
         # convert if necessary
         if mode_weight_requested == 'g':
-            reading = reading / ounces_per_gram
+            reading = round(reading / ounces_per_gram, 2)
 
         if mode_weight_requested.lower() == 'kg' or mode_weight_requested.lower() == 'kgs':
-            reading = reading / ounces_per_gram / 1000
+            reading = round(reading / ounces_per_gram / 1000, 2)
 
         if mode_weight_requested.lower() == 'lb' or mode_weight_requested.lower() == 'lbs' or mode_weight_requested.lower() == 'pounds':
-            reading = reading / ounces_per_pound
+            reading = round(reading / ounces_per_pound, 2)
 
     return reading
 
