@@ -21,7 +21,7 @@ def update_weights():
         with requests.Session() as s:
 
             # limit the time this is allowed to take
-            download = s.get(csv_url, timeout=5)
+            download = s.get(csv_url, timeout=3)
 
             decoded_content = download.content.decode('utf-8')
 
