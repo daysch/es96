@@ -42,7 +42,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/LP_to_orderid" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/submit_to_sager/application" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -157,6 +157,13 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Python.application (1)" />
+      <item itemvalue="Python.application (2)" />
+      <item itemvalue="Python.application" />
+      <item itemvalue="Python.retrieve_order (1)" />
+      <item itemvalue="Python.test_sql_queries" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.application" />
@@ -325,7 +332,28 @@
       <option name="project" value="LOCAL" />
       <updated>1587923581782</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="dc_id as variable">
+      <created>1587986144461</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1587986144461</updated>
+    </task>
+    <task id="LOCAL-00023" summary="dc_id as variable">
+      <created>1587993737713</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1587993737713</updated>
+    </task>
+    <task id="LOCAL-00024" summary="adapted weight database">
+      <created>1587993829122</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1587993829122</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -359,13 +387,15 @@
     <MESSAGE value="retrieve_all_tasks and cursor changes" />
     <MESSAGE value="cursor working baby" />
     <MESSAGE value="dc_id as variable" />
-    <option name="LAST_COMMIT_MESSAGE" value="dc_id as variable" />
+    <MESSAGE value="adapted weight database" />
+    <option name="LAST_COMMIT_MESSAGE" value="adapted weight database" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="344" y="52" key="CommitChangelistDialog2" timestamp="1587923581589">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state x="459" y="60" key="CommitChangelistDialog2" timestamp="1587993874665">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="344" y="52" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1587923581589" />
+    <state x="459" y="60" key="CommitChangelistDialog2/0.0.1920.1040/3840.0.960.500@0.0.1920.1040" timestamp="1587993874665" />
     <state x="34" y="53" width="1182" height="554" key="DiffContextDialog" timestamp="1587820132657">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -375,26 +405,30 @@
     </state>
     <state x="488" y="150" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1587109418077" />
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1585135899904" />
-    <state width="1419" height="243" key="GridCell.Tab.0.bottom" timestamp="1587928315362">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1900" height="282" key="GridCell.Tab.0.bottom" timestamp="1587993597717">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1345" height="205" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1587820293604" />
     <state width="1419" height="243" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1587928315362" />
-    <state width="1419" height="243" key="GridCell.Tab.0.center" timestamp="1587928315360">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1900" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040/3840.0.960.500@0.0.1920.1040" timestamp="1587993597717" />
+    <state width="1900" height="282" key="GridCell.Tab.0.center" timestamp="1587993597701">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1345" height="205" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1587820293604" />
     <state width="1419" height="243" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1587928315360" />
-    <state width="1419" height="243" key="GridCell.Tab.0.left" timestamp="1587928315359">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1900" height="282" key="GridCell.Tab.0.center/0.0.1920.1040/3840.0.960.500@0.0.1920.1040" timestamp="1587993597701" />
+    <state width="1900" height="282" key="GridCell.Tab.0.left" timestamp="1587993597701">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1345" height="205" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1587820293604" />
     <state width="1419" height="243" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1587928315359" />
-    <state width="1419" height="243" key="GridCell.Tab.0.right" timestamp="1587928315361">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1900" height="282" key="GridCell.Tab.0.left/0.0.1920.1040/3840.0.960.500@0.0.1920.1040" timestamp="1587993597701" />
+    <state width="1900" height="282" key="GridCell.Tab.0.right" timestamp="1587993597701">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1345" height="205" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1587820293604" />
     <state width="1419" height="243" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1587928315361" />
+    <state width="1900" height="282" key="GridCell.Tab.0.right/0.0.1920.1040/3840.0.960.500@0.0.1920.1040" timestamp="1587993597701" />
     <state x="0" y="28" width="1345" height="626" key="MergeDialog" timestamp="1587743926977">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -408,11 +442,12 @@
     </state>
     <state x="218" y="0" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1587661900379" />
     <state x="132" y="74" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1587920835354" />
-    <state x="320" y="190" key="Vcs.Push.Dialog.v2" timestamp="1587923613239">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state x="427" y="220" key="Vcs.Push.Dialog.v2" timestamp="1587993877386">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="304" y="156" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1587820593151" />
     <state x="320" y="190" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1587923613239" />
+    <state x="427" y="220" key="Vcs.Push.Dialog.v2/0.0.1920.1040/3840.0.960.500@0.0.1920.1040" timestamp="1587993877386" />
     <state x="503" y="374" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1585559437523">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
