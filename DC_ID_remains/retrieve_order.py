@@ -2,11 +2,34 @@ from SetupConn import *
 import pandas
 import requests # pip install requests
 import csv
-from datetime import datetime
+from datetime import datetime, timedelta
 from pytz import timezone
+from contextlib import contextmanager
+import threading
+import _thread
 
 # set timezone
 tz = timezone('US/Eastern')
+
+
+# create timeout class for google sheets request
+class TimeoutException(Exception):
+    def __init__(self, msg=''):
+        self.msg = msg
+
+# create function that handles the timeout for the google sheets request
+# based on https://stackoverflow.com/a/37648512/2817354
+@contextmanager
+def time_limit(seconds, msg=''):
+    timer = threading.Timer(seconds, lambda: _thread.interrupt_main())
+    timer.start()
+    try:
+        yield
+    except KeyboardInterrupt:
+        raise TimeoutException("Timed out for operation {}".format(msg))
+    finally:
+        # if the action ends in specified time, timer is canceled
+        timer.cancel()
 
 
 def update_weights():
@@ -19,7 +42,10 @@ def update_weights():
 
         # this code is based on: https://stackoverflow.com/questions/35371043/use-python-requests-to-download-csv
         with requests.Session() as s:
-            download = s.get(csv_url)
+
+            # limit the time this is allowed to take
+            with time_limit(5, 'Google Sheets download'):
+                download = s.get(csv_url)
 
             decoded_content = download.content.decode('utf-8')
 
