@@ -9,7 +9,6 @@ echo y | pip uninstall Flask_wtf
 echo y | pip uninstall jaydebeapi
 echo y | pip uninstall Jpype1==0.6.3
 echo y | pip uninstall requests
-
 pip install flask
 pip install pyusb
 pip install pandas

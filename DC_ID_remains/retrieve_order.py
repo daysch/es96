@@ -1,35 +1,12 @@
 from SetupConn import *
 import pandas
-import requests # pip install requests
+import requests  # pip install requests
 import csv
 from datetime import datetime, timedelta
 from pytz import timezone
-from contextlib import contextmanager
-import threading
-import _thread
 
 # set timezone
 tz = timezone('US/Eastern')
-
-
-# create timeout class for google sheets request
-class TimeoutException(Exception):
-    def __init__(self, msg=''):
-        self.msg = msg
-
-# create function that handles the timeout for the google sheets request
-# based on https://stackoverflow.com/a/37648512/2817354
-@contextmanager
-def time_limit(seconds, msg=''):
-    timer = threading.Timer(seconds, lambda: _thread.interrupt_main())
-    timer.start()
-    try:
-        yield
-    except KeyboardInterrupt:
-        raise TimeoutException("Timed out for operation {}".format(msg))
-    finally:
-        # if the action ends in specified time, timer is canceled
-        timer.cancel()
 
 
 def update_weights():
@@ -44,8 +21,7 @@ def update_weights():
         with requests.Session() as s:
 
             # limit the time this is allowed to take
-            with time_limit(5, 'Google Sheets download'):
-                download = s.get(csv_url)
+            download = s.get(csv_url, timeout=5)
 
             decoded_content = download.content.decode('utf-8')
 
@@ -70,7 +46,7 @@ def update_weights():
         print('Using local version, could not update')
         fields = ["MOVE Part Number"]
         data = pandas.read_csv('DC001 On Hand Items.csv', usecols=fields)
-        return data["MOVE Part Number"][len(data["MOVE Part Number"])-1]
+        return data["MOVE Part Number"][len(data["MOVE Part Number"]) - 1]
 
 
 def retrieve_all_tasks(dc_id):
@@ -156,4 +132,3 @@ def retrieve_all_tasks(dc_id):
                  'product_weight': [5], 'uom': ['g']},
                 {'task_id': 1341078, 'license_plates_contained': ['l1432534'],
                  'quantity_requested': [60], 'product_weight': [5], 'uom': ['g']}]
-
