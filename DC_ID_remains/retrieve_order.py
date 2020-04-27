@@ -16,7 +16,7 @@ def retrieve_all_tasks(dc_id):
 
     # try to download and update weight database, otherwise continue to use old database
     try:
-        # link was generate like this:
+        # link was generated like this:
         # https://stackoverflow.com/questions/33713084/download-link-for-google-spreadsheets-csv-export-with-multiple-sheets
         csv_url = \
             'https://docs.google.com/spreadsheets/d/18vBpk0YsZXi2ISwpICEjErgN4ec9Gd7A/gviz/tq?tqx=out:csv&sheet=Sheet1'

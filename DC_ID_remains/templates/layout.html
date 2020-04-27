@@ -42,15 +42,6 @@ https://retentionscience.zendesk.com/hc/en-us/articles/115003025814-How-To-Build
 
     <body class="bg-light">
 
-        <!-- this sets up a framework to hold the flashed messages -->
-        {% if get_flashed_messages() %}
-            <header>
-                <div class="alert alert-info" role="alert">
-                    {{ get_flashed_messages() | join(" ") }}
-                </div>
-            </header>
-        {% endif %}
-
         <!-- ensure the logout button is only visible when the user is actually logged in -->
         {% if dc_id_specified %}
             <nav class="navbar border bg-white p-2">
