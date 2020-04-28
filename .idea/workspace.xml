@@ -21,9 +21,28 @@
   <component name="ChangeListManager">
     <list default="true" id="864cc3bb-a6e5-46ec-bb44-6738a3f05a02" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DC_ID_remains/flask_session/2029240f6d1128be89ddc32729463129" beforeDir="false" afterPath="$PROJECT_DIR$/DC_ID_remains/flask_session/2029240f6d1128be89ddc32729463129" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/submit_to_sager/application/retrieve_order.py" beforeDir="false" afterPath="$PROJECT_DIR$/submit_to_sager/application/retrieve_order.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/submit_to_sager/application/templates/setup_count.html" beforeDir="false" afterPath="$PROJECT_DIR$/submit_to_sager/application/templates/setup_count.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/submit_to_sager/application/DC001 On Hand Items.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/submit_to_sager/application/SetupConn.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/submit_to_sager/application/application.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/submit_to_sager/application/readScale.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/submit_to_sager/application/retrieve_order.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/submit_to_sager/application/static/Avalon.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/submit_to_sager/application/static/ajax_css.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/submit_to_sager/application/static/bootstrap.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/submit_to_sager/application/static/bootstrap.min.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/submit_to_sager/application/static/bootstrap_css.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/submit_to_sager/application/static/bootstrap_js.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/submit_to_sager/application/static/count.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/submit_to_sager/application/static/handlebars_backend.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/submit_to_sager/application/static/jquery_latest.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/submit_to_sager/application/static/sagerlogo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/submit_to_sager/application/static/setup_count.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/submit_to_sager/application/static/styles.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/submit_to_sager/application/static/typeahead_backend.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/submit_to_sager/application/templates/count.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/submit_to_sager/application/templates/layout.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/submit_to_sager/application/templates/setup_count.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/submit_to_sager/application/templates/setup_dc_id.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,11 +69,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Matthias Fischer\PycharmProjects\es96\DC_ID_remains\templates" />
       <recent name="C:\Users\Matthias Fischer\PycharmProjects\es96\submit_to_sager\application" />
       <recent name="C:\Users\Matthias Fischer\PycharmProjects\es96\submit_to_sager" />
       <recent name="C:\Users\Matthias Fischer\PycharmProjects\es96\submit_to_sager\application\static" />
       <recent name="C:\Users\samsung\PycharmProjects\es96\LP_to_orderid" />
-      <recent name="C:\Users\samsung\PycharmProjects\es96\WMS_errros_caught" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Matthias Fischer\PycharmProjects\es96\submit_to_sager\application" />
@@ -411,7 +430,21 @@
       <option name="project" value="LOCAL" />
       <updated>1588056685364</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="update submit to sager">
+      <created>1588057466462</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1588057466463</updated>
+    </task>
+    <task id="LOCAL-00033" summary="updates">
+      <created>1588057545361</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1588057545361</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -449,18 +482,19 @@
     <MESSAGE value="timeout for the google sheets retrieval" />
     <MESSAGE value="small errors" />
     <MESSAGE value="update submit to sager" />
-    <option name="LAST_COMMIT_MESSAGE" value="update submit to sager" />
+    <MESSAGE value="updates" />
+    <option name="LAST_COMMIT_MESSAGE" value="updates" />
   </component>
   <component name="WindowStateProjectService">
     <state x="416" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1588057074867">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="416" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/3840.0.960.500@0.0.1920.1040" timestamp="1588057074867" />
-    <state x="459" y="60" key="CommitChangelistDialog2" timestamp="1588057465416">
+    <state x="459" y="60" key="CommitChangelistDialog2" timestamp="1588057544373">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="344" y="52" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1587923581589" />
-    <state x="459" y="60" key="CommitChangelistDialog2/0.0.1920.1040/3840.0.960.500@0.0.1920.1040" timestamp="1588057465416" />
+    <state x="459" y="60" key="CommitChangelistDialog2/0.0.1920.1040/3840.0.960.500@0.0.1920.1040" timestamp="1588057544373" />
     <state x="34" y="53" width="1182" height="554" key="DiffContextDialog" timestamp="1587820132657">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -508,12 +542,12 @@
     </state>
     <state x="218" y="0" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1587661900379" />
     <state x="132" y="74" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1587920835354" />
-    <state x="427" y="220" key="Vcs.Push.Dialog.v2" timestamp="1588056708312">
+    <state x="427" y="220" key="Vcs.Push.Dialog.v2" timestamp="1588057551627">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="304" y="156" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1587820593151" />
     <state x="320" y="190" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1587923613239" />
-    <state x="427" y="220" key="Vcs.Push.Dialog.v2/0.0.1920.1040/3840.0.960.500@0.0.1920.1040" timestamp="1588056708312" />
+    <state x="427" y="220" key="Vcs.Push.Dialog.v2/0.0.1920.1040/3840.0.960.500@0.0.1920.1040" timestamp="1588057551627" />
     <state x="503" y="374" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1585559437523">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
