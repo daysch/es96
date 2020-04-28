@@ -13,13 +13,12 @@
 {% block main %}
     <p></p>
 
-    <!-- text input field for the license plate, typeahead for this field-->
-    <div class="form-group">
-        <input id="q" class="form-control" autocomplete="off" autofocus="true" placeholder="Enter license plate # and select">
-    </div>
-
+    <!-- text input field for the license plate, typeahead for this field, only show if connection was possible-->
     <!--retrieve orders containing this license plate button, if no errors occurred, otherwise show reload button -->
     {% if not no_orders and not database_connection_unavailable and not data_base_retrieval_error and not general_order_error and not all_order_gen_error %}
+        <div class="form-group">
+            <input id="q" class="form-control" autocomplete="off" autofocus="true" placeholder="Enter license plate # and select">
+        </div>
 
         <div class="form-group">
             <button class="btn btn-dark" id="get_task_ids" onclick="get_task_ids()">Retrieve orders containing this license plate</button>
