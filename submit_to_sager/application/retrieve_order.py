@@ -14,10 +14,12 @@ tz = timezone('US/Eastern')
 # the last update
 def update_weights():
     # get directory of current csv file
+    # https://stackoverflow.com/questions/4934806/how-can-i-find-scripts-directory-with-python
     current_path = (os.path.dirname(os.path.realpath(__file__)))
 
     # try to download and update weight database, otherwise continue to use old database
     try:
+        breaker = 1/0
         # link was generated like this:
         # https://stackoverflow.com/questions/33713084/download-link-for-google-spreadsheets-csv-export-with-multiple-sheets
         csv_url = \
@@ -61,16 +63,23 @@ def retrieve_all_tasks(dc_id):
     # this function should query for all orders assigned to DC001 and shelves
     # it returns the license plates, product ids, allocated quantities, weights and uoms per task id
 
+    # determines whether the actual database is used
     use_actual_database = True
+
+    # get directory of current csv file
+    # https://stackoverflow.com/questions/4934806/how-can-i-find-scripts-directory-with-python
+    current_path = (os.path.dirname(os.path.realpath(__file__)))
 
     if use_actual_database:
 
+        # retrieve the connection and the cursor
         curs = setup_conn()
 
         # check the cursor object
         if not curs:
             return 'No connection'
 
+        # try to get data from databases
         try:
             try:
                 # select all tasks from given DC and order by task_id
@@ -93,7 +102,7 @@ def retrieve_all_tasks(dc_id):
 
             # filter for orders that have weight data in DC001 On Hand Items
             fields = ["Weight", "Weight UOM", "MOVE Part Number"]
-            data = pandas.read_csv('DC001 On Hand Items.csv', usecols=fields)
+            data = pandas.read_csv(current_path + '/DC001 On Hand Items.csv', usecols=fields)
             valid_orders = []
 
             for order in filter_shelves:
@@ -133,7 +142,7 @@ def retrieve_all_tasks(dc_id):
         # if the connection didn't work, return 'No connection'
         # if there was some other error retrieving data return 'Retrieval error'
         fields = ["Weight", "Weight UOM", "MOVE Part Number"]
-        data = pandas.read_csv('DC001 On Hand Items.csv', usecols=fields)
+        data = pandas.read_csv(current_path + '/DC001 On Hand Items.csv', usecols=fields)
         return [{'task_id': 1111033, 'license_plates_contained': ['r1111233'], 'quantity_requested': [10],
                  'product_weight': [8], 'uom': ['g']},
                 {'task_id': 1115610, 'license_plates_contained': ['l1432534'], 'quantity_requested': [10],
