@@ -21,7 +21,8 @@
   <component name="ChangeListManager">
     <list default="true" id="864cc3bb-a6e5-46ec-bb44-6738a3f05a02" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/submit_to_sager/application/retrieve_order.py" beforeDir="false" afterPath="$PROJECT_DIR$/submit_to_sager/application/retrieve_order.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DC_ID_remains/application.py" beforeDir="false" afterPath="$PROJECT_DIR$/DC_ID_remains/application.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/submit_to_sager/screen_capture_es96.mp4" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -458,7 +459,21 @@
       <option name="project" value="LOCAL" />
       <updated>1588059021343</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="improvements csv file directory retrieval">
+      <created>1588059485749</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1588059485749</updated>
+    </task>
+    <task id="LOCAL-00040" summary="improvements csv file directory retrieval">
+      <created>1588059509027</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1588059509027</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -506,11 +521,11 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="416" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/3840.0.960.500@0.0.1920.1040" timestamp="1588057074867" />
-    <state x="459" y="60" key="CommitChangelistDialog2" timestamp="1588059484696">
+    <state x="459" y="60" key="CommitChangelistDialog2" timestamp="1588059507976">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="344" y="52" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1587923581589" />
-    <state x="459" y="60" key="CommitChangelistDialog2/0.0.1920.1040/3840.0.960.500@0.0.1920.1040" timestamp="1588059484696" />
+    <state x="459" y="60" key="CommitChangelistDialog2/0.0.1920.1040/3840.0.960.500@0.0.1920.1040" timestamp="1588059507976" />
     <state x="34" y="53" width="1182" height="554" key="DiffContextDialog" timestamp="1587820132657">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -558,12 +573,12 @@
     </state>
     <state x="218" y="0" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1587661900379" />
     <state x="132" y="74" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1587920835354" />
-    <state x="427" y="220" key="Vcs.Push.Dialog.v2" timestamp="1588059490805">
+    <state x="427" y="220" key="Vcs.Push.Dialog.v2" timestamp="1588059512804">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="304" y="156" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1587820593151" />
     <state x="320" y="190" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1587923613239" />
-    <state x="427" y="220" key="Vcs.Push.Dialog.v2/0.0.1920.1040/3840.0.960.500@0.0.1920.1040" timestamp="1588059490805" />
+    <state x="427" y="220" key="Vcs.Push.Dialog.v2/0.0.1920.1040/3840.0.960.500@0.0.1920.1040" timestamp="1588059512804" />
     <state x="503" y="374" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1585559437523">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
