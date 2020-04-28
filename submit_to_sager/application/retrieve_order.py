@@ -19,7 +19,6 @@ def update_weights():
 
     # try to download and update weight database, otherwise continue to use old database
     try:
-        breaker = 1/0
         # link was generated like this:
         # https://stackoverflow.com/questions/33713084/download-link-for-google-spreadsheets-csv-export-with-multiple-sheets
         csv_url = \
