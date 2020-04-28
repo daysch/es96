@@ -4,12 +4,18 @@ import requests  # pip install requests
 import csv
 from datetime import datetime, timedelta
 from pytz import timezone
+import os
 
 # set timezone
 tz = timezone('US/Eastern')
 
 
+# this function will try to update the weight database using the Google sheets document. It will return the time of
+# the last update
 def update_weights():
+    # get directory of current csv file
+    current_path = (os.path.dirname(os.path.realpath(__file__)))
+
     # try to download and update weight database, otherwise continue to use old database
     try:
         # link was generated like this:
@@ -20,16 +26,18 @@ def update_weights():
         # this code is based on: https://stackoverflow.com/questions/35371043/use-python-requests-to-download-csv
         with requests.Session() as s:
 
-            # limit the time this is allowed to take
+            # limit the time the retrieval is allowed to take, in case where there is no connection this would
+            # take very long
             download = s.get(csv_url, timeout=3)
 
+            # decode content
             decoded_content = download.content.decode('utf-8')
 
             # read csv data
             onhand_items = csv.reader(decoded_content.splitlines(), delimiter=',')
 
             # rewrite csv file
-            with open('DC001 On Hand Items.csv', 'w') as csvfile:
+            with open(current_path + '/DC001 On Hand Items.csv', 'w') as csvfile:
                 writer_object = csv.writer(csvfile, delimiter=',')
                 for row in onhand_items:
                     writer_object.writerow(row)
@@ -45,7 +53,7 @@ def update_weights():
         print(e)
         print('Using local version, could not update')
         fields = ["MOVE Part Number"]
-        data = pandas.read_csv('DC001 On Hand Items.csv', usecols=fields)
+        data = pandas.read_csv(current_path + '/DC001 On Hand Items.csv', usecols=fields)
         return data["MOVE Part Number"][len(data["MOVE Part Number"]) - 1]
 
 
@@ -53,7 +61,7 @@ def retrieve_all_tasks(dc_id):
     # this function should query for all orders assigned to DC001 and shelves
     # it returns the license plates, product ids, allocated quantities, weights and uoms per task id
 
-    use_actual_database = False
+    use_actual_database = True
 
     if use_actual_database:
 
