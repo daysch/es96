@@ -86,7 +86,7 @@ function create_table_from_order_info(data) {
 
     // create row content with headers
     content_for_row = document.createElement("td");
-    content_for_row.innerHTML = "Order ID"
+    content_for_row.innerHTML = "Task ID"
     document.getElementById("header_row").appendChild(content_for_row)
 
     content_for_row = document.createElement("td");
