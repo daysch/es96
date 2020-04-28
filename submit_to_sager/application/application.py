@@ -67,7 +67,7 @@ class manual_entry(FlaskForm):
 
 # this means that if the count is within .5 (e.g. 3.4 is acutal count, when target count is 3) of the target,
 # the count is assumed to be correct
-within_target_count = 0.1
+within_target_count = 0.2
 
 
 # see https://flask.palletsprojects.com/en/0.12.x/quickstart/#a-minimal-application for more info on the function
