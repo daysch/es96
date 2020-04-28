@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Set DC ID
+{% endblock %}
+
+{% block main %}
+
+    <!-- set up the login form, and link the python page used to evaluate the form ,
+    more info: https://wtforms.readthedocs.io/en/stable/crash_course.html-->
+    <form method="POST" action="{{ url_for('setup_dc_id') }}" class="mt-5">
+
+        <img src="/static/sagerlogo.png" alt="logo" width="230" height="100" class="mb-2">
+
+        <div class="form-group">{{ dc_form.dc_id_entry.label }}: {{ dc_form.dc_id_entry(class="form-group") }}</div>
+        {% if dc_form.dc_id_entry.errors and not first_load %}
+            <p class="errors">{% for error in dc_form.dc_id_entry.errors %}{{ error }}<br>{% endfor %}</p>
+        {% endif %}
+
+        <!-- submit button -->
+        <div class="form-group">
+            <button class="btn btn-dark btn-lg" type="submit" >Set DC ID</button>
+        </div>
+
+        <p class="mt-4 text-muted"> ES96 Harvard SEAS 2020</p>
+
+    </form>
+
+{% endblock %}
