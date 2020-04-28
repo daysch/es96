@@ -1,9 +1,10 @@
 @echo off
 REM set url at typical localhost and start chrome
-set url="http://127.0.0.1:5000"
-start chrome "%url%"
+
+REM start batch script to open up chrome after a delay
+START CALL "C:\Users\Matthias Fischer\PycharmProjects\es96\submit_to_sager\start_chrome_after_delay.bat"
 
 REM Replace the path with whatever the path to you executable is
-python "C:/Users/Matthias Fischer/PycharmProjects/es96/LP_to_orderid/application.py %*"
+python "C:\Users\Matthias Fischer\PycharmProjects\es96\submit_to_sager\application\application.py %*"
 
 pause
