@@ -19,7 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="864cc3bb-a6e5-46ec-bb44-6738a3f05a02" name="Default Changelist" comment="" />
+    <list default="true" id="864cc3bb-a6e5-46ec-bb44-6738a3f05a02" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/submit_to_sager/Sager_counting.bat" beforeDir="false" afterPath="$PROJECT_DIR$/submit_to_sager/Sager_counting.bat" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -44,15 +47,16 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Matthias Fischer\PycharmProjects\es96\submit_to_sager\application" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Matthias Fischer\PycharmProjects\es96\DC_ID_remains" />
       <recent name="C:\Users\Matthias Fischer\PycharmProjects\es96\DC_ID_remains\templates" />
       <recent name="C:\Users\Matthias Fischer\PycharmProjects\es96\submit_to_sager\application" />
       <recent name="C:\Users\Matthias Fischer\PycharmProjects\es96\submit_to_sager" />
       <recent name="C:\Users\Matthias Fischer\PycharmProjects\es96\submit_to_sager\application\static" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Matthias Fischer\PycharmProjects\es96\submit_to_sager" />
+      <recent name="C:\Users\Matthias Fischer\PycharmProjects\es96\submit_to_sager\application" />
     </key>
   </component>
   <component name="RunManager" selected="Python.application">
@@ -504,7 +508,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588061380536</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="batch script improvements">
+      <created>1588070535906</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1588070535907</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -546,16 +557,18 @@
     <MESSAGE value="screen capture" />
     <MESSAGE value="improvements csv file directory retrieval" />
     <MESSAGE value="video" />
-    <option name="LAST_COMMIT_MESSAGE" value="video" />
+    <MESSAGE value="batch script improvements" />
+    <option name="LAST_COMMIT_MESSAGE" value="batch script improvements" />
   </component>
   <component name="WindowStateProjectService">
     <state x="416" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1588057074867">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="416" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/3840.0.960.500@0.0.1920.1040" timestamp="1588057074867" />
-    <state x="459" y="60" key="CommitChangelistDialog2" timestamp="1588061379178">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="306" y="0" key="CommitChangelistDialog2" timestamp="1588070533995">
+      <screen x="0" y="0" width="1280" height="680" />
     </state>
+    <state x="306" y="0" key="CommitChangelistDialog2/0.0.1280.680@0.0.1280.680" timestamp="1588070533995" />
     <state x="344" y="52" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1587923581589" />
     <state x="459" y="60" key="CommitChangelistDialog2/0.0.1920.1040/3840.0.960.500@0.0.1920.1040" timestamp="1588061379178" />
     <state x="34" y="53" width="1182" height="554" key="DiffContextDialog" timestamp="1587820132657">
