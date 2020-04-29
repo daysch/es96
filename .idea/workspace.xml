@@ -21,115 +21,6 @@
   <component name="ChangeListManager">
     <list default="true" id="864cc3bb-a6e5-46ec-bb44-6738a3f05a02" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DC001 On Hand Items.csv" beforeDir="false" afterPath="$PROJECT_DIR$/archive/WMS_errros_caught/DC001 On Hand Items.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DC190 Installation Manual.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/archive/DC190 Installation Manual.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DC_ID_remains/DC001 On Hand Items.csv" beforeDir="false" afterPath="$PROJECT_DIR$/archive/DC_ID_remains/DC001 On Hand Items.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DC_ID_remains/SetupConn.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/DC_ID_remains/SetupConn.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DC_ID_remains/application.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/DC_ID_remains/application.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DC_ID_remains/flask_session/2029240f6d1128be89ddc32729463129" beforeDir="false" afterPath="$PROJECT_DIR$/archive/DC_ID_remains/flask_session/2029240f6d1128be89ddc32729463129" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DC_ID_remains/flask_session/ee0c6ecb83d7fae6229b472b628c0877" beforeDir="false" afterPath="$PROJECT_DIR$/archive/DC_ID_remains/flask_session/ee0c6ecb83d7fae6229b472b628c0877" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DC_ID_remains/readScale.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/DC_ID_remains/readScale.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DC_ID_remains/retrieve_order.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/DC_ID_remains/retrieve_order.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DC_ID_remains/static/Avalon.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/archive/DC_ID_remains/static/Avalon.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DC_ID_remains/static/ajax_css.css" beforeDir="false" afterPath="$PROJECT_DIR$/archive/DC_ID_remains/static/ajax_css.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DC_ID_remains/static/bootstrap.min.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/archive/DC_ID_remains/static/bootstrap.min.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DC_ID_remains/static/bootstrap.min.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/archive/DC_ID_remains/static/bootstrap.min.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DC_ID_remains/static/bootstrap_css.css" beforeDir="false" afterPath="$PROJECT_DIR$/archive/DC_ID_remains/static/bootstrap_css.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DC_ID_remains/static/bootstrap_js.js" beforeDir="false" afterPath="$PROJECT_DIR$/archive/DC_ID_remains/static/bootstrap_js.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DC_ID_remains/static/count.js" beforeDir="false" afterPath="$PROJECT_DIR$/archive/DC_ID_remains/static/count.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DC_ID_remains/static/handlebars_backend.js" beforeDir="false" afterPath="$PROJECT_DIR$/archive/DC_ID_remains/static/handlebars_backend.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DC_ID_remains/static/jquery_latest.js" beforeDir="false" afterPath="$PROJECT_DIR$/archive/DC_ID_remains/static/jquery_latest.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DC_ID_remains/static/sagerlogo.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/DC_ID_remains/static/sagerlogo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DC_ID_remains/static/setup_count.js" beforeDir="false" afterPath="$PROJECT_DIR$/archive/DC_ID_remains/static/setup_count.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DC_ID_remains/static/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/archive/DC_ID_remains/static/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DC_ID_remains/static/typeahead_backend.js" beforeDir="false" afterPath="$PROJECT_DIR$/archive/DC_ID_remains/static/typeahead_backend.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DC_ID_remains/templates/count.html" beforeDir="false" afterPath="$PROJECT_DIR$/archive/DC_ID_remains/templates/count.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DC_ID_remains/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/archive/DC_ID_remains/templates/layout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DC_ID_remains/templates/setup_count.html" beforeDir="false" afterPath="$PROJECT_DIR$/archive/DC_ID_remains/templates/setup_count.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DC_ID_remains/templates/setup_dc_id.html" beforeDir="false" afterPath="$PROJECT_DIR$/archive/DC_ID_remains/templates/setup_dc_id.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/How to install Java SE 6 Runtime on Mac Catalina.scpt" beforeDir="false" afterPath="$PROJECT_DIR$/archive/How to install Java SE 6 Runtime on Mac Catalina.scpt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LP_to_orderid/DC001 On Hand Items.csv" beforeDir="false" afterPath="$PROJECT_DIR$/archive/DC001 On Hand Items.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LP_to_orderid/SetupConn.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/LP_to_orderid/SetupConn.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LP_to_orderid/application.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/LP_to_orderid/application.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LP_to_orderid/check_employee_id.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/LP_to_orderid/check_employee_id.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LP_to_orderid/readScale.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/LP_to_orderid/readScale.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LP_to_orderid/retrieve_order.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/LP_to_orderid/retrieve_order.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LP_to_orderid/static/Avalon.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/archive/LP_to_orderid/static/Avalon.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LP_to_orderid/static/ajax_css.css" beforeDir="false" afterPath="$PROJECT_DIR$/archive/LP_to_orderid/static/ajax_css.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LP_to_orderid/static/bootstrap.min.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/archive/LP_to_orderid/static/bootstrap.min.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LP_to_orderid/static/bootstrap.min.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/archive/LP_to_orderid/static/bootstrap.min.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LP_to_orderid/static/bootstrap_css.css" beforeDir="false" afterPath="$PROJECT_DIR$/archive/static/bootstrap_css.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LP_to_orderid/static/bootstrap_js.js" beforeDir="false" afterPath="$PROJECT_DIR$/archive/static/bootstrap_js.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LP_to_orderid/static/count.js" beforeDir="false" afterPath="$PROJECT_DIR$/archive/LP_to_orderid/static/count.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LP_to_orderid/static/handlebars_backend.js" beforeDir="false" afterPath="$PROJECT_DIR$/archive/LP_to_orderid/static/handlebars_backend.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LP_to_orderid/static/jquery_latest.js" beforeDir="false" afterPath="$PROJECT_DIR$/archive/static/jquery_latest.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LP_to_orderid/static/sagerlogo.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/LP_to_orderid/static/sagerlogo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LP_to_orderid/static/setup_count.js" beforeDir="false" afterPath="$PROJECT_DIR$/archive/LP_to_orderid/static/setup_count.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LP_to_orderid/static/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/archive/LP_to_orderid/static/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LP_to_orderid/static/typeahead_backend.js" beforeDir="false" afterPath="$PROJECT_DIR$/archive/static/typeahead_backend.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LP_to_orderid/templates/begin.html" beforeDir="false" afterPath="$PROJECT_DIR$/archive/LP_to_orderid/templates/begin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LP_to_orderid/templates/count.html" beforeDir="false" afterPath="$PROJECT_DIR$/archive/LP_to_orderid/templates/count.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LP_to_orderid/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/archive/LP_to_orderid/templates/layout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LP_to_orderid/templates/setup_count.html" beforeDir="false" afterPath="$PROJECT_DIR$/archive/LP_to_orderid/templates/setup_count.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/archive/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SagerDBQuery.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/SagerDBQuery.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sager_counting.bat" beforeDir="false" afterPath="$PROJECT_DIR$/archive/Sager_counting.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sager_counting_setup.bat" beforeDir="false" afterPath="$PROJECT_DIR$/archive/Sager_counting_setup.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SetupConn.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/SetupConn.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WMS_errros_caught/DC001 On Hand Items.csv" beforeDir="false" afterPath="$PROJECT_DIR$/archive/LP_to_orderid/DC001 On Hand Items.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WMS_errros_caught/SagerDBQuery.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/WMS_errros_caught/SagerDBQuery.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WMS_errros_caught/SetupConn.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/WMS_errros_caught/SetupConn.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WMS_errros_caught/application.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/WMS_errros_caught/application.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WMS_errros_caught/barcode2OrderQuantity.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/WMS_errros_caught/barcode2OrderQuantity.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WMS_errros_caught/barcode2Weight.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/WMS_errros_caught/barcode2Weight.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WMS_errros_caught/check_employee_id.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/WMS_errros_caught/check_employee_id.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WMS_errros_caught/dc190.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/WMS_errros_caught/dc190.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WMS_errros_caught/readScale.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/WMS_errros_caught/readScale.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WMS_errros_caught/retrieve_order.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/WMS_errros_caught/retrieve_order.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WMS_errros_caught/scales.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/WMS_errros_caught/scales.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WMS_errros_caught/static/Avalon.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/archive/WMS_errros_caught/static/Avalon.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WMS_errros_caught/static/sagerlogo.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/WMS_errros_caught/static/sagerlogo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WMS_errros_caught/static/scripts.js" beforeDir="false" afterPath="$PROJECT_DIR$/archive/WMS_errros_caught/static/scripts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WMS_errros_caught/static/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/archive/WMS_errros_caught/static/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WMS_errros_caught/submit_to_wms.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/WMS_errros_caught/submit_to_wms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WMS_errros_caught/templates/begin.html" beforeDir="false" afterPath="$PROJECT_DIR$/archive/WMS_errros_caught/templates/begin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WMS_errros_caught/templates/count.html" beforeDir="false" afterPath="$PROJECT_DIR$/archive/WMS_errros_caught/templates/count.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WMS_errros_caught/templates/enter_barcode.html" beforeDir="false" afterPath="$PROJECT_DIR$/archive/WMS_errros_caught/templates/enter_barcode.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WMS_errros_caught/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/archive/WMS_errros_caught/templates/layout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WMS_errros_caught/templates/setup_count.html" beforeDir="false" afterPath="$PROJECT_DIR$/archive/WMS_errros_caught/templates/setup_count.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/application.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barcode2OrderQuantity.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/barcode2OrderQuantity.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barcode2Weight.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/barcode2Weight.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/check_employee_id.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/check_employee_id.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dc190.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/dc190.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/es96.db" beforeDir="false" afterPath="$PROJECT_DIR$/archive/es96.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/install_sager_counting.sh" beforeDir="false" afterPath="$PROJECT_DIR$/archive/install_sager_counting.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/readScale.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/readScale.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/readScanner.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/readScanner.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/retrieve_order.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/retrieve_order.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_sager_counting.sh" beforeDir="false" afterPath="$PROJECT_DIR$/archive/run_sager_counting.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runapp.command" beforeDir="false" afterPath="$PROJECT_DIR$/archive/runapp.command" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scales.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/scales.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/Avalon.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/archive/static/Avalon.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/ajax_css.css" beforeDir="false" afterPath="$PROJECT_DIR$/archive/static/ajax_css.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/bootstrap_css.css" beforeDir="false" afterPath="$PROJECT_DIR$/archive/LP_to_orderid/static/bootstrap_css.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/bootstrap_js.js" beforeDir="false" afterPath="$PROJECT_DIR$/archive/LP_to_orderid/static/bootstrap_js.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/count.js" beforeDir="false" afterPath="$PROJECT_DIR$/archive/static/count.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/handlebars_backend.js" beforeDir="false" afterPath="$PROJECT_DIR$/archive/static/handlebars_backend.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/jquery_latest.js" beforeDir="false" afterPath="$PROJECT_DIR$/archive/LP_to_orderid/static/jquery_latest.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/sagerlogo.png" beforeDir="false" afterPath="$PROJECT_DIR$/archive/static/sagerlogo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/scripts.js" beforeDir="false" afterPath="$PROJECT_DIR$/archive/static/scripts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/setup_count.js" beforeDir="false" afterPath="$PROJECT_DIR$/archive/static/setup_count.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/archive/static/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/typeahead_backend.js" beforeDir="false" afterPath="$PROJECT_DIR$/archive/LP_to_orderid/static/typeahead_backend.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/submit_to_sager/application/static/count.js" beforeDir="false" afterPath="$PROJECT_DIR$/submit_to_sager/application/static/count.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/submit_to_wms.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/submit_to_wms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/begin.html" beforeDir="false" afterPath="$PROJECT_DIR$/archive/templates/begin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/count.html" beforeDir="false" afterPath="$PROJECT_DIR$/archive/templates/count.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/enter_barcode.html" beforeDir="false" afterPath="$PROJECT_DIR$/archive/templates/enter_barcode.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/archive/templates/layout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/setup_count.html" beforeDir="false" afterPath="$PROJECT_DIR$/archive/templates/setup_count.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_sql_queries.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive/test_sql_queries.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -638,7 +529,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588073113242</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="batch script improvements">
+      <created>1588175982672</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1588175982672</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -688,12 +586,12 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="416" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/3840.0.960.500@0.0.1920.1040" timestamp="1588057074867" />
-    <state x="612" y="0" key="CommitChangelistDialog2" timestamp="1588073112348">
-      <screen x="0" y="0" width="2560" height="1400" />
+    <state x="459" y="60" key="CommitChangelistDialog2" timestamp="1588175971797">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="306" y="0" key="CommitChangelistDialog2/0.0.1280.680@0.0.1280.680" timestamp="1588070652204" />
     <state x="344" y="52" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1587923581589" />
-    <state x="459" y="60" key="CommitChangelistDialog2/0.0.1920.1040/3840.0.960.500@0.0.1920.1040" timestamp="1588061379178" />
+    <state x="459" y="60" key="CommitChangelistDialog2/0.0.1920.1040/3840.0.960.500@0.0.1920.1040" timestamp="1588175971797" />
     <state x="612" y="0" key="CommitChangelistDialog2/0.0.2560.1400/3840.0.1097.577@0.0.2560.1400" timestamp="1588073112348" />
     <state x="34" y="53" width="1182" height="554" key="DiffContextDialog" timestamp="1587820132657">
       <screen x="0" y="0" width="1366" height="738" />
@@ -742,13 +640,13 @@
     </state>
     <state x="218" y="0" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1587661900379" />
     <state x="132" y="74" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1587920835354" />
-    <state x="285" y="144" key="Vcs.Push.Dialog.v2" timestamp="1588070658339">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state x="427" y="220" key="Vcs.Push.Dialog.v2" timestamp="1588176055042">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="285" y="144" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1588070658339" />
     <state x="304" y="156" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1587820593151" />
     <state x="320" y="190" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1587923613239" />
-    <state x="427" y="220" key="Vcs.Push.Dialog.v2/0.0.1920.1040/3840.0.960.500@0.0.1920.1040" timestamp="1588061385738" />
+    <state x="427" y="220" key="Vcs.Push.Dialog.v2/0.0.1920.1040/3840.0.960.500@0.0.1920.1040" timestamp="1588176055042" />
     <state x="503" y="374" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1585559437523">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
