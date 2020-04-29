@@ -62,7 +62,7 @@ function start_button_clicked()
 // this function is clicked when the stop button is clicked. it changes the global variables to reflect this,
 // waits for the current weight readings to complete and update the count messages, before stopping the weight readings
 // it then creates a new start button. it also checks whether the count is complete. if the count is complete,
-// it creates another checkbox to make sure the user did not add or remove any items. if that check box is clicked
+// it creates another checkbox to make sure the user takes the pieces and puts them away. if that check box is clicked
 // confirm_check_box_clicked() is called. if the count is not complete
 function stop_button_clicked()
 {
@@ -100,7 +100,7 @@ function stop_button_clicked()
         label.setAttribute("for", "check_box");
         label.setAttribute("id", "label_box");
         label.setAttribute("class", "ml-2 stop_check");
-        label.innerHTML = "Please check that you did not add or remove items after clicking stop";
+        label.innerHTML = "Please take the items from the scale, and repackage them if necessary";
         document.getElementById("submit_form").appendChild(box);
         document.getElementById("submit_form").appendChild(label);
 
